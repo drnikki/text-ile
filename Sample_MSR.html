@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<script src="js/bxlcommon.js"></script>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<title>Web Print SDK Sample</title>
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" href="css/responsive.css" />
+	<link rel="stylesheet" type="text/css" href="css/modules.css" />
+</head>
+
+<script type="text/javascript">
+
+	var LF = "\n";
+	var issueID = 1;
+	var tmp = "123456789"
+
+	function viewResult(result, track1 = "" , track2 = "", track3 = "") {
+		p_result.value = result;
+		p_track1.value = track1;
+		p_track2.value = track2;
+		p_track3.value = track3;
+	}
+
+	function requestMSR() {
+		viewResult("");
+		requestMSRData(p_name.value, 30, viewResult);
+	}
+
+	function initialize() {
+	}
+
+</script>
+
+
+<style>
+.ripple {
+  background-position: center;
+  transition: background 0.8s;
+}
+.ripple:hover {
+  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
+}
+.ripple:active {
+  background-color: #6eb9f7;
+  background-size: 100%;
+  transition: background 0s;
+}
+
+/* Button style */
+button {
+  border: none;
+  border-radius: 2px;
+  padding: 12px 18px;
+  font-size: 16px;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: white;
+  background-color: #2196f3;
+  box-shadow: 0 0 4px #999;
+  outline: none;
+}
+</style>
+
+
+<body onload="initialize()">
+	<header>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-offset-1 col-md-2 col-sm-3 col-sm-offset-0 col-xs-6">
+					<h1 class="logo">
+						<img src="images/header/main_logo.png" alt="main-logo" class="img-responsive">
+					</h1>
+				</div>
+				<div class="col-md-5 col-sm-7 hidden-xs">
+					<h2 class="title">
+						Web Print SDK Sample - MSR
+					</h2>
+				</div>
+				<div class="col-md-5 col-sm-7 hidden-xs">
+					<h4 class="subtitle">
+						Only available on the printer equipped with MSR.
+					</h4>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<section>
+
+		<div id="contain">
+			<div id="wrap-contents">
+				<div id="image-contents" class="row" style="padding-top:20px;padding-left:20px">
+					<div class="col-md-6 cold-sm-6 product">
+						<h2>MSR Sample</h2>
+						<h3 style="padding-top:15px">Result : </h3>
+						<input type="text" class="text form-control" id="p_result" readonly  />
+						<h3 style="padding-top:15px">Track1 : </h3>
+						<input type="text" class="text form-control" id="p_track1" readonly  />
+						<h3 style="padding-top:15px">Track2 : </h3>
+						<input type="text" class="text form-control" id="p_track2" readonly  />
+						<h3 style="padding-top:15px">Track3 : </h3>
+						<input type="text" class="text form-control" id="p_track3" readonly  />
+
+						<h3 style="padding-top:20px">Logical name : </h3>
+						<input type="text" class="text form-control" id="p_name" value="Printer1" />
+						<!--<input type="button" id="receipt_bt" style="margin-top:15px" value="MSR Read Request" onclick="requestMSR();" />-->
+						<button id="print_bt" class="ripple" style="margin-top:15px" onclick="requestMSR();"> MSR Read Request </button>
+					</div>
+				</div>
+
+				<HR width="100%" align="center" style="color:black; background-color:black; height:1px; border:none" />
+				<br><br><br><br>
+			</div>
+		</div>
+	</section>
+
+
+	<script type="text/javascript">
+	  $(document).ready(function() {
+	   $('#sampleBox').on('change',function(){
+	    if(this.value == 'msr') {
+	     location.href = "Sample_MSR.html";
+	    } else if(this.value == 'pos') {
+	     location.href = "Sample_PosPrinter.html";
+	    } else if(this.value == 'label') {
+	     location.href = "Sample_LabelPrinter.html";
+	    }
+	   });
+	  });
+	  </script>
+
+	  <script type="text/javascript">
+		$(document).ready(function() {
+		 $('#sampleBoxMode').on('change',function(){
+		  if(this.value == 'http') {
+		   setConnectionMode("http:");
+		  } else if(this.value == 'https') {
+		   setConnectionMode("https:");
+		  } else if(this.value == 'ws') {
+		   setConnectionMode("ws:");
+	   	  } else if(this.value == 'wss') {
+		   setConnectionMode("wss:");
+		  }
+		 });
+		});
+		</script>
+
+	  <footer class="container-fluid">
+	   <div class="row">
+	    <div class="col-md-10 col-md-offset-1">
+	     <ul>
+	      <li>
+	       <p>© 2018 Bixolon. All right reserved. &nbsp;&nbsp;
+	        <select id="sampleBox">
+			 <option value="msr">MSR</option>
+	         <option value="pos">PosPrinter</option>
+	         <option value="label">LabelPrinter</option>
+	        </select>
+			<select id="sampleBoxMode">
+			 <option value="http">HTTP</option>
+			 <option value="https">HTTPS</option>
+			 <option value="ws">WS</option>
+			 <option value="wss">WSS</option>
+			</select>
+	       </p>
+	      </li>
+	     </ul>
+	    </div>
+	   </div>
+	  </footer>
+	</body>
+
+	</body>
+</body>
+
+</html>

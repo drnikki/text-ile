@@ -1,0 +1,23 @@
+#receipt{
+    background: white;
+    width: 600px;
+    padding: 15px;
+    margin: auto;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body{
+    background: black;
+    padding: 20px;
+    font-weight: bold;
+}
+
+.red {
+    color: red;
+    
+}
+
+.black {
+    
+}

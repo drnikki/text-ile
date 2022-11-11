@@ -1,2 +1,3 @@
-# text-ile
-A text-based pattern generator for visualizing textiles based on data
+# README
+Text-ile is a text-based pattern generator
+

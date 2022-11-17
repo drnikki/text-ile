@@ -1,16 +1,36 @@
+/**
+ * This file controls the printing of the "textile" on the paper.
+ */
 
-// make an array with all of the symbols in it
-// 
+// You can configure these variables through the URL or the form fields
+// this is the documentation on URL parameters
+// https://www.sitepoint.com/get-url-parameters-with-javascript/
+const queryString = window.location.search;
+console.log(queryString);
+// -------- -------- get CONFIGURATION  --------  -------- 
+const urlParams = new URLSearchParams(queryString);
+const columns = urlParams.get('cols');
+const rows = urlParams.get('rows');
+const mirror = urlParams.get('pattern_mirror');
+const gutters = urlParams.get('gutters');
+
+// set the width of the div to contain the columns
+//document.getElementById('receipt').style.width= columns * 7;
+
 
 // When we're outputing to HTML, we can use a -much- wider range of characters
 // than we can w/ the receipt printer (probably). TBD on what it can support besides ASCII 
 // characters https://theasciicode.com.ar/extended-ascii-code/guillemets-angle-quotes-left-pointing-double-angle-quotation-marks-ascii-code-175.html 
-var commitSymbol = ">"; // 30,000  RED
-var userSymbol = "<"; // 18408 RED
-var nodeSymbol ="v"; // 18435 RED 
-var commentSymbol ="^"; // 11250
-var taxonomySymbol = "─"; // 63555
-var geditSymbol = "¦"; // 4000
+var commitSymbol = urlParams.get('symbol1'); // 30,000  RED
+var userSymbol = urlParams.get('symbol2'); // 18408 RED
+var nodeSymbol = urlParams.get('symbol3'); // 18435 RED 
+var commentSymbol = urlParams.get('symbol4'); // 11250
+var taxonomySymbol = urlParams.get('symbol5'); // 63555
+var geditSymbol = urlParams.get('symbol6'); // 4000
+
+
+
+
 
 // we could do this in the array, but there's just no 
 
@@ -67,16 +87,86 @@ let arrayLength = shapes.length;
 let textContent = '';
 let shapes2 = shapes;
 // while there are shapes left in the array
-while(shuffled.length > 20 ) {   
-    console.log("in here");
-    // take the first 20 shapes
-    let twenty = shuffled.splice(0, 20);
-    let forward = printTwenty(twenty);
-    let backward = printTwenty(twenty.reverse());
-    textContent += forward + backward + "<br />";
-    // increment, but this might not work because the length of the array is changing
-  
+
+// to figure out the width, we take the number of columns and divide it by 
+// two IF we're mirroring the layout like a textile.
+
+
+// this is clunky for the charette, needs to be cleaned up
+if (mirror == "zero") {
+    let patternWidth = columns;
+    while(shuffled.length > patternWidth ) {   
+        // take the first ~width~ shapes
+        let patternContents = shuffled.splice(0, patternWidth);
+        let forward = printTwenty(patternContents);
+        textContent += forward + "<br />";
+        // increment, but this might not work because the length of the array is changing
+      
+    }
+
 }
+
+
+if (mirror == "half") {
+    let patternWidth = columns / 2;
+    while(shuffled.length > patternWidth ) {   
+        // take the first ~width~ shapes
+        let patternContents = shuffled.splice(0, patternWidth);
+        let forward = printTwenty(patternContents);
+        let backward = printTwenty(patternContents.reverse());
+        if (gutters) {
+            textContent += forward + " " + backward + "<br />";
+        } else{
+            textContent += forward +  backward + "<br />";
+        }
+        
+        // increment, but this might not work because the length of the array is changing
+      
+    }
+}
+
+//// ==== NOT WORKING
+if (mirror == "thirds") {
+    let patternWidth = Math.floor(columns / 3);
+    while(shuffled.length > patternWidth ) {   
+
+        // take the first ~width~ shapes
+        let patternContents = shuffled.splice(0, patternWidth);
+        let forward = printTwenty(patternContents);
+        let backward = printTwenty(patternContents.reverse());
+        // then, we need a middle column that has both.
+        textContent += forward + backward + "<br />";
+
+        if (gutters) {
+            textContent += forward + " " + backward +" " + forward +" " + backward + "<br />";
+        } else{
+            textContent += forward + backward.slice(0, patternWidth/2) 
+            + forward.slice(0, patternWidth/2) + backward + "<br />";
+        }
+    }
+}
+
+//// ==== NOT WORKING
+if (mirror == "fourths") {
+    let patternWidth = columns / 4;
+    while(shuffled.length > patternWidth ) {   
+        // take the first ~width~ shapes
+        let patternContents = shuffled.splice(0, patternWidth);
+        let forward = printTwenty(patternContents);
+        let backward = printTwenty(patternContents.reverse());
+        if (gutters) {
+            textContent += forward + " " + backward +" " + forward +" " + backward + "<br />";
+        } else{
+            textContent += forward + backward + forward + backward + "<br />";
+        }
+
+        // increment, but this might not work because the length of the array is changing
+      
+    }
+}
+
+
+
 
 let ReceiptPlace = document.querySelector('#receipt');
 ReceiptPlace.innerHTML = textContent;

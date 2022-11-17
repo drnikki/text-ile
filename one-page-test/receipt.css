@@ -7,6 +7,10 @@
     font-family: 'Courier New', Courier, monospace;
 }
 
+#configForm {
+    color: white;
+}
+
 body{
     background: black;
     padding: 20px;

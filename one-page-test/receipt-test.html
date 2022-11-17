@@ -5,6 +5,50 @@
 
 </head>
 <body>
+<div id="configForm">
+    Note: You can use more than one character for each symbol (be sure to adjust the # of columns accordingly).
+
+    <form>
+        <label for="columns"># of columns:</label><br>
+        <input type="text" id="cols" name="cols" value="40"><br>
+        <label for="lname"># of rows:</label><br>
+        <input type="text" id="rows" name="rows" value="100"><br>
+
+<label for="symbol1">Symbol 1 (20%)</label><br>
+<input type="text" id="symbol1" name="symbol1" value="w"><br>
+
+<label for="symbol2">Symbol 2 (12%)</label><br>
+<input type="text" id="symbol2" name="symbol2" value="o"><br>
+
+<label for="symbol3">Symbol 3 (12%)</label><br>
+<input type="text" id="symbol3" name="symbol3" value="|"><br>
+
+<label for="symbol4">Symbol 4 (11%)</label><br>
+<input type="text" id="symbol4" name="symbol4" value="-"><br>
+
+<label for="symbol5">Symbol 5 (44%)</label><br>
+<input type="text" id="symbol5" name="symbol5" value="x"><br>
+
+<label for="symbol6">Symbol 6 (2%)</label><br>
+<input type="text" id="symbol6" name="symbol6" value="v"><br>
+
+
+<br />
+What kind of mirroring do you want? <br>
+<input type="radio" id="html" name="pattern_mirror" value="zero">
+<label for="html">No mirror (A) </label><br>
+<input type="radio" id="css" name="pattern_mirror" value="half">
+<label for="css">Mirrored right and left (A  B)</label><br>
+<input type="radio" id="css" name="pattern_mirror" value="thirds" checked>
+<label for="css">Mirrored in thirds (A BA B)</label><br>
+<input type="radio" id="javascript" name="pattern_mirror" value="fourths">
+<label for="javascript">Split into fourths (A B A B) </label> 
+<br /> <br />
+<input type="checkbox" id="gutters" name="gutters" value="true">
+<label for="gutters"> Gutters? </label><br>
+        <button type="submit">Go again!</button>
+      </form> 
+</div>
 
 <div id="receipt">
 

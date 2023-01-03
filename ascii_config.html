@@ -1,0 +1,83 @@
+<html>
+<head>
+
+    <link rel="stylesheet" href="css/receipt.css" type="text/css">
+
+</head>
+<body>
+<div id="configForm">
+    Note: You can use more than one character for each symbol (be sure to adjust the # of columns accordingly).
+
+    <form autocomplete="on">
+        <table>
+            <tr>
+                <td>
+                    <label for="columns"># of columns: (max 60)</label><br>
+                    <input type="text" id="cols" name="cols">
+                </td>
+                <td>
+                    <label for="lname"># of rows:</label><br>
+                    <input type="text" id="row_count" name="row_count" >
+                </td>
+            </tr>
+<!------------------------------->
+            <tr>
+                <td>
+                    <label for="symbol1">Symbol 1 (20%)</label><br>
+                    <input type="text" id="symbol1" name="symbol1" value="w">
+                </td>
+
+                <Td>
+                    <label for="symbol2">Symbol 2 (12%)</label><br>
+                    <input type="text" id="symbol2" name="symbol2" value="o">
+                </Td>
+
+                <td>
+                    <label for="symbol3">Symbol 3 (12%)</label><br/>
+                    <input type="text" id="symbol3" name="symbol3" value="|"><br>
+                </td>
+
+                <Td>
+                    <label for="symbol4">Symbol 4 (11%)</label><br>
+                    <input type="text" id="symbol4" name="symbol4" value="-">
+                </Td>
+                <td>
+                    <label for="symbol5">Symbol 5 (44%)</label><br>
+                    <input type="text" id="symbol5" name="symbol5" value="x">
+                </td>
+
+                <td>
+                    <label for="symbol6">Symbol 6 (2%)</label><br>
+                    <input type="text" id="symbol6" name="symbol6" value="v">
+                </td>
+            </tr>
+
+        </table>
+
+<br />
+What kind of mirroring do you want? <br>
+<input type="radio" id="pattern_mirror" name="pattern_mirror" value="zero">
+<label for="html">No mirror (A) </label><br>
+<input type="radio" id="pattern_mirror" name="pattern_mirror" value="half">
+<label for="css">Mirrored right and left (A  B)</label><br>
+<input type="radio" id="pattern_mirror" name="pattern_mirror" value="thirds">
+<label for="css">Mirrored in thirds (A BA B) - BUGGY</label><br>
+<input type="radio" id="pattern_mirror" name="pattern_mirror" value="fourths">
+<label for="javascript">Split into fourths (A B A B) </label> 
+<br /> <br />
+<input type="checkbox" id="have_gutters" name="have_gutters" value="true">
+<label for="gutters"> Gutters? </label><br>
+        <button type="submit">Go again!</button>
+      </form> 
+</div>
+
+<div id="receipt">
+
+</div>
+
+
+<script type="text/javascript" src="js/ascii_config.js" type="text/javascript" >
+</script>
+</body>
+
+</html>

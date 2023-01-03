@@ -10,9 +10,9 @@ console.log(queryString);
 // -------- -------- get CONFIGURATION  --------  -------- 
 const urlParams = new URLSearchParams(queryString);
 const columns = urlParams.get('cols');
-const rows = urlParams.get('rows');
+const rows = urlParams.get('row_count');
 const mirror = urlParams.get('pattern_mirror');
-const gutters = urlParams.get('gutters');
+const gutters = urlParams.get('have_gutters');
 
 // set the width of the div to contain the columns
 //document.getElementById('receipt').style.width= columns * 7;
@@ -27,6 +27,99 @@ var nodeSymbol = urlParams.get('symbol3'); // 18435 RED
 var commentSymbol = urlParams.get('symbol4'); // 11250
 var taxonomySymbol = urlParams.get('symbol5'); // 63555
 var geditSymbol = urlParams.get('symbol6'); // 4000
+
+
+// SAVE the data so that the user can see it again when they reload the page
+// this is a thing that we're doing manually becuase this is vanilla JS
+// but if we moved to a formal framework, it would be taken care of for us
+function save_data_to_localstorage(input_id) {
+    const input_val = document.getElementById(input_id).value;
+    localStorage.setItem(input_id, input_val);
+    console.log(input_id);
+    console.log(input_val);
+ }
+
+ cols.addEventListener("keyup", function() {
+    save_data_to_localstorage("cols");
+ });
+
+ row_count.addEventListener("keyup", function() {
+    save_data_to_localstorage("row_count");
+ });
+
+ pattern_mirror.addEventListener("click", function() {
+    save_data_to_localstorage("pattern_mirror");
+ });
+
+//  have_gutters.addEventListener("click", function() {
+//     save_data_to_localstorage("gutters");
+//  });
+ 
+
+ symbol1.addEventListener("keyup", function() {
+    save_data_to_localstorage("symbol1");
+ });
+ 
+ symbol2.addEventListener("keyup", function() {
+    save_data_to_localstorage("symbol2");
+ });
+
+ symbol3.addEventListener("keyup", function() {
+    save_data_to_localstorage("symbol3");
+ });
+ 
+ symbol4.addEventListener("keyup", function() {
+    save_data_to_localstorage("symbol4");
+ });
+
+ symbol5.addEventListener("keyup", function() {
+    save_data_to_localstorage("symbol5");
+ });
+ 
+ symbol6.addEventListener("keyup", function() {
+    save_data_to_localstorage("symbol6");
+ });
+ 
+
+ // lol this is so tedious, but also seems okay for this vanilla prototype.
+ function init_values() {
+    if (localStorage["cols"]) {
+        cols.value = localStorage["cols"];
+    }
+    if (localStorage["row_count"]) {
+        row_count.value = localStorage["row_count"];
+    }
+    // if (localStorage["pattern_mirror"]) {
+    //     pattern_mirror.value = localStorage["pattern_mirror"];
+    // }
+    // if (localStorage["gutters"]) {
+    //     gutters.value = localStorage["gutters"];
+    //}
+    if (localStorage["symbol1"]) {
+       symbol1.value = localStorage["symbol1"];
+    }
+    if (localStorage["symbol2"]) {
+       symbol2.value = localStorage["symbol2"];
+    }
+    if (localStorage["symbol3"]) {
+        symbol3.value = localStorage["symbol3"];
+    }
+    if (localStorage["symbol4"]) {
+        symbol4.value = localStorage["symbol4"];
+    }
+    if (localStorage["symbol5"]) {
+        symbol5.value = localStorage["symbol5"];
+    }
+    if (localStorage["symbol6"]) {
+        symbol6.value = localStorage["symbol6"];
+    }
+ }
+ 
+ init_values();
+
+
+
+
 
 
 
@@ -128,6 +221,7 @@ if (mirror == "half") {
 //// ==== NOT WORKING
 if (mirror == "thirds") {
     let patternWidth = Math.floor(columns / 3);
+    console.log(patternWidth);
     while(shuffled.length > patternWidth ) {   
 
         // take the first ~width~ shapes
@@ -135,10 +229,10 @@ if (mirror == "thirds") {
         let forward = printTwenty(patternContents);
         let backward = printTwenty(patternContents.reverse());
         // then, we need a middle column that has both.
-        textContent += forward + backward + "<br />";
-
+        textContent += forward + " " + backward + "<br />";
         if (gutters) {
-            textContent += forward + " " + backward +" " + forward +" " + backward + "<br />";
+            textContent += forward +" "+ backward.slice(0, patternWidth/2) 
+            +" "+ forward.slice(0, patternWidth/2) +" "+ backward + "<br />";
         } else{
             textContent += forward + backward.slice(0, patternWidth/2) 
             + forward.slice(0, patternWidth/2) + backward + "<br />";

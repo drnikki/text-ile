@@ -3,8 +3,8 @@
     width: 600px;
     padding: 15px;
     margin: auto;
-    text-align: center;
-    font-family: 'Courier New', Courier, monospace;
+    text-align: left;
+    font-family: 'Andalé Mono', monospace;
 }
 
 #configForm, #configForm table {

@@ -282,7 +282,7 @@ function printOne(symbol) {
     // this is where we determine the color of the character
     // based on the shape
     if (symbol == commentSymbol || symbol == userSymbol || symbol == nodeSymbol) {
-        return "<span class='red'>" + symbol + "</span>";
+        return "<span class='black'>" + symbol + "</span>";
     }
     // else
     return "<span class='black'>" + symbol + "</span>";

@@ -23,7 +23,7 @@ const gutters = urlParams.get('have_gutters');
 // characters https://theasciicode.com.ar/extended-ascii-code/guillemets-angle-quotes-left-pointing-double-angle-quotation-marks-ascii-code-175.html 
 var commitSymbol = urlParams.get('symbol1'); // 30,000  RED
 var userSymbol = urlParams.get('symbol2'); // 18408 RED
-var nodeSymbol = urlParams.get('symbol3'); // 18435 RED 
+var nodeSymbol = urlParams.get('symbol3'); // 18435 RED
 var commentSymbol = urlParams.get('symbol4'); // 11250
 var taxonomySymbol = urlParams.get('symbol5'); // 63555
 var geditSymbol = urlParams.get('symbol6'); // 4000
@@ -282,7 +282,7 @@ function printOne(symbol) {
     // this is where we determine the color of the character
     // based on the shape
     if (symbol == commentSymbol || symbol == userSymbol || symbol == nodeSymbol) {
-        return "<span class='red'>" + symbol + "</span>";
+        return "<span class='black'>" + symbol + "</span>";
     }
     // else
     return "<span class='black'>" + symbol + "</span>";

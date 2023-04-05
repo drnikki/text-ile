@@ -10,12 +10,12 @@
 // When we're outputing to HTML, we can use a -much- wider range of characters
 // than we can w/ the receipt printer (probably). TBD on what it can support besides ASCII 
 // characters https://theasciicode.com.ar/extended-ascii-code/guillemets-angle-quotes-left-pointing-double-angle-quotation-marks-ascii-code-175.html 
-var commitSymbol = "*"; // 30,000  
-var userSymbol = "&"; // 18408 
-var nodeSymbol = "#"; // 18435  
-var commentSymbol = "%"; // 11250
-var taxonomySymbol = ":"; // 63555
-var geditSymbol = "@"; // 4000
+var commitSymbol = "~x~"; // 30,000  
+var userSymbol = "~/\\~"; // 18408 
+var nodeSymbol = "\\x\\"; // 18435  
+var commentSymbol = "\\{}/"; // 11250
+var taxonomySymbol = "/^/"; // 63555
+var geditSymbol = "><"; // 4000
 
 // TODO this desperately needs a refactoring to be part of a class and to use constants.
 

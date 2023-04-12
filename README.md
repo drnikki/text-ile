@@ -7,3 +7,6 @@ Text-ile is a text-based pattern generator
 2 - if you change the width of the printing area, you may also want to change the number of columns that it's printing.
 
 
+## TODO
+ [] get launch debugging working in Firefox.
+ 

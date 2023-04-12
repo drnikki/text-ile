@@ -119,7 +119,7 @@ function randomSpacer(min, max) {
 
 
 
-function printChandelier() {
+function printChandelierA() {
     /// 
     /// SET VARIABLES
     ///
@@ -140,11 +140,8 @@ function printChandelier() {
         crystalPrefix = 4;
     } else if (brassRows == 6){
         crystalWidth = 13;
-        crystalPrefix = 3;
+        crystalPrefix = 3; //eyeballing this
     }
-
-
-
 
     // print the brass to start?
     // these are always the same 
@@ -180,8 +177,110 @@ function printChandelier() {
     return row;
 }
 
+function printChandelierB() {
+    var hasTail = true;
+   // determine the variation
+   var hasWings = Math.random() > 0.5 ? true : false;
+   if (hasWings) {
+    hasTail = Math.random() > 0.5 ? true : false; // it can only -not- have a tail if it has wings.
+   }
+
+   var row = numToSpace(29) + "<^>" + "<br />";
+   row += numToSpace(26) + ">>> | >>>" + "<br />";
+   row += numToSpace(26) + "||| | |||" + "<br />";
+   if (hasWings && !hasTail) {
+    // do stuff
+    row += numToSpace(22) + ">>> ;|: | :|; >>>" + "<br />";
+    row += numToSpace(22) + "||| o;o | o;o |||" + "<br />";
+    row += numToSpace(22) + ";|; ;|: ;" + numToSpace(2) + "o" + numToSpace(2) + "|;|" + "<br />";
+    row += numToSpace(22) + "o;o" + numToSpace(11) +  "o;o" + "<br />";
+    row += numToSpace(23) + "o" + numToSpace(13) +  "o" + "<br />";
 
 
+   }
+
+
+
+
+
+   return row;
+}
+
+
+function printTwinkleBanner() {
+    // Math.floor(Math.random() * (max - min + 1)) + min
+    var ribbonCount = Math.floor((Math.random() * 11) + 20); // btwn 20-30
+
+    var row = '';
+
+    // add pole length
+    for (let p = 0; p<(ribbonCount +4); p++) {
+        row+= "=";
+    }
+    // add endcaps
+    row +="[]";
+
+    // each column is a character of random length, 3 - 11 rows long
+    // make array, filled with characters
+    // then "flip" to vertical
+    let availChars = "*`:-^v";
+    var ribbons = [];
+    var randomCharacter = '';
+    var ribbonLength = 0;
+    var longestRibbon = 0;
+    for (let r = 0; r < ribbonCount; r++) {
+        // what is the character
+        randomCharacter = availChars[Math.floor(Math.random() * availChars.length)]
+        // how long is this ribbon? (between 3 and 11 chars, actually)
+        ribbonLength = Math.floor((Math.random() * 9) + 3);
+        // make that ribbon that number of times
+        ribbons[r] = randomCharacter.repeat(ribbonLength);
+        // if it's a certain character, append a v @todo
+        if (randomCharacter == ':') {
+            ribbons[r] += "v";
+        }
+        // store the length of the longest.
+        if (ribbonLength > longestRibbon) {
+            longestRibbon = ribbonLength;
+        }
+
+    }
+
+    // the spacing beneath the twinkle banner is 3 spaces.  
+    // So it' snot a consistent number, but every ribbon ends with 3 empty spaces, 
+    // and every ribbon has the same length (3 spaces longer than the longest).
+
+    // 
+    for (r = 0; r < ribbonCount; r++) {
+        ribbons[r].concat("&nbsp;".repeat(longestRibbon = ribbons[r].length));
+    }
+    console.log(ribbons);
+
+    // grab the first char from all elements in an array, then repeat
+    // https://stackoverflow.com/questions/47035752/getting-the-first-characters-of-each-string-in-an-array-in-javascript
+    // that but pop the first elements off... but we'll need to add spaces for the ones that don't have
+    // values so really tehy will all be the same length.
+    
+    // the simplest answer here is just a shfit. 
+    // https://stackoverflow.com/a/48399577
+
+    // now that we have all of the ribbons
+    for (r = 0; r < ribbonCount; r++) {
+        // what is the character
+        randomCharacter = availChars[Math.floor(Math.random() * availChars.length)]
+        // how long is this ribbon? (between 3 and 11 chars, actually)
+        ribbonLength = Math.floor((Math.random() * 9) + 3);
+        // make that ribbon that number of times
+        ribbons[r] = randomCharacter.repeat(ribbonLength); 
+        // if the character is :, add a v TODO  
+
+    }
+
+
+
+
+    return row;
+}
 
 
 
@@ -190,11 +289,12 @@ function printChandelier() {
 
 // put stuff onto the receipt
 
-for (let y = 0; y < 20; y++) {
+for (let y = 0; y < 5; y++) {
     textContent += printClouds();
     textContent += "<br/><br/>";
-    textContent += printChandelier();
-    textContent += "<br/><br/>";
+    textContent += printChandelierA();
+    textContent += printChandelierB() + "<br/>";
+    textContent += printTwinkleBanner() + "<br/>";
 
 }
  

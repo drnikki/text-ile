@@ -28,8 +28,8 @@ const printTwinkleBanner = () => {
 
     // create top pole
     let pole = '';
-    pole += '&nbsp;'.repeat(numRibbons + 3) + '___' + '<br>';
-    pole += '='.repeat(numRibbons + 4) + '[]' + '<br>';
+    pole += '&nbsp;'.repeat(numRibbons + 3) + '___' + '<br/>';
+    pole += '='.repeat(numRibbons + 4) + '[]' + '<br/>';
 
     // decide the order of ribbon styles
     let longestRibbonLength = 0;
@@ -48,15 +48,39 @@ const printTwinkleBanner = () => {
 
     // generate first 3 rows of ribbons
     let ribbons = '';
-    ribbons += printRibbonRow(ribbonStyles) + '[]' + '<br>';
-    ribbons += printRibbonRow(ribbonStyles) + '[' + '<br>';
-    ribbons += printRibbonRow(ribbonStyles) + '|' + '<br>';
+    ribbons += printRibbonRow(ribbonStyles) + '[]' + '<br/>';
+    ribbons += printRibbonRow(ribbonStyles) + '[' + '<br/>';
+    ribbons += printRibbonRow(ribbonStyles) + '|' + '<br/>';
 
     // generate the rest of the ribbons
     for (let i = 4; i <= longestRibbonLength; i++)
-        ribbons += printRibbonRow(ribbonStyles, i) + '<br>';
+        ribbons += printRibbonRow(ribbonStyles, i) + '<br/>';
 
     return pole + ribbons;
+};
+
+/**
+ * a crude way to flip the banner for use on right side
+ * @param banner
+ */
+const reverseBanner = (banner) => {
+    const receiptWidth = 40;
+
+    const rows = banner.split("<br/>");
+    let flippedRows = [];
+    rows.forEach(row => {
+        //find length, adjusted based on number of non-breaking spaces
+        const spaceCount = (row.match(/nbsp/g) || []).length;
+        const length = row.length - (5*spaceCount);
+        const padding = '&nbsp;'.repeat(receiptWidth - length);
+
+        const flippedRow = row.split('').reverse().join('') // flipped row with spaces and brackets backwards
+            .replaceAll(";psbn&", "&nbsp;") // spaces fixed
+            .replaceAll("[", "]") // ]'s fixed
+            .replaceAll("]]", "[]"); // []'s fixed
+        flippedRows.push(padding + flippedRow);
+    });
+    return flippedRows.join('<br/>');
 };
 
 export default printTwinkleBanner;

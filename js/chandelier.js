@@ -3,6 +3,7 @@
 //console.log(shuffled.length);
 
 
+
 /**
  * These are stub tester files that are separate from any consideration of how the 
  * data might relate to these shapes.  
@@ -207,82 +208,65 @@ function printChandelierB() {
 }
 
 
-function printTwinkleBanner() {
-    // Math.floor(Math.random() * (max - min + 1)) + min
-    var ribbonCount = Math.floor((Math.random() * 11) + 20); // btwn 20-30
+/**
+ * returns a single row of the twinkle banner based on the current ribbon styles
+ * @param ribbonStyles an array that specifies the order and style and length of each ribbon
+ * @param rowNum current row we are printing, starting from 1
+ * @return one row
+ */
+const printRibbonRow = (ribbonStyles, rowNum = 0) => {
+    let row = '&nbsp;'.repeat(4);
 
-    var row = '';
+    ribbonStyles.forEach(({style, length}) => {
+        if (rowNum < length) row += style; // add ribbon to row if we're not past its length
+        else if (rowNum === length) row += style === ':' ? 'v' : style; // top ribbon off appropriately
+        else row += '&nbsp;'; // if we're past the ribbon, just add space
+    });
 
-    // add pole length
-    for (let p = 0; p<(ribbonCount +4); p++) {
-        row+= "=";
-    }
-    // add endcaps
-    row +="[]";
+    return row
+};
 
-    // each column is a character of random length, 3 - 11 rows long
-    // make array, filled with characters
-    // then "flip" to vertical
-    let availChars = "*`:-^v";
-    var ribbons = [];
-    var randomCharacter = '';
-    var ribbonLength = 0;
-    var longestRibbon = 0;
-    for (let r = 0; r < ribbonCount; r++) {
-        // what is the character
-        randomCharacter = availChars[Math.floor(Math.random() * availChars.length)]
-        // how long is this ribbon? (between 3 and 11 chars, actually)
-        ribbonLength = Math.floor((Math.random() * 9) + 3);
-        // make that ribbon that number of times
-        ribbons[r] = randomCharacter.repeat(ribbonLength);
-        // if it's a certain character, append a v @todo
-        if (randomCharacter == ':') {
-            ribbons[r] += "v";
-        }
-        // store the length of the longest.
-        if (ribbonLength > longestRibbon) {
-            longestRibbon = ribbonLength;
-        }
+/**
+ * prints the twinkle banner as specified in the spec doc
+ * @returns {string} twinkle banner
+ */
+const printTwinkleBanner = () => {
+    const ribbonChoices = "_*':-^";
+    // decide how many ribbons to use
+    const numRibbons = Math.floor((Math.random() * 11) + 20) // random int from 20-30
 
-    }
+    // create top pole
+    let pole = '';
+    pole += '&nbsp;'.repeat(numRibbons + 3) + '___' + '<br>';
+    pole += '='.repeat(numRibbons + 4) + '[]' + '<br>';
 
-    // the spacing beneath the twinkle banner is 3 spaces.  
-    // So it' snot a consistent number, but every ribbon ends with 3 empty spaces, 
-    // and every ribbon has the same length (3 spaces longer than the longest).
+    // decide the order of ribbon styles
+    let longestRibbonLength = 0;
+    let ribbonStyles = [];
+    for (let i = 0; i < numRibbons; i++) {
+        const choice = Math.floor(Math.random() * ribbonChoices.length); // pick random char from ribbonChoices string
+        const length =  Math.floor((Math.random() * 9) + 3) // random length between 3 and 11
+        ribbonStyles.push({
+            style: ribbonChoices.charAt(choice),
+            length
+        });
 
-    // 
-    for (r = 0; r < ribbonCount; r++) {
-        ribbons[r].concat("&nbsp;".repeat(longestRibbon = ribbons[r].length));
-    }
-    console.log(ribbons);
-
-    // grab the first char from all elements in an array, then repeat
-    // https://stackoverflow.com/questions/47035752/getting-the-first-characters-of-each-string-in-an-array-in-javascript
-    // that but pop the first elements off... but we'll need to add spaces for the ones that don't have
-    // values so really tehy will all be the same length.
-    
-    // the simplest answer here is just a shfit. 
-    // https://stackoverflow.com/a/48399577
-
-    // now that we have all of the ribbons
-    for (r = 0; r < ribbonCount; r++) {
-        // what is the character
-        randomCharacter = availChars[Math.floor(Math.random() * availChars.length)]
-        // how long is this ribbon? (between 3 and 11 chars, actually)
-        ribbonLength = Math.floor((Math.random() * 9) + 3);
-        // make that ribbon that number of times
-        ribbons[r] = randomCharacter.repeat(ribbonLength); 
-        // if the character is :, add a v TODO  
-
+        // update longest ribbon length
+        longestRibbonLength = Math.max(longestRibbonLength, length);
     }
 
+    // generate first 3 rows of ribbons
+    let ribbons = '';
+    ribbons += printRibbonRow(ribbonStyles) + '[]' + '<br>';
+    ribbons += printRibbonRow(ribbonStyles) + '[' + '<br>';
+    ribbons += printRibbonRow(ribbonStyles) + '|' + '<br>';
 
+    // generate the rest of the ribbons
+    for (let i = 4; i <= longestRibbonLength; i++)
+        ribbons += printRibbonRow(ribbonStyles, i) + '<br>';
 
-
-    return row;
-}
-
-
+    return pole + ribbons;
+};
 
 
 

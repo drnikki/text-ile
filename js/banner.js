@@ -1,28 +1,9 @@
-const ribbonChoices = "_*':-^";
-
-/**
- * returns a single row of the twinkle banner based on the current ribbon styles
- * @param ribbonStyles an array that specifies the order and style and length of each ribbon
- * @param rowNum current row we are printing, starting from 1
- * @return one row
- */
-const printRibbonRow = (ribbonStyles, rowNum = 0) => {
-    let row = '&nbsp;'.repeat(4);
-
-    ribbonStyles.forEach(({style, length}) => {
-        if (rowNum < length) row += style; // add ribbon to row if we're not past its length
-        else if (rowNum === length) row += style === ':' ? 'v' : style; // top ribbon off appropriately
-        else row += '&nbsp;'; // if we're past the ribbon, just add space
-    });
-
-    return row
-};
-
 /**
  * prints the twinkle banner as specified in the spec doc
  * @returns {string} twinkle banner
  */
 const printTwinkleBanner = () => {
+    const ribbonChoices = "_*':-^";
     // decide how many ribbons to use
     const numRibbons = Math.floor((Math.random() * 11) + 20) // random int from 20-30
 
@@ -56,7 +37,27 @@ const printTwinkleBanner = () => {
     for (let i = 4; i <= longestRibbonLength; i++)
         ribbons += printRibbonRow(ribbonStyles, i) + '<br/>';
 
-    return pole + ribbons;
+    const banner = pole + ribbons;
+
+    return Math.random() < 0.5 ? banner : reverseBanner(banner);
+};
+
+/**
+ * returns a single row of the twinkle banner based on the current ribbon styles
+ * @param ribbonStyles an array that specifies the order and style and length of each ribbon
+ * @param rowNum current row we are printing, starting from 1
+ * @return one row
+ */
+const printRibbonRow = (ribbonStyles, rowNum = 0) => {
+    let row = '&nbsp;'.repeat(4);
+
+    ribbonStyles.forEach(({style, length}) => {
+        if (rowNum < length) row += style; // add ribbon to row if we're not past its length
+        else if (rowNum === length) row += style === ':' ? 'v' : style; // top ribbon off appropriately
+        else row += '&nbsp;'; // if we're past the ribbon, just add space
+    });
+
+    return row
 };
 
 /**

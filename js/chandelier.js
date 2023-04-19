@@ -282,25 +282,33 @@ function printTwinkleBanner() {
     return row;
 }
 
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 function printStarburst(min, max) {
     var availChars = "#*."
     var centChar = availChars[Math.floor(Math.random() * availChars.length)]
 
-    m = Math.random() * (max - min) + min;
-    n = Math.random() * (max - min) + min;
+    m = getRandomInt(min, max);
+    n = getRandomInt(min, max);
     var starGrid = Array.from(Array(m), _ => Array(n).fill(0));
-
-    console.log(starGrid)
 
     // var starGrid = [...Array(m)].map(e => Array(n));
 
-    xmid_min = m / 4;
-    xmid_max = (m * 3) / 4;
-    ymid_min = n / 4;
-    ymid_max = (n * 3) / 4;
+    xmid_min = Math.floor(m / 4);
+    xmid_max = Math.floor((m * 3) / 4);
+    ymid_min = Math.floor(n / 4);
+    ymid_max = Math.floor((n * 3) / 4);
 
-    numLines = Math.random() * (7) + 3;
+    cent_x = getRandomInt(xmid_min, xmid_max);
+    cent_y = getRandomInt(ymid_min, ymid_max);
+
+    console.log("central", cent_x, cent_y)
+
+    numLines = getRandomInt(2, 4);
     // c_x = myGrid.length, 
     // c_y = myGrid[0].length
 
@@ -310,45 +318,66 @@ function printStarburst(min, max) {
     //     y = startCoor[1]
     // }
 
+    // console.log("cent", cent_x, cent_y)
+
     var spaces = [[[0,1], [1,1]], [[1,0],[1,-1]], [[0,-1],[-1,-1]], [[-1,0],[-1,1]]]
-    for (s = 0; s < spaces.length; s + 4/numLines) {
-        lineLen = Math.random() * (Math.min(m, n) - 3) + 3
-        createLine(starGrid, x, y, spaces[s], 0, lineLen, centChar)
-    }
-
-    availChars = availChars.replace(centChar, '')
-    secondChar = availChars[Math.floor(Math.random() * availChars.length)]
-
-    m2 = Math.random() * (((m * 3) / 4) - m / 4) + m / 4
-    n2 = Math.random() * (((n * 3) / 4) - n / 4) + n / 4
-    if (starGrid[m][n] != null) {
-        starGrid[m][n] = char
-    }
-
-    availChars = availChars.replace(secondChar, '')
-    thirdChar = availChars[Math.floor(Math.random() * availChars.length)]
-
-    arrText='';
-
-    for (var i = 0; i < starGrid.length; i++) {
-        for (var j = 0; j < starGrid[i].length; j++) {
-            arrText+=starGrid[i][j]+' ';
+    for (let s = 0; s < spaces.length; s += 4/numLines) {
+        lineLen = getRandomInt(3, Math.min(xmid_max - xmid_min, ymid_max - ymid_min))
+        currLen = 0
+        x = cent_x
+        y = cent_y
+        // console.log(starGrid)
+        while (currLen < lineLen) {
+            // console.log(currLen, lineLen, x, y)
+            starGrid[y][x] = centChar
+            x += spaces[s][getRandomInt(0, 1)][0]
+            y += spaces[s][getRandomInt(0, 1)][1]
+            currLen++
         }
-        console.log(arrText);
-        arrText='';
+        console.log(s, 4/numLines, spaces.length)
+        // createLine(starGrid, cent_x, cent_y, spaces[s], 0, lineLen, centChar)
+        // console.log("s:", s)
     }
+
+    // availChars = availChars.replace(centChar, '')
+    // secondChar = availChars[Math.floor(Math.random() * availChars.length)]
+
+    // m2 = Math.random() * ((Math.floor((m * 3) / 4)) - Math.floor(m / 4)) + Math.floor(m / 4)
+    // n2 = Math.random() * ((Math.floor((n * 3) / 4)) - Math.floor(n / 4)) + Math.floor(n / 4)
+    // if (starGrid[m][n] != null) {
+    //     starGrid[m][n] = char
+    // }
+
+    // availChars = availChars.replace(secondChar, '')
+    // thirdChar = availChars[Math.floor(Math.random() * availChars.length)]
+
+    // arrText='';
+
+    // for (var i = 0; i < starGrid.length; i++) {
+    //     for (var j = 0; j < starGrid[i].length; j++) {
+    //         arrText+=starGrid[i][j]+' ';
+    //     }
+    //     console.log(arrText);
+    //     arrText='';
+    // }
 
 }
 
 function createLine(grid, x, y, directions, currlen, len, char) {
-    if (currlen > len) {
-        return
+    if (grid[y] == undefined) {
+        console.log("undefined", grid, y, grid.length, grid[0].length)
     }
-    console.log("char", char, "y", y, "x", x)
-    console.log("grid", grid, "grid end")
-    grid[y][x] = char;
-    m = Math.random() * 1;
-    createLine(grid, x+directions[Math.random() * 1][0], y+directions[Math.random() * 1][1], directions, currlen+1, len, char)
+    if (currlen > len || y >= grid.length || x >= grid[0].length) {
+        console.log("end of line");
+        return
+    } else {
+        // console.log("char", char, "y", y, "x", x)
+        // console.log("grid", grid, "grid end")
+        // console.log(grid[y][x])
+        grid[y][x] = char;
+        m = Math.random() * 1;
+        return createLine(grid, x+directions[getRandomInt(0, 1)][0], y+directions[getRandomInt(0, 1)][1], directions, currlen+1, len, char);
+    }
 }
 
 

@@ -283,19 +283,85 @@ function printTwinkleBanner() {
 }
 
 
+function printStarburst(min, max) {
+    var availChars = "#*."
+    var centChar = availChars[Math.floor(Math.random() * availChars.length)]
 
+    m = Math.random() * (max - min) + min;
+    n = Math.random() * (max - min) + min;
+    var starGrid = Array.from(Array(m), _ => Array(n).fill(0));
+
+    console.log(starGrid)
+
+    // var starGrid = [...Array(m)].map(e => Array(n));
+
+    xmid_min = m / 4;
+    xmid_max = (m * 3) / 4;
+    ymid_min = n / 4;
+    ymid_max = (n * 3) / 4;
+
+    numLines = Math.random() * (7) + 3;
+    // c_x = myGrid.length, 
+    // c_y = myGrid[0].length
+
+    // startCoor = [m - 1, n - 1]
+    // for (r = 0; r < numLines; r++) {
+    //     x = startCoor[0]
+    //     y = startCoor[1]
+    // }
+
+    var spaces = [[[0,1], [1,1]], [[1,0],[1,-1]], [[0,-1],[-1,-1]], [[-1,0],[-1,1]]]
+    for (s = 0; s < spaces.length; s + 4/numLines) {
+        lineLen = Math.random() * (Math.min(m, n) - 3) + 3
+        createLine(starGrid, x, y, spaces[s], 0, lineLen, centChar)
+    }
+
+    availChars = availChars.replace(centChar, '')
+    secondChar = availChars[Math.floor(Math.random() * availChars.length)]
+
+    m2 = Math.random() * (((m * 3) / 4) - m / 4) + m / 4
+    n2 = Math.random() * (((n * 3) / 4) - n / 4) + n / 4
+    if (starGrid[m][n] != null) {
+        starGrid[m][n] = char
+    }
+
+    availChars = availChars.replace(secondChar, '')
+    thirdChar = availChars[Math.floor(Math.random() * availChars.length)]
+
+    arrText='';
+
+    for (var i = 0; i < starGrid.length; i++) {
+        for (var j = 0; j < starGrid[i].length; j++) {
+            arrText+=starGrid[i][j]+' ';
+        }
+        console.log(arrText);
+        arrText='';
+    }
+
+}
+
+function createLine(grid, x, y, directions, currlen, len, char) {
+    if (currlen > len) {
+        return
+    }
+    console.log("char", char, "y", y, "x", x)
+    console.log("grid", grid, "grid end")
+    grid[y][x] = char;
+    m = Math.random() * 1;
+    createLine(grid, x+directions[Math.random() * 1][0], y+directions[Math.random() * 1][1], directions, currlen+1, len, char)
+}
 
 
 
 // put stuff onto the receipt
 
 for (let y = 0; y < 5; y++) {
-    textContent += printClouds();
-    textContent += "<br/><br/>";
-    textContent += printChandelierA();
-    textContent += printChandelierB() + "<br/>";
-    textContent += printTwinkleBanner() + "<br/>";
-
+    // textContent += printClouds();
+    // textContent += "<br/><br/>";
+    // textContent += printChandelierA();
+    // textContent += printChandelierB() + "<br/>";
+    // textContent += printTwinkleBanner() + "<br/>";
+    textContent += printStarburst(10, 10) + "<br/>";
 }
  
 

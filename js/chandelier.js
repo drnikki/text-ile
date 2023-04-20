@@ -273,7 +273,7 @@ function printTwinkleBanner() {
         // make that ribbon that number of times
         ribbons[r] = randomCharacter.repeat(ribbonLength); 
         // if the character is :, add a v TODO  
-
+        
     }
 
 
@@ -294,7 +294,7 @@ function printStarburst(min, max) {
 
     m = getRandomInt(min, max);
     n = getRandomInt(min, max);
-    var starGrid = Array.from(Array(m), _ => Array(n).fill(0));
+    var starGrid = Array.from(Array(m), _ => Array(n).fill('.'));
 
     // var starGrid = [...Array(m)].map(e => Array(n));
 
@@ -303,10 +303,13 @@ function printStarburst(min, max) {
     ymid_min = Math.floor(n / 4);
     ymid_max = Math.floor((n * 3) / 4);
 
-    cent_x = getRandomInt(xmid_min, xmid_max);
-    cent_y = getRandomInt(ymid_min, ymid_max);
+    console.log(xmid_min, xmid_max, ymid_min, ymid_max, m, n)
+    // cent_x = getRandomInt(xmid_min, xmid_max);
+    // cent_y = getRandomInt(ymid_min, ymid_max);
+    cent_x = Math.floor(m / 2);
+    cent_y = Math.floor(n / 2);
 
-    console.log("central", cent_x, cent_y)
+    // console.log("central", cent_x, cent_y)
 
     numLines = getRandomInt(2, 4);
     // c_x = myGrid.length, 
@@ -320,27 +323,29 @@ function printStarburst(min, max) {
 
     // console.log("cent", cent_x, cent_y)
 
-    var spaces = [[[0,1], [1,1]], [[1,0],[1,-1]], [[0,-1],[-1,-1]], [[-1,0],[-1,1]]]
-    for (let s = 0; s < spaces.length; s += 4/numLines) {
-        lineLen = getRandomInt(3, Math.min(xmid_max - xmid_min, ymid_max - ymid_min))
+    var spaces = [[[0,1], [-1,1]], [[1,0],[1,1]], [[0,-1],[1,-1]], [[-1,0],[-1,-1]]]
+    for (let s = 0; s < spaces.length; s += Math.floor(6/numLines)) {
+        lineLen = getRandomInt(3, Math.min(xmid_max - xmid_min, ymid_max - ymid_min) / 2)
         currLen = 0
         x = cent_x
         y = cent_y
-        // console.log(starGrid)
-        while (currLen < lineLen) {
-            // console.log(currLen, lineLen, x, y)
+        printStarBurst(starGrid)
+        console.log(" ")
+        while (currLen < lineLen && y < starGrid.length && y > 0 && x < starGrid[0].length && x > 0) {
+            // console.log("currlen", currLen, "len", lineLen, "x", x, "y", y, "s", s, "centx", cent_x, "centy", cent_y)
             starGrid[y][x] = centChar
             x += spaces[s][getRandomInt(0, 1)][0]
             y += spaces[s][getRandomInt(0, 1)][1]
             currLen++
         }
-        console.log(s, 4/numLines, spaces.length)
         // createLine(starGrid, cent_x, cent_y, spaces[s], 0, lineLen, centChar)
         // console.log("s:", s)
     }
-
-    // availChars = availChars.replace(centChar, '')
-    // secondChar = availChars[Math.floor(Math.random() * availChars.length)]
+    console.log("central", centChar)
+    availChars = availChars.replace(centChar, '')
+    secondChar = availChars[Math.floor(Math.random() * availChars.length)]
+    availChars = availChars.replace(secondChar, '')
+    thirdChar = availChars[Math.floor(Math.random() * availChars.length)]
 
     // m2 = Math.random() * ((Math.floor((m * 3) / 4)) - Math.floor(m / 4)) + Math.floor(m / 4)
     // n2 = Math.random() * ((Math.floor((n * 3) / 4)) - Math.floor(n / 4)) + Math.floor(n / 4)
@@ -348,19 +353,29 @@ function printStarburst(min, max) {
     //     starGrid[m][n] = char
     // }
 
-    // availChars = availChars.replace(secondChar, '')
-    // thirdChar = availChars[Math.floor(Math.random() * availChars.length)]
+    for (var i = ymid_min; i < ymid_max; i++) {
+        for (var j = xmid_min; j < xmid_max; j++) {
+            if (getRandomInt(0, 1) == 1 && starGrid[i][j] != centChar) {
+                // starGrid[i][j] = secondChar
+            } else if (getRandomInt(0, 1) == 1 && starGrid[i][j] != centChar) {
+                // starGrid[i][j] = thirdChar
+            }
+        }
+    }
 
-    // arrText='';
+    printStarBurst(starGrid)
 
-    // for (var i = 0; i < starGrid.length; i++) {
-    //     for (var j = 0; j < starGrid[i].length; j++) {
-    //         arrText+=starGrid[i][j]+' ';
-    //     }
-    //     console.log(arrText);
-    //     arrText='';
-    // }
+}
 
+function printStarBurst(starGrid) {
+    arrText='';
+    for (var i = 0; i < starGrid.length; i++) {
+        for (var j = 0; j < starGrid[i].length; j++) {
+            arrText+=starGrid[i][j]+' ';
+        }
+        console.log(arrText);
+        arrText='';
+    }
 }
 
 function createLine(grid, x, y, directions, currlen, len, char) {
@@ -384,16 +399,16 @@ function createLine(grid, x, y, directions, currlen, len, char) {
 
 // put stuff onto the receipt
 
-for (let y = 0; y < 5; y++) {
+// for (let y = 0; y < 5; y++) {
     // textContent += printClouds();
     // textContent += "<br/><br/>";
     // textContent += printChandelierA();
     // textContent += printChandelierB() + "<br/>";
     // textContent += printTwinkleBanner() + "<br/>";
-    textContent += printStarburst(10, 10) + "<br/>";
-}
+//     textContent += printStarburst(10, 10) + "<br/>";
+// }
  
-
+printStarburst(15, 15) + "<br/>";
 
 // FINALLY: everything that we did - put it onto the receipt
 let ReceiptPlace = document.querySelector('#receipt');

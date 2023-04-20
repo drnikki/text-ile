@@ -298,14 +298,29 @@ const reverseBanner = (banner) => {
 
 
 class Branch {
-    static maxWidth = 40 // may have to reduce by 1
+    static maxWidth = 17 // may have to reduce by 1
     directionRight; //specifies which direction the branch faces
     rows = [];
 
-    constructor(directionRight) {
+    upperBound; // enforced
+    lowerBound; // fluid
+    static ultimateEnforcedBound  = 4; // cannot go more than 4 up or down
+
+    constructor(directionRight, upperBound = 1000) {
         this.directionRight = directionRight;
         // populate first 3 rows
-        for (let i=0; i<3; i++) this.rows[i] = '';
+        this.rows.push('', '&', '&');
+        this.upperBound = Math.min(upperBound, Branch.ultimateEnforcedBound);
+        console.log("given " + upperBound);
+        this.lowerBound = 1;
+
+        // go ahead a fill out until upper bound (for spacing purposes)
+        if (this.upperBound> 0) {
+            for (let i = 1; i < this.upperBound; i++) {
+                const row = (i+1) *2 - 1;
+                this.rows[row] = '&';
+            }
+        }
     }
 
     /**
@@ -325,7 +340,18 @@ class Branch {
                 this.populateBranch(1, endPosition);
                 this.populateBranch(2, endPosition);
                 return; // break out here
-            } else if (!this.rowExists(row+2)) this.rows[row+2] = ''; // ensure that row + 2 exists
+            } else if (!this.rowExists(row+2)) {
+                // ensure that row + 2 exists
+                const even = row % 2 === 0;
+                if (even) {
+                    if (this.lowerBound >= Branch.ultimateEnforcedBound) return;  // if we're at the bound, stop
+                    this.rows[row+2] = '&';
+                    this.lowerBound++;
+                } else { // odd
+                    if (((row + 1) / 2) >= this.upperBound ) return;
+                    this.rows[row+2] = '&';
+                }
+            }
 
             if (row === 1) {
                 this.populateBranch(3, endPosition, true);
@@ -357,9 +383,9 @@ class Branch {
         } else if (row === 1) {
             if (
                 !this.rowOpen(0, position + (out ? 2 : 0)) ||
-                (this.rowExists(3) && !this.rowOpen(3, position + (!out ? 2 : 0)))
+                (this.rowExists(3) && !this.rowOpen(3, position + (!out ? 2 : 0))) ||
+                this.upperBound < 1
             ) return fail;
-            console.log("here" + row);
         } else {
             if (
                 (this.rowExists(row - 2) && !this.rowOpen(row - 2, position + (out ? 2 : 0))) ||
@@ -421,6 +447,15 @@ class Branch {
         const lastOddIndex = this.rows.length - ((this.rows.length - 1) % 2 === 0 ? 2 : 1);
 
         let rstring = '';
+
+        // add extra & to top
+        let row = '&';
+        if (!this.directionRight) {
+            row = "&nbsp;".repeat(Branch.maxWidth - row.length) + row.split('').reverse().join('');
+        }
+        if (this.upperBound > 0) rstring += row + '<br/>';
+
+
         for (let i = lastOddIndex; i > 0; i -= 2){
             rstring += this.toStringHelper(i);
         }
@@ -432,6 +467,8 @@ class Branch {
     }
 
     toStringHelper(i){
+        if (i === 0 && !this.rows[0]) this.rows[0] =  this.newNode(4);
+
         if (!this.rows[i]) return '';
         let row = this.rows[i];
         // flip if drawing to left side
@@ -449,9 +486,28 @@ class Branch {
  * @returns {string} rope
  */
 const printRope = () => {
-    const newBranch = new Branch(Math.random() < 0.5);
-    newBranch.populateBranch();
-    return newBranch.toString();
+    const right = Math.random() < 0.5; // right or left
+
+    let b1 = new Branch(right);
+    b1.populateBranch();
+    console.log(b1.upperBound, b1.lowerBound);
+    let b2 = new Branch(right, 4 - b1.lowerBound);
+    b2.populateBranch();
+    console.log(b2.upperBound, b2.lowerBound);
+    let b3 = new Branch(right, 4 - b2.lowerBound);
+    b3.populateBranch();
+    console.log(b3.upperBound, b3.lowerBound);
+
+    const branches = [b1, b2, b3];
+
+    let rstring = '';
+    branches.forEach(branch => {
+        branch.populateBranch()
+        rstring += branch.toString() + "<br/>";
+    });
+
+
+    return rstring;
 };
 
 

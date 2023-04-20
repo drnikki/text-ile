@@ -306,12 +306,11 @@ class Branch {
     lowerBound; // fluid
     static ultimateEnforcedBound  = 4; // cannot go more than 4 up or down
 
-    constructor(directionRight, upperBound = 1000) {
+    constructor(directionRight, upperBound = Branch.ultimateEnforcedBound) {
         this.directionRight = directionRight;
         // populate first 3 rows
         this.rows.push('', '&', '&');
-        this.upperBound = Math.min(upperBound, Branch.ultimateEnforcedBound);
-        console.log("given " + upperBound);
+        this.upperBound = upperBound;
         this.lowerBound = 1;
 
         // go ahead a fill out until upper bound (for spacing purposes)
@@ -396,7 +395,7 @@ class Branch {
         if (Branch.maxWidth - position < 3) return fail;
 
         // chance for random fail
-        if (Math.random() < 0.25) return fail;
+        if (Math.random() < 0.20) return fail;
 
         const newNode = this.newNode(Branch.maxWidth-position);
 
@@ -481,31 +480,64 @@ class Branch {
 
 
 
+const addBlocks = (block1, block2) => {
+    //split up both blocks
+    const rows1 = block1.split('<br/>');
+    const rows2 = block2.split('<br/>');
+
+    if (rows1.length !== rows2.length) throw new Error(`blocks must have same number of rows; got ${rows1.length} and ${rows2.length}`);
+    return rows1.map((row, i) => row + rows2[i]).join('<br/>');
+};
+
+const centerPiece = () => {
+    let piece = ("&nbsp;".repeat(6) +"<br/>")
+        .repeat(5); // blank space at top
+    piece += '&nbsp;'.repeat(2) + '~' + '&nbsp;'.repeat(3) + '<br/>';
+    piece += '[~~~~]<br/>'.repeat(27);
+    piece += ("&nbsp;".repeat(6) +"<br/>");
+
+    return piece;
+}
+
+
 /**
  * prints the rope as specified in the spec doc
  * @returns {string} rope
  */
 const printRope = () => {
-    const right = Math.random() < 0.5; // right or left
 
-    let b1 = new Branch(right);
-    b1.populateBranch();
-    console.log(b1.upperBound, b1.lowerBound);
-    let b2 = new Branch(right, 4 - b1.lowerBound);
-    b2.populateBranch();
-    console.log(b2.upperBound, b2.lowerBound);
-    let b3 = new Branch(right, 4 - b2.lowerBound);
-    b3.populateBranch();
-    console.log(b3.upperBound, b3.lowerBound);
+    const leftBranches = [];
+    const rightBranches = [];
 
-    const branches = [b1, b2, b3];
+    leftBranches.push(new Branch(false, 7));
+    leftBranches[0].populateBranch()
+    rightBranches.push(new Branch(true, 7));
+    rightBranches[0].populateBranch()
 
-    let rstring = '';
-    branches.forEach(branch => {
-        branch.populateBranch()
-        rstring += branch.toString() + "<br/>";
+    for (let i =1; i<4; i++) {
+        leftBranches.push(new Branch(false, 4 - leftBranches[i-1].lowerBound));
+        leftBranches[i].populateBranch()
+        rightBranches.push(new Branch(true, 4 - rightBranches[i-1].lowerBound));
+        rightBranches[i].populateBranch()
+    }
+
+    let leftpiece = '';
+    leftBranches.forEach(branch => {
+        leftpiece += branch.toString();
     });
+    let numRows = leftpiece.match(/br/g).length;
+    if (numRows < 34) leftpiece += ('&nbsp;'.repeat(16)+ '&<br/>').repeat(34-numRows);
 
+    let rightpiece = '';
+    rightBranches.forEach(branch => {
+        branch.populateBranch()
+        rightpiece += branch.toString();
+    });
+    numRows = (rightpiece.match(/br/g) || []).length;
+    if (numRows < 34) rightpiece += '&<br/>'.repeat(34-numRows);
+
+    let rstring = addBlocks(leftpiece, centerPiece());
+    rstring = addBlocks(rstring, rightpiece);
 
     return rstring;
 };

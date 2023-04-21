@@ -50,6 +50,8 @@ function printClouds() {
         wholeCloud += makeItRain(cloudCount, spacePrefix);
     }
 
+    console.log(wholeCloud)
+
     return wholeCloud;
 }
     // figure out how to render the whole shape, from the top down
@@ -282,116 +284,107 @@ function printTwinkleBanner() {
     return row;
 }
 
+// helper function to get a random int within a certain range
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function printStarburst(min, max) {
+function printStarburst(width = 20, height = 15) {
     var availChars = "#*."
-    var centChar = availChars[Math.floor(Math.random() * availChars.length)]
+    var centChar = "#"
+    // var centChar = availChars[Math.floor(Math.random() * availChars.length)]     //uncomment to make central character random
 
-    m = getRandomInt(min, max);
-    n = getRandomInt(min, max);
-    var starGrid = Array.from(Array(m), _ => Array(n).fill('.'));
+    // dimensions of 2d array. uncomment following lines to make dimensions random within given range
+    m = width
+    n = height
+    // m = getRandomInt(min, max);
+    // n = getRandomInt(min, max);
 
-    // var starGrid = [...Array(m)].map(e => Array(n));
+    var starGrid = Array.from(Array(n), _ => Array(m).fill('&nbsp;'));
 
+    // x and y values of center rectangle within starburst 2d array
     xmid_min = Math.floor(m / 4);
     xmid_max = Math.floor((m * 3) / 4);
     ymid_min = Math.floor(n / 4);
     ymid_max = Math.floor((n * 3) / 4);
 
-    console.log(xmid_min, xmid_max, ymid_min, ymid_max, m, n)
-    // cent_x = getRandomInt(xmid_min, xmid_max);
-    // cent_y = getRandomInt(ymid_min, ymid_max);
+    // central coordinates
     cent_x = Math.floor(m / 2);
     cent_y = Math.floor(n / 2);
 
-    // console.log("central", cent_x, cent_y)
+    // available directions for "arms" of central character in starburst
+    var directions = [[[0,1], [-1,1]], [[1,0],[1,1]], [[0,-1],[1,-1]], [[-1,0],[-1,-1]]]
 
-    numLines = getRandomInt(2, 4);
-    // c_x = myGrid.length, 
-    // c_y = myGrid[0].length
-
-    // startCoor = [m - 1, n - 1]
-    // for (r = 0; r < numLines; r++) {
-    //     x = startCoor[0]
-    //     y = startCoor[1]
-    // }
-
-    // console.log("cent", cent_x, cent_y)
-
-    var spaces = [[[0,1], [-1,1]], [[1,0],[1,1]], [[0,-1],[1,-1]], [[-1,0],[-1,-1]]]
-    for (let s = 0; s < spaces.length; s += Math.floor(6/numLines)) {
-        lineLen = getRandomInt(3, Math.min(xmid_max - xmid_min, ymid_max - ymid_min) / 2)
+    // iterate through directions and produce arms
+    for (let s = 0; s < directions.length + 1; s++) {
+        lineLen = getRandomInt(2, Math.min(xmid_max - xmid_min, ymid_max - ymid_min) / 3)
         currLen = 0
         x = cent_x
         y = cent_y
-        printStarBurst(starGrid)
-        console.log(" ")
-        while (currLen < lineLen && y < starGrid.length && y > 0 && x < starGrid[0].length && x > 0) {
-            // console.log("currlen", currLen, "len", lineLen, "x", x, "y", y, "s", s, "centx", cent_x, "centy", cent_y)
+
+        // for each direction, create each arm
+        while (y < starGrid.length && y > 0 && x < starGrid[0].length && x > 0) {
             starGrid[y][x] = centChar
-            x += spaces[s][getRandomInt(0, 1)][0]
-            y += spaces[s][getRandomInt(0, 1)][1]
+
+            // continue extending arm until reach max arm limit
+            if (currLen < lineLen) {
+                x += directions[s % directions.length][getRandomInt(0, 1)][0]
+                y += directions[s % directions.length][getRandomInt(0, 1)][1]
+            } 
+
+            // add curvature to arm at the end (not necessary and can comment out)
+            else {
+                x += directions[s % directions.length][1][0]
+                y += directions[s % directions.length][1][1]
+                starGrid[y][x] = centChar
+                break
+            } 
+
+            // break if crossing another arm
             currLen++
+            if (starGrid[y][x] == centChar) {
+                break
+            }
         }
-        // createLine(starGrid, cent_x, cent_y, spaces[s], 0, lineLen, centChar)
-        // console.log("s:", s)
     }
-    console.log("central", centChar)
+
+    // scatter emanating characters
     availChars = availChars.replace(centChar, '')
     secondChar = availChars[Math.floor(Math.random() * availChars.length)]
     availChars = availChars.replace(secondChar, '')
     thirdChar = availChars[Math.floor(Math.random() * availChars.length)]
 
-    // m2 = Math.random() * ((Math.floor((m * 3) / 4)) - Math.floor(m / 4)) + Math.floor(m / 4)
-    // n2 = Math.random() * ((Math.floor((n * 3) / 4)) - Math.floor(n / 4)) + Math.floor(n / 4)
-    // if (starGrid[m][n] != null) {
-    //     starGrid[m][n] = char
-    // }
+    createSpreadChar(starGrid, "*", centChar, xmid_min, xmid_max, ymid_min, ymid_max, 4);
+    createSpreadChar(starGrid, ".", centChar, xmid_min, xmid_max, ymid_min, ymid_max, 4);
+    createSpreadChar(starGrid, "*", centChar, 0, m - 1, 0, n - 1, 3);
+    createSpreadChar(starGrid, ".", centChar, 0, m - 1, 0, n - 1, 3);
 
-    for (var i = ymid_min; i < ymid_max; i++) {
-        for (var j = xmid_min; j < xmid_max; j++) {
-            if (getRandomInt(0, 1) == 1 && starGrid[i][j] != centChar) {
-                // starGrid[i][j] = secondChar
-            } else if (getRandomInt(0, 1) == 1 && starGrid[i][j] != centChar) {
-                // starGrid[i][j] = thirdChar
-            }
-        }
-    }
-
-    printStarBurst(starGrid)
-
-}
-
-function printStarBurst(starGrid) {
+    // convert 2d array into string
     arrText='';
     for (var i = 0; i < starGrid.length; i++) {
         for (var j = 0; j < starGrid[i].length; j++) {
-            arrText+=starGrid[i][j]+' ';
+            arrText+=starGrid[i][j] + ' ';
         }
-        console.log(arrText);
-        arrText='';
+        arrText += "<br/>";
     }
+    return arrText;
+    // return stringStarBust(starGrid)
 }
 
-function createLine(grid, x, y, directions, currlen, len, char) {
-    if (grid[y] == undefined) {
-        console.log("undefined", grid, y, grid.length, grid[0].length)
-    }
-    if (currlen > len || y >= grid.length || x >= grid[0].length) {
-        console.log("end of line");
-        return
-    } else {
-        // console.log("char", char, "y", y, "x", x)
-        // console.log("grid", grid, "grid end")
-        // console.log(grid[y][x])
-        grid[y][x] = char;
-        m = Math.random() * 1;
-        return createLine(grid, x+directions[getRandomInt(0, 1)][0], y+directions[getRandomInt(0, 1)][1], directions, currlen+1, len, char);
+// helper function to randomly scatter emanating in grid
+// pass in the grid, character to scatter, central character, x and y range, and max number of characters to scatter
+function createSpreadChar(grid, char, centChar, x_min, x_max, y_min, y_max, max_spots) {
+    var occupiedSpots = 0;
+      
+    while(occupiedSpots < max_spots) {
+        x_ran = getRandomInt(x_min, x_max);
+        y_ran = getRandomInt(y_min, y_max);
+        if(grid[y_ran][x_ran] != centChar){
+            grid[y_ran][x_ran] = char;
+            occupiedSpots++;
+        }
     }
 }
 
@@ -399,17 +392,15 @@ function createLine(grid, x, y, directions, currlen, len, char) {
 
 // put stuff onto the receipt
 
-// for (let y = 0; y < 5; y++) {
-    // textContent += printClouds();
-    // textContent += "<br/><br/>";
-    // textContent += printChandelierA();
-    // textContent += printChandelierB() + "<br/>";
-    // textContent += printTwinkleBanner() + "<br/>";
-//     textContent += printStarburst(10, 10) + "<br/>";
-// }
+for (let y = 0; y < 5; y++) {
+    textContent += printClouds();
+    textContent += "<br/><br/>";
+    textContent += printChandelierA();
+    textContent += printChandelierB() + "<br/>";
+    textContent += printTwinkleBanner() + "<br/>";
+    textContent += printStarburst() + "<br/>";
+}
  
-printStarburst(15, 15) + "<br/>";
-
 // FINALLY: everything that we did - put it onto the receipt
 let ReceiptPlace = document.querySelector('#receipt');
 ReceiptPlace.innerHTML = textContent;

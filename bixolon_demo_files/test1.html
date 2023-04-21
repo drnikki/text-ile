@@ -1,0 +1,355 @@
+
+<!DOCTYPE html>
+<script src="js/bxlcommon.js"></script>
+<script src="js/bxlpos.js"></script>
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <title>HASTAC receipt test</title>
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/responsive.css" />
+    <link rel="stylesheet" type="text/css" href="css/modules.css" />
+    <link rel="stylesheet" type="text/css" href="css/receipt.css" />
+
+</head>
+
+<style>
+    .ripple {
+        background-position: center;
+        transition: background 0.8s;
+    }
+    .ripple:hover {
+        background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
+    }
+    .ripple:active {
+        background-color: #6eb9f7;
+        background-size: 100%;
+        transition: background 0s;
+    }
+
+    /* Button style */
+    button {
+        border: none;
+        border-radius: 2px;
+        padding: 12px 18px;
+        font-size: 16px;
+        text-transform: uppercase;
+        cursor: pointer;
+        color: white;
+        background-color: #2196f3;
+        box-shadow: 0 0 4px #999;
+        outline: none;
+    }
+</style>
+
+
+<body onload="initialize()">
+<header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-offset-1 col-md-2 col-sm-3 col-sm-offset-0 col-xs-6">
+                <h1 class="logo">
+                    <img src="images/header/main_logo.png" alt="main-logo" class="img-responsive">
+                </h1>
+            </div>
+            <div class="col-md-5 col-sm-7 hidden-xs">
+                <h2 class="title">
+                    Web Print SDK Sample - Pos Printer
+                </h2>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section>
+
+    <div id="contain">
+        <div id="wrap-contents">
+            <div id="image-contents" class="row" style="padding-top:20px;padding-left:20px">
+                <div class="col-md-6 cold-sm-6 product">
+                    <h2>Receipt Sample</h2>
+                    <h3 style="padding-top:15px">Result : </h3>
+                    <input type="text" class="text form-control" id="p_result" />
+                    <h3>Logical name : </h3>
+                    <input type="text" class="text form-control" id="p_name" value="Printer1" />
+                    <select id="type_inch" onchange="changeInch()" >
+                        <option value="2">2inch</option>
+                        <option value="3" selected>3inch</option>
+                        <option value="4">4inch</option>
+                    </select>
+                    <button id="print_bt" class="ripple" style="margin-top:15px" onclick="PrintReceipt();"> Print receipt </button>
+                    <!--<input type="button" id="receipt_bt" style="margin-top:15px" value="Print receipt" onclick="PrintReceipt();" />-->
+                </div>
+            </div>
+
+            <HR width="100%" align="center" style="color:black; background-color:black; height:1px; border:none" />
+
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#sampleBox').on('change',function(){
+            if(this.value == 'pos') {
+                location.href = "Sample_PosPrinter.html";
+            } else if(this.value == 'label') {
+                location.href = "Sample_LabelPrinter.html";
+            } else if(this.value == 'msr') {
+                location.href = "Sample_MSR.html";
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#sampleBoxMode').on('change',function(){
+            if(this.value == 'http') {
+                setConnectionMode("http:");
+            } else if(this.value == 'https') {
+                setConnectionMode("https:");
+            } else if(this.value == 'ws') {
+                setConnectionMode("ws:");
+            } else if(this.value == 'wss') {
+                setConnectionMode("wss:");
+            }
+        });
+    });
+</script>
+<section class="receipt"></section>
+<footer class="container-fluid">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <ul>
+                <li>
+                    <p>© 2018 Bixolon. All right reserved. &nbsp;&nbsp;
+                        <select id="sampleBox">
+                            <option value="pos">PosPrinter</option>
+                            <option value="label">LabelPrinter</option>
+                            <option value="msr">MSR</option>
+                        </select>
+                        <select id="sampleBoxMode">
+                            <option value="http">HTTP</option>
+                            <option value="https">HTTPS</option>
+                            <option value="ws">WS</option>
+                            <option value="wss">WSS</option>
+                        </select>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+</body>
+
+<script src="js/chandelier.js"></script>
+<script type="text/javascript">
+
+    var LF = "\n";
+    var issueID = 1;
+    var tmp = "123456789"
+    var _inch = 2;
+
+    function changeInch() {
+        _inch = type_inch.value;
+    }
+
+    function viewResult(result) {
+        p_result.value = result;
+    }
+
+    // this generates a character string of any length
+    // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript <- this is for random
+
+
+
+
+    function printClouds() {
+        ///
+        /// set variables for this instance of clouds
+        ///
+
+        // 1. determine whether or not there are 1, 2 or 3 clouds
+        var cloudCount = Math.floor((Math.random() * 3) + 1); // btwn 1 and 3
+        // is there rain?
+        var isRain = Math.random() > 0.5 ? true : false;
+        // where do the clouds start? (position is different based on cloudCount)
+        switch(cloudCount) {
+            case 1:
+                var startPosition = Math.floor((Math.random() * 26) + 1); // btwn 1 and 26
+                oneCloud(numToSpace(startPosition));
+                break;
+            case 2:
+                var startPosition = Math.floor((Math.random() * 12) + 1); // btwn 1 and 12
+                oneCloud(numToSpace(startPosition));
+                oneCloud(numToSpace(startPosition)); // just testing! not ideal!
+
+                break;
+            case 3:
+                var startPosition = Math.floor((Math.random() * 3) + 1); // btwn 1 and 3
+                oneCloud(numToSpace(startPosition));
+                oneCloud(numToSpace(startPosition));
+                oneCloud(numToSpace(startPosition));
+
+                break;
+            default:
+                var startPosition = 1;
+        }
+        // convert startPosition to a string of nonbreaking spaces
+        // so that it can just be appended to each row
+
+        var spacePrefix = numToSpace(startPosition);
+
+        if (isRain) {
+            makeItRain(cloudCount, spacePrefix);
+        }
+
+    }
+    // figure out how to render the whole shape, from the top down
+    // clouds have 5 rows plus rain if it exists
+
+    // the receipt printer api needs to run row by row and receive the text as though it
+    // were going into a <pre> tag.
+
+
+    function oneCloud(prefix) {
+        var row = '';
+        var oneWholeCloud = '';
+
+        row = prefix + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(()<br/>";
+        printText(prefix + numToSpace(6) + "(()" + "\n", 0, 0, false, false, false, 0, 1);
+
+        oneWholeCloud = row;
+        row = prefix +"&nbsp;&nbsp;&nbsp;&nbsp;(((())<br/>";
+        printText(prefix + numToSpace(4) + "(((())" + "\n", 0, 0, false, false, false, 0, 1);
+
+        oneWholeCloud += row;
+        row = prefix +"&nbsp;&nbsp;(((((()))))<br/>";
+        printText(prefix + numToSpace(2) + "(((((()))))" + "\n", 0, 0, false, false, false, 0, 1);
+
+        oneWholeCloud += row;
+        row = prefix +"(((())))))<br/>";
+        printText(prefix  + "(((())))))" + "\n", 0, 0, false, false, false, 0, 1);
+
+        oneWholeCloud += row;
+        row = prefix + "&nbsp;&nbsp;((())))<br/>";
+        printText(prefix + numToSpace(2) + "((())))" + "\n", 0, 0, false, false, false, 0, 1);
+
+        oneWholeCloud += row;
+
+        return oneWholeCloud;
+    }
+
+
+    function makeItRain(cloudCount, prefix) {
+        // how many rows of rain will we make?
+        var rainRows =  Math.floor((Math.random() * 12) + 4); // btwn 4 and 12 @MOLLY?!
+
+        // we'd do something about the width of the rain based on the Clouds
+        let someRain = ''; // the contents of the rain.
+
+        // FOR ONE CLOUD
+        for (let r = 0; r < rainRows; r++) {
+            printText(prefix + randomSpacer(1, 7) + "\n", 0, 0, false, false, false, 0, 1);
+        }
+
+        // not returning anything right now becasue every fn is printing, for this
+        // ROUGH prototype
+        return someRain;
+    }
+
+
+    // This helper function just converts a number to nonbreaking spaces.
+    // That's all it does
+    function numToSpace(howMany) {
+        // convert # to spaces
+        let prefix = '';
+        for (let s =0; s < howMany; s++) {
+            prefix += " ";
+        }
+
+        return prefix;
+    }
+
+    // this helper function generates a random number between a min and a max
+    // and returns that # in spaces
+    function randomSpacer(min, max) {
+        let theNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+
+        return numToSpace(theNumber);
+    }
+
+
+
+
+
+
+
+
+    const browserToReceipt = textContent => {
+        const rows = textContent.split('<br/>');
+        rows.map(row => {
+            row = row.replaceAll('&nbsp;', ' ');
+            row += '\n';
+            return row;
+        });
+        return rows;
+    };
+
+
+    function PrintReceipt() {
+
+        setPosId(issueID);
+        checkPrinterStatus();
+
+
+
+
+        //	printText("MiraeAsset Venture Tower 685,\nSampyeong-dong, Bundang-gu,\nSeongnam-si, Gyeonggi-do,\n463-400, Korea\n", 0, 0, false, false, false, 0, 1);
+
+
+        // TODO: these don't work
+        // printQRCode("www.bixolon.com",0,1,7,0);
+        // print1DBarcode("01234567890",0,4,70,2,1);
+
+        browserToReceipt(textContent).forEach(printText);
+
+        printText("\n", 0, 0, false, false, false, 0, 0);
+        cutPaper(1);
+
+        var strSubmit = getPosData();
+
+        console.log(strSubmit);
+
+        issueID++;
+        requestPrint(p_name.value, strSubmit, viewResult);
+
+        return true;
+    } // end PrintReceipt()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</html>

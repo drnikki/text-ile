@@ -787,18 +787,17 @@ const printRope = () => {
  
 // FINALLY: everything that we did - put it onto the receipt
 
-let ReceiptPlaces = document.querySelectorAll('.receipt'); // list of all receipts (only 1 for index.html)
-for (let i = 0; i < ReceiptPlaces.length; i++) {
-    let textContent = ''; // this is what prints on the receipt.
-    for (let y = 0; y < 5; y++) {
-        textContent += printClouds();
-        textContent += "<br/><br/>";
-        textContent += printChandelierA();
-        textContent += printChandelierB() + "<br/>";
-        textContent += printTwinkleBanner() + "<br/>";
-        textContent += printStarburst() + "<br/>";
-        textContent += printRope() + "<br/>";
-    }
-    // FINALLY: everything that we did - put it onto the receipt
-    ReceiptPlaces[i].innerHTML = textContent;
+
+let textContent = ''; // this is what prints on the receipt.
+for (let y = 0; y < 5; y++) {
+    textContent += printClouds();
+    textContent += "<br/><br/>";
+    textContent += printChandelierA();
+    textContent += printChandelierB() + "<br/>";
+    textContent += printTwinkleBanner() + "<br/>";
+    textContent += printStarburst() + "<br/>";
+    textContent += printRope() + "<br/>";
 }
+
+
+let ReceiptPlaces = document.querySelectorAll('.receipt'); // list of all receipts (only 1 for index.html)

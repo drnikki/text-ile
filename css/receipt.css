@@ -11,20 +11,30 @@
     font-weight: bold;
 }
 
-#receipt{
-    background: white;
-    width: 400px;
-    padding: 15px;
-    margin: auto;
-    text-align: left;
-    font-family: 'Andalé Mono', monospace;
- 
+#receipts{
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	align-content: space-between;
+	align-items: flex-start;
+	overflow: scroll;
+	gap: 15pt;
 }
 
-#receipt p.lorem {
-    padding-bottom: 15px;
+.receipt{
+	background: white;
+	width: 400px;
+	padding: 15px;
+	margin: 0 auto auto;
+	text-align: left;
+	font-family: 'Andalé Mono', monospace;
+}
+
+.receipt p.lorem {
+	padding-bottom: 15px;
 
 }
+
 
 #configForm, #configForm table {
     color: white;

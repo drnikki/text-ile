@@ -800,4 +800,3 @@ for (let y = 0; y < 5; y++) {
 }
 
 
-let ReceiptPlaces = document.querySelectorAll('.receipt'); // list of all receipts (only 1 for index.html)

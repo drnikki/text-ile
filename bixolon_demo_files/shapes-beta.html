@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<script src="js/bxlcommon.js"></script>
+<script src="js/bxlpos.js"></script>
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <title>Print with Sprites</title>
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/responsive.css" />
+    <link rel="stylesheet" type="text/css" href="css/modules.css" />
+    <link rel="stylesheet" type="text/css" href="css/receipt.css" />
+
+</head>
+<script src="js/chandelier.js"></script>
+<script type="text/javascript">
+
+    var LF = "\n";
+    var issueID = 1;
+    var tmp = "123456789"
+    var _inch = 2;
+
+    function changeInch() {
+        _inch = type_inch.value;
+    }
+
+    function viewResult(result) {
+        p_result.value = result;
+    }
+
+
+    function browserToReceipt ( textContent ) {
+        const rows = textContent.split(/<\s*\/?\s*br\s*\/?\s*>/); // < (spaces) (possible /) (spaces) br (repeat as before) >
+        return rows.map(row => row.replaceAll('&nbsp;', ' ') + '\n');
+    };
+
+
+    function PrintReceipt() {
+
+        setPosId(issueID);
+        checkPrinterStatus();
+
+        //	printText("MiraeAsset Venture Tower 685,\nSampyeong-dong, Bundang-gu,\nSeongnam-si, Gyeonggi-do,\n463-400, Korea\n", 0, 0, false, false, false, 0, 1);
+
+
+        // TODO: these don't work
+        // printQRCode("www.bixolon.com",0,1,7,0);
+        // print1DBarcode("01234567890",0,4,70,2,1);
+
+        browserToReceipt(textContent).forEach(row => {
+            console.log(row);
+            printText(row, 0, 0, false, false, false, 0, 0)
+        });
+        printText("\n", 0, 0, false, false, false, 0, 0);
+        cutPaper(1);
+
+        var strSubmit = getPosData();
+
+
+        issueID++;
+        requestPrint(p_name.value, strSubmit, viewResult);
+
+        return true;
+    } // end PrintReceipt()
+
+
+</script>
+
+
+<body onload="initialize()">
+<header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-offset-1 col-md-2 col-sm-3 col-sm-offset-0 col-xs-6">
+                <h1 class="logo">
+                    <img src="images/header/main_logo.png" alt="main-logo" class="img-responsive">
+                </h1>
+            </div>
+            <div class="col-md-5 col-sm-7 hidden-xs">
+                <h2 class="title">
+                    Web Print SDK Sample - Receipt Sprites Test
+                </h2>
+            </div>
+            <button class="btn btn-primary" onclick="PrintReceipt()" style="
+                position: fixed;
+                top: 30pt;
+            ">Print</button>
+        </div>
+    </div>
+</header>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#sampleBoxMode').on('change',function(){
+            if(this.value == 'http') {
+                setConnectionMode("http:");
+            } else if(this.value == 'https') {
+                setConnectionMode("https:");
+            } else if(this.value == 'ws') {
+                setConnectionMode("ws:");
+            } else if(this.value == 'wss') {
+                setConnectionMode("wss:");
+            }
+        });
+    });
+</script>
+
+<!-- To be populated with the generated receipt -->
+<section class="receipt"></section>
+
+<footer class="container-fluid">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <ul>
+                <li>
+                    <p>© 2018 Bixolon. All right reserved. &nbsp;&nbsp;
+                        <select id="sampleBoxMode">
+                            <option value="http">HTTP</option>
+                            <option value="https">HTTPS</option>
+                            <option value="ws">WS</option>
+                            <option value="wss">WSS</option>
+                        </select>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript">
+    // FINALLY: everything that we did - put it onto the receipt
+const ReceiptPlace = document.querySelector('.receipt');
+ReceiptPlace.innerHTML = textContent;
+
+</script>
+</body>
+
+
+
+</html>

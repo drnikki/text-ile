@@ -784,7 +784,11 @@ const printRopePiece = (long = true) => {
 const printRope = () => {
     return printRopePiece(false) + printRopePiece(true) + printRopePiece(false);
 }
- 
+
+const printHerringBone = () => {
+    
+}
+
 // FINALLY: everything that we did - put it onto the receipt
 
 let ReceiptPlaces = document.querySelectorAll('.receipt'); // list of all receipts (only 1 for index.html)

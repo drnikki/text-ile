@@ -784,7 +784,30 @@ const printRopePiece = (long = true) => {
 const printRope = () => {
     return printRopePiece(false) + printRopePiece(true) + printRopePiece(false);
 }
- 
+
+/**
+ * print the basketweave
+ */
+ const printBasketWeave = (rows=10) => {
+    const columns = 40;
+    const pattern = '--|';
+    let ret = '';
+    let index = 0;
+
+    // iterate through number of rows and columns
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < columns; j++) {
+            // take current index of pattern string mod pattern string length and to return string
+            ret += pattern[index % pattern.length];
+            index++;
+        }
+        ret += '<br/>';
+        index++;
+    }
+    return ret;
+}
+
+
 // FINALLY: everything that we did - put it onto the receipt
 
 let ReceiptPlaces = document.querySelectorAll('.receipt'); // list of all receipts (only 1 for index.html)
@@ -798,6 +821,7 @@ for (let i = 0; i < ReceiptPlaces.length; i++) {
         textContent += printTwinkleBanner() + "<br/>";
         textContent += printStarburst() + "<br/>";
         textContent += printRope() + "<br/>";
+        textContent += printBasketWeave() + "<br/>";
     }
     // FINALLY: everything that we did - put it onto the receipt
     ReceiptPlaces[i].innerHTML = textContent;

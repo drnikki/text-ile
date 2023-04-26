@@ -15,6 +15,28 @@ let i = 0;
 
 
 
+function printDotPattern(rowCount) {
+    let pattern = '';
+    // NOTE: we're assuming 40 columns, so
+    // we might benefit from a global column variable later
+    let columns = 40;
+    let printChar = '';
+    for (let x = 0; x < rowCount; x++) {
+        printChar = ";"; 
+        if (x % 2 == 1) { // first row
+            printChar = ":"
+        } 
+        for (let y=0; y < columns; y++) {
+            pattern += printChar;
+        }
+        // when we're here, it's the end of the row
+        pattern += "</br>";
+
+    }
+
+    return pattern;
+}
+
 
 function printClouds() {
     ///
@@ -791,6 +813,7 @@ let ReceiptPlaces = document.querySelectorAll('.receipt'); // list of all receip
 for (let i = 0; i < ReceiptPlaces.length; i++) {
     let textContent = ''; // this is what prints on the receipt.
     for (let y = 0; y < 5; y++) {
+        textContent += printDotPattern(5);
         textContent += printClouds();
         textContent += "<br/><br/>";
         textContent += printChandelierA();

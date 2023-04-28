@@ -3,9 +3,7 @@ import {printChandelierA, printChandelierB} from "./sprite/chandelier.js";
 import printTwinkleBanner from "./sprite/banner.js";
 import printStarburst from "./sprite/starburst.js";
 import printRope from "./sprite/rope.js";
-import printBasketWeave from "./pattern/basketweave.js";
-import printHerringBone from "./pattern/herringbone.js";
-import printDiamond from "./pattern/diamond.js";
+import {printBasketWeave, printHerringBone, printDiamond} from "./sprite/pattern.js";
 
 
 // NOTE: when it's the full length, the console should show 177,000.

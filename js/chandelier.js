@@ -13,6 +13,27 @@
 
 let i = 0;
 
+function printSeedStitch(rowCount) {
+    let line = '';
+    let columns = 40;
+    let pattern = '';
+    let printChar = '';
+    for (let x = 0; x < rowCount; x++) {
+        printChar = "[-]"; 
+        if (x % 2 == 1) { // first row
+            printChar = "-I-"
+        } 
+        while (line.length < columns -1) {
+            line += printChar;
+        }
+
+        // when we're here, it's the end of the row
+        pattern += line + "</br>";
+        line = '';
+    }
+
+    return pattern;
+}
 
 
 
@@ -875,6 +896,7 @@ let ReceiptPlaces = document.querySelectorAll('.receipt'); // list of all receip
 for (let i = 0; i < ReceiptPlaces.length; i++) {
     let textContent = ''; // this is what prints on the receipt.
     for (let y = 0; y < 5; y++) {
+        textContent += printSeedStitch(3);
         textContent += printClouds();
         textContent += "<br/><br/>";
         textContent += printChandelierA();

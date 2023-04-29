@@ -962,6 +962,19 @@ const printTriangleTop = padding => (
     + padding + numToSpace(1) + '0-.;:,..:,.:-0' + '<br/>'
 );
 
+/**
+ * 
+ * @returns prints the mario coin box
+ */
+const printMarioCoinBox = () => {
+    const verticalBorder = "[][][][][][][][][][][]"
+    return verticalBorder + "<br/>" + "[]------------------[]" + "<br/>" + "[]-----????????-----[]" + "<br/>" +
+    "[]--?????????????---[]" + "<br/>" + "[]--???-------???---[]" + "<br/>" + "[]---???-----???----[]" +
+    "<br/>" + "[]---------???------[]" + "<br/>" + "[]--------???-------[]" + "<br/>" + "[]--------???-------[]" +
+    "<br/>" + "[]------------------[]" + "<br/>" + "[]--------??--------[]" + "<br/>" + "[]------------------[]" +
+    "<br/>" + "[][][][][][][][][][][]" + "<br/>";
+}
+
 
 // FINALLY: everything that we did - put it onto the receipt
 
@@ -983,6 +996,7 @@ for (let i = 0; i < ReceiptPlaces.length; i++) {
         textContent += printBasketWeave() + "<br/>";
         textContent += printHerringBone() + "<br/>";
         textContent += printDiamond() + "<br/>";
+        textContent += printMarioCoinBox() + "<br/>";
     }
     // FINALLY: everything that we did - put it onto the receipt
     ReceiptPlaces[i].innerHTML = textContent;

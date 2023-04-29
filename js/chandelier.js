@@ -920,12 +920,70 @@ const printBug = () => (
     + numToSpace(19) + '%%' + '<br/>'
 );
 
+/**
+ * print triangle 1
+ */
+const printTriangle1 = () => {
+    const padding = 12;
+    return (
+        printTriangleTop(numToSpace(padding))
+        + numToSpace(padding + 2) + '0-;::.:..:-0' + '<br/>'
+        + numToSpace(padding + 3) + `0-${numToSpace(2)}:,:.-0` + '<br/>'
+        + numToSpace(padding + 4) + '0-' + numToSpace(4) + '-0' + '<br/>'
+        + numToSpace(padding + 5) + '0-' + numToSpace(2) + '-0' + '<br/>'
+        + numToSpace(padding + 6) + '0--0' + '<br/>'
+        + numToSpace(padding + 7) + '\\/' + '<br/>'
+    );
+};
+
+/**
+ * print triangle 2
+ */
+const printTriangle2 = () => {
+    const padding = 12;
+    return (
+        printTriangleTop(numToSpace(padding))
+        + numToSpace(padding + 3) + '0-::.:..-0' + '<br/>'
+        + numToSpace(padding + 5) + '0-;,-0' + '<br/>'
+        + numToSpace(padding + 6) + '0--0' + '<br/>'
+        + numToSpace(padding + 7) + '\\/' + '<br/>'
+    );
+};
+
+/**
+ * prints the common top part for triangles 1 and 2 (all the way down through first 2 rows with 0's)
+ */
+const printTriangleTop = padding => (
+    padding + numToSpace(7) + '()' + '<br/>'
+    + padding + numToSpace(6) + '/.&nbsp;\\' + '<br/>'
+    + padding + numToSpace(2) + '|||~&nbsp;;.&nbsp;~|||' + '<br/>'
+    + padding + '---.;,.:,.;:,---' + '<br/>'
+    + padding + '0-.;,.:...;:,.-0' + '<br/>'
+    + padding + numToSpace(1) + '0-.;:,..:,.:-0' + '<br/>'
+);
+
+/**
+ * 
+ * @returns prints the mario coin box
+ */
+const printMarioCoinBox = () => {
+    const verticalBorder = "[][][][][][][][][][][]"
+    return verticalBorder + "<br/>" + "[]------------------[]" + "<br/>" + "[]-----????????-----[]" + "<br/>" +
+    "[]--?????????????---[]" + "<br/>" + "[]--???-------???---[]" + "<br/>" + "[]---???-----???----[]" +
+    "<br/>" + "[]---------???------[]" + "<br/>" + "[]--------???-------[]" + "<br/>" + "[]--------???-------[]" +
+    "<br/>" + "[]------------------[]" + "<br/>" + "[]--------??--------[]" + "<br/>" + "[]------------------[]" +
+    "<br/>" + "[][][][][][][][][][][]" + "<br/>";
+}
+
+
 // FINALLY: everything that we did - put it onto the receipt
 
 let ReceiptPlaces = document.querySelectorAll('.receipt'); // list of all receipts (only 1 for index.html)
 for (let i = 0; i < ReceiptPlaces.length; i++) {
     let textContent = ''; // this is what prints on the receipt.
     for (let y = 0; y < 5; y++) {
+        textContent += printTriangle1() + '<br/>';
+        textContent += printTriangle2() + '<br/>';
         textContent += printBug() + "<br/>";
         textContent += printSeedStitch(3);
         textContent += printClouds();
@@ -938,6 +996,7 @@ for (let i = 0; i < ReceiptPlaces.length; i++) {
         textContent += printBasketWeave() + "<br/>";
         textContent += printHerringBone() + "<br/>";
         textContent += printDiamond() + "<br/>";
+        textContent += printMarioCoinBox() + "<br/>";
     }
     // FINALLY: everything that we did - put it onto the receipt
     ReceiptPlaces[i].innerHTML = textContent;

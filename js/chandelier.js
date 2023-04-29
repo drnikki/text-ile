@@ -137,9 +137,15 @@ function randomSpacer(min, max) {
 }
 
 
-
-
-
+function printChandelierRope(spaces) {
+    let rope = numToSpace(spaces) + numToSpace(1) + "+" + numToSpace(1) + "<br/>" + numToSpace(spaces) + "===" + "<br/>";
+    for (let i=0; i<4; i++) {
+        rope += numToSpace(spaces) + numToSpace(1) + "(" + numToSpace(1) + "<br/>" + numToSpace(spaces) + numToSpace(2) + ")" + "<br/>";
+    }
+    rope += numToSpace(spaces) + numToSpace(1) + "(";
+    console.log(rope)
+    return rope;
+}
 
 function printChandelierA() {
     ///
@@ -167,7 +173,8 @@ function printChandelierA() {
 
     // print the brass to start?
     // these are always the same
-    var row = numToSpace(7) + "<^><br/>";
+    var row = printChandelierRope(7) + "<br/>";
+    row += numToSpace(7) + "<^><br/>";
     row += numToSpace(7) + "^^^<br/>";
     row += numToSpace(6) + "<^^^><br/>";
     row += numToSpace(5) + "<^^^^^><br/>";
@@ -207,7 +214,8 @@ function printChandelierB() {
     hasTail = Math.random() > 0.5 ? true : false; // it can only -not- have a tail if it has wings.
    }
 
-   var row = numToSpace(29) + "<^>" + "<br />";
+   var row = printChandelierRope(29) + "<br/>";
+   row += numToSpace(29) + "<^>" + "<br />";
    row += numToSpace(26) + ">>> | >>>" + "<br />";
    row += numToSpace(26) + "||| | |||" + "<br />";
    if (hasWings && !hasTail) {

@@ -166,7 +166,7 @@
     function browserToReceipt ( textContent ) {
         const rows = textContent.split('<br/>');
         const rrows = rows.map(row => row.replaceAll('&nbsp;', ' ') + '\n');
-        rrows.forEach(console.log);
+        //rrows.forEach(console.log);
         console.log("hi");
         return rrows;
     };
@@ -176,6 +176,7 @@
 
         setPosId(issueID);
         checkPrinterStatus();
+        setCharacterset(850);
 
 
         
@@ -189,8 +190,13 @@
         // TODO: these don't work
         // printQRCode("www.bixolon.com",0,1,7,0);
         // print1DBarcode("01234567890",0,4,70,2,1);
+        directPrintText("1234567890123456789012345678901234567890");
+        directPrintText("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+        printDataMatrix("012345", 0, 2);
+        directPrintHex("3132330a");
+        directPrintHex("3132330a");
 
-        browserToReceipt(textContent).forEach(row => printText(row, 0, 0, false, false, false, 0, 0));
+       // browserToReceipt(textContent).forEach(row => printText(row, 0, 0, false, false, false, 1, 0));
 
         printText("\n", 0, 0, false, false, false, 0, 0);
         cutPaper(1);
@@ -283,19 +289,7 @@
     </div>
 </section>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#sampleBox').on('change',function(){
-            if(this.value == 'pos') {
-                location.href = "Sample_PosPrinter.html";
-            } else if(this.value == 'label') {
-                location.href = "Sample_LabelPrinter.html";
-            } else if(this.value == 'msr') {
-                location.href = "Sample_MSR.html";
-            }
-        });
-    });
-</script>
+
 
 <script type="text/javascript">
     $(document).ready(function() {

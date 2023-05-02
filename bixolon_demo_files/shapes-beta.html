@@ -33,7 +33,7 @@
     }
 
     function viewResult(result) {
-        p_result.value = result;
+        console.log(result);
     }
 
 
@@ -56,17 +56,17 @@
         // print1DBarcode("01234567890",0,4,70,2,1);
 
         browserToReceipt(textContent).forEach(row => {
-            console.log(row);
-            printText(row, 0, 0, false, false, false, 0, 0)
+           // console.log(row);
+            printText(row, 0, 0, false, false, false, 1, 0)
         });
-        printText("\n", 0, 0, false, false, false, 0, 0);
+        printText("\n", 0, 0, false, false, false, 1, 0);
         cutPaper(1);
 
         var strSubmit = getPosData();
 
 
         issueID++;
-        requestPrint(p_name.value, strSubmit, viewResult);
+        requestPrint("Printer1", strSubmit, viewResult);
 
         return true;
     } // end PrintReceipt()

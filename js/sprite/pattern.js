@@ -81,3 +81,28 @@ export const printDiamond = (rows=10) => {
     }
     return ret
 }
+
+/**
+ * print seed stitch pattern
+ */
+export function printSeedStitch(rowCount) {
+    let line = '';
+    let columns = 40;
+    let pattern = '';
+    let printChar = '';
+    for (let x = 0; x < rowCount; x++) {
+        printChar = "[-]";
+        if (x % 2 == 1) { // first row
+            printChar = "-I-"
+        }
+        while (line.length < columns -1) {
+            line += printChar;
+        }
+
+        // when we're here, it's the end of the row
+        pattern += line + "</br>";
+        line = '';
+    }
+
+    return pattern;
+}

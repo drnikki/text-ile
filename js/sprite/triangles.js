@@ -1,3 +1,5 @@
+import {numToSpace} from "../stringManipulation.js";
+
 /**
  * print triangle 1
  */

@@ -9,19 +9,6 @@ import {printBasketWeave, printHerringBone, printDiamond, printSeedStitch} from 
 import printMarioCoinBox from "./sprite/coinBox.js";
 
 
-// NOTE: when it's the full length, the console should show 177,000.
-//console.log(shuffled.length);
-
-
-
-/**
- * These are stub tester files that are separate from any consideration of how the
- * data might relate to these shapes.
- *
- * Right now, we just need to get things printing for the prototypes.
- */
-
-// FINALLY: everything that we did - put it onto the receipt
 
 let ReceiptPlaces = document.querySelectorAll('.receipt'); // list of all receipts (only 1 for index.html)
 for (let i = 0; i < ReceiptPlaces.length; i++) {

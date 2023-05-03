@@ -31,11 +31,30 @@ export default function printStarburst(width = 20, height = 15) {
     const cent_x = Math.floor(m / 2);
     const cent_y = Math.floor(n / 2);
 
+    const chosenDirection = Math.round(Math.random())
     // available directions for "arms" of central character in starburst
-    var directions = [[[0,1], [-1,1]], [[1,0],[1,1]], [[0,-1],[1,-1]], [[-1,0],[-1,-1]]];
+    const allDirections = [[[[0,1], [-1,1]], [[1,0],[1,1]], [[0,-1],[1,-1]], [[-1,0],[-1,-1]], [[0,1], [0,1]], [[0,-1], [0,-1]], [[1,0], [1,0]], [[-1,0], [-1,0]]],
+                        [[[0,1], [1,1]], [[1,0], [1,-1]], [[0,-1], [-1,-1]], [[-1,0], [-1,1]], [[0,1], [0,1]], [[0,-1], [0,-1]], [[1,0], [1,0]], [[-1,0], [-1,0]]]];
+    let directions = allDirections[chosenDirection]
+    let pert = [[[0,1], [0,1]], [[0,-1], [0,-1]], [[1,0], [1,0]], [[-1,0], [-1,0]]]
+    pert = pert[Math.floor(Math.random() * 3)]
+
+    directions.push(pert)
+
+    for (var i = directions.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = directions[i];
+        directions[i] = directions[j];
+        directions[j] = temp;
+    }
+
+    let clockTips = [{'[0,1]': [-1,1], '[1,0]': [1,1], '[0,-1]': [1,-1], '[-1,0]': [-1,-1]}, 
+                    {'[0,1]': [1,1], '[1,0]': [1,-1], '[0,-1]': [-1,-1], '[-1,0]': [-1,1]}]
+
+    const clockDirection = clockTips[chosenDirection]
 
     // iterate through directions and produce arms
-    for (let s = 0; s < directions.length + 1; s++) {
+    for (let s = 0; s < directions.length - 2; s++) {
         const lineLen = getRandomInt(2, Math.min(xmid_max - xmid_min, ymid_max - ymid_min) / 3);
         let currLen = 0;
         let x = cent_x;
@@ -52,9 +71,14 @@ export default function printStarburst(width = 20, height = 15) {
             }
 
             // add curvature to arm at the end (not necessary and can comment out)
-            else {
-                x += directions[s % directions.length][1][0];
-                y += directions[s % directions.length][1][1];
+            else if (Math.round(Math.random()) == 1) {
+                let endDirection = clockDirection[JSON.stringify(directions[s % directions.length][0])]
+                // console.log(directions[s % directions.length][0])
+                // console.log(JSON.stringify(directions[s % directions.length][0]))
+                // console.log(clockDirection, JSON.stringify(directions[s % directions.length][0]))
+                // console.log(clockDirection['[1,0]'])
+                x += endDirection[0];
+                y += endDirection[1];
                 starGrid[y][x] = centChar;
                 break;
             }
@@ -68,9 +92,9 @@ export default function printStarburst(width = 20, height = 15) {
     }
 
     createSpreadChar(starGrid, "*", centChar, xmid_min, xmid_max, ymid_min, ymid_max, 4);
-    createSpreadChar(starGrid, ".", centChar, xmid_min, xmid_max, ymid_min, ymid_max, 4);
+    createSpreadChar(starGrid, ".", centChar, xmid_min, xmid_max, ymid_min, ymid_max, 10);
     createSpreadChar(starGrid, "*", centChar, 0, m - 1, 0, n - 1, 3);
-    createSpreadChar(starGrid, ".", centChar, 0, m - 1, 0, n - 1, 3);
+    createSpreadChar(starGrid, ".", centChar, 0, m - 1, 0, n - 1, 7);
 
     // convert 2d array into string
     let arrText='';
@@ -93,9 +117,10 @@ function createSpreadChar(grid, char, centChar, x_min, x_max, y_min, y_max, max_
     while(occupiedSpots < max_spots) {
         const x_ran = getRandomInt(x_min, x_max);
         const y_ran = getRandomInt(y_min, y_max);
-        if(grid[y_ran][x_ran] !== centChar){
+        if(grid[y_ran][x_ran] !== centChar && grid[y_ran][x_ran] !== char){
             grid[y_ran][x_ran] = char;
             occupiedSpots++;
         }
     }
 }
+

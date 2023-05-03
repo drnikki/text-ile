@@ -112,13 +112,6 @@
         setPosId(issueID);
         checkPrinterStatus();
 
-        //	printText("MiraeAsset Venture Tower 685,\nSampyeong-dong, Bundang-gu,\nSeongnam-si, Gyeonggi-do,\n463-400, Korea\n", 0, 0, false, false, false, 0, 1);
-
-
-        // TODO: these don't work
-        // printQRCode("www.bixolon.com",0,1,7,0);
-        // print1DBarcode("01234567890",0,4,70,2,1);
-
         // physically print each row of receipt
         textContentPrinter[receiptNum].forEach(row => {
             // console.log(row);  // use this line for testing, when you don't want to print physical receipts
@@ -128,7 +121,6 @@
         cutPaper(1);
 
         var strSubmit = getPosData();
-
 
         issueID++;
         requestPrint("Printer1", strSubmit, viewResult);

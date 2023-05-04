@@ -5,7 +5,7 @@ import {printChandelierA, printChandelierB} from "./sprite/chandelier.js";
 import printTwinkleBanner from "./sprite/banner.js";
 import printStarburst from "./sprite/starburst.js";
 import printRope from "./sprite/rope.js";
-import {printBasketWeave, printHerringBone, printDiamond, printSeedStitch} from "./sprite/pattern.js";
+import {printBasketWeave, printHerringBone, printDiamond, printDotPattern, printSeedStitch} from "./sprite/pattern.js";
 import printMarioCoinBox from "./sprite/coinBox.js";
 
 
@@ -15,7 +15,6 @@ for (let i = 0; i < ReceiptPlaces.length; i++) {
     let textContent = ''; // this is what prints on the receipt.
     for (let y = 0; y < 5; y++) {
         textContent += printDotPattern() + '<br/>';
-
         textContent += printTriangle1() + '<br/>';
         textContent += printTriangle2() + '<br/>';
         textContent += printBug() + "<br/>";

@@ -1,8 +1,9 @@
 /**
- * prints the twinkle banner as specified in the spec doc
+ * prints the twinkle banner as specified in the spec doc.
+ * @param {boolean} left tells the function to draw from left (if true) or right (if false). randomized if omitted
  * @returns {string} twinkle banner
  */
-const printTwinkleBanner = () => {
+const printTwinkleBanner = (left = Math.random() < 0.5) => {
     const ribbonChoices = "_*':-^";
     // decide how many ribbons to use
     const numRibbons = Math.floor((Math.random() * 11) + 20) // random int from 20-30
@@ -39,7 +40,7 @@ const printTwinkleBanner = () => {
 
     const banner = pole + ribbons;
 
-    return Math.random() < 0.5 ? banner : reverseBanner(banner);
+    return left ? banner : reverseBanner(banner);
 };
 
 /**

@@ -44,15 +44,9 @@
 </header>
 
 
+<!-- receipts will be placed in here -->
+<div id="receipts"></div>
 
-
-
-<!-- If you change the number of receipt elements here,
-    make sure ./js/receipt.js produces that same number of receipts -->
-<div id="receipts">
-    <div class="receipt"></div>
-    <div class="receipt"></div>
-</div>
 
 <footer class="container-fluid">
     <div class="row">
@@ -114,7 +108,7 @@
 
         // physically print each row of receipt
         textContentPrinter[receiptNum].forEach(row => {
-            // console.log(row);  // use this line for testing, when you don't want to print physical receipts
+            console.log(row);  // use this line for testing, when you don't want to print physical receipts
             printText(row, 0, 0, false, false, false, 1, 0)
         });
         printText("\n", 0, 0, false, false, false, 1, 0);
@@ -130,22 +124,31 @@
 
 
     // BROWSER STUFF:
-
-    // for each receipt element:
-    $(`.receipt`).each((i, e) => {
-        // add a button for the receipt
-        $(e).append(`
-            <button class="btn btn-primary print-btn" style="
-                position: fixed;
-            ">Print #${i+1}</button>
+    // create a receipt div with print button for each element in the textContentBrowser array
+    textContentBrowser.forEach(receiptContent => {
+        $('#receipts').append(`
+            <div class="receipt" style="position: relative">
+                <button class="print-btn"></button>
+                <br/>
+                ${receiptContent}
+            </div>
         `);
-        // add corresponding receipt text to browser
-        $(e).append(textContentBrowser[i]);
     });
 
-    // add listeners to each button which will print corresponding receipt on click
+    // add cosmetics and functionality to the print receipt buttons
     $('.print-btn').each((i, e) => {
-        $(e).click(() => PrintReceipt(i));
+        $(e).addClass("btn btn-primary"); // make it look good
+        $(e).css({ // make it stick
+            position: "absolute",
+            top: "10px",
+        });
+        $(e).html(`Print #${i+1}`); // give it some text
+        $(e).on("click", () => PrintReceipt(i)); // make it print the correct receipt
+    });
+
+    // scroll the buttons vertically with screen
+    $(window).on("scroll", function(){
+        $('.print-btn').css('top', 10 + $(this).scrollTop());
     });
 
 

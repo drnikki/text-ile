@@ -127,7 +127,7 @@
     // create a receipt div with print button for each element in the textContentBrowser array
     textContentBrowser.forEach(receiptContent => {
         $('#receipts').append(`
-            <div class="receipt" style="position: relative">
+            <div class="receipt">
                 <button class="print-btn"></button>
                 <br/>
                 ${receiptContent}
@@ -138,10 +138,6 @@
     // add cosmetics and functionality to the print receipt buttons
     $('.print-btn').each((i, e) => {
         $(e).addClass("btn btn-primary"); // make it look good
-        $(e).css({ // make it stick
-            position: "absolute",
-            top: "10px",
-        });
         $(e).html(`Print #${i+1}`); // give it some text
         $(e).on("click", () => PrintReceipt(i)); // make it print the correct receipt
     });

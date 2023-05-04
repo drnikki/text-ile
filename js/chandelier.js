@@ -825,3 +825,4 @@ for (let i = 0; i < ReceiptPlaces.length; i++) {
     // FINALLY: everything that we did - put it onto the receipt
     ReceiptPlaces[i].innerHTML = textContent;
 }
+

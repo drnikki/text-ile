@@ -1,3 +1,5 @@
+import {addBlocks} from "../stringManipulation.js";
+
 /**
  * class used to generate a single branch for rope sprite
  */

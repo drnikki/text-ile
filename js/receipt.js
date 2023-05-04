@@ -14,6 +14,8 @@ let ReceiptPlaces = document.querySelectorAll('.receipt'); // list of all receip
 for (let i = 0; i < ReceiptPlaces.length; i++) {
     let textContent = ''; // this is what prints on the receipt.
     for (let y = 0; y < 5; y++) {
+        textContent += printDotPattern() + '<br/>';
+
         textContent += printTriangle1() + '<br/>';
         textContent += printTriangle2() + '<br/>';
         textContent += printBug() + "<br/>";

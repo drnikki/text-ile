@@ -1,6 +1,12 @@
 import {browserToPrinter} from "../receipt.js";
 
 /**
+ * Use this template to create a file for a new receipt set.
+ * Follow the directions in the 4 comments marked TODO.
+ */
+
+
+/**
  * TODO 1/4: Describe your set of receipts
  */
 

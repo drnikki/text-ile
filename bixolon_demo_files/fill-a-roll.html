@@ -46,7 +46,7 @@ function makefill(length, repeats) {
 		var characters       = '====-----++++#||II';
 		var charactersLength = characters.length;
 		for ( var i = 0; i < length/repeats; i++ ) {
-			oneChar = characters.charAt(Math.floor(Math.random() * charactersLength));
+			oneChar = "&nbsp";
 			for ( var r =0; r < repeats; r++) {
 				result += oneChar; // this repeats each character twice.
 			}
@@ -90,7 +90,7 @@ function printOneLine(oneLineOfCharacters) {
 		checkPrinterStatus();
 
         // this will repeat this one foot, for approximately 100 feet (if y < 100)
-        for (var y = 0; y < 1; y++) {
+        for (var y = 0; y < 100; y++) {
             // this should print 12"
             for ( var i = 0; i < 30; i++ ) {
 				// print the 30 characters

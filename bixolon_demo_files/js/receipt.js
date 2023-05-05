@@ -1,7 +1,9 @@
 import allSpritesReceipt from "./receipt_sets/allSpritesReceipt.js";
 
 /**
- * TODO: describe this file
+ * The purpose of this file is to provide the function `getReceiptContent`. We first import
+ * each receipt set from its respective file and compile them all into a JSON object called `allTheReceipts`.
+ * The function takes a keyword as a parameter and uses `allTheReceipts` to return the correct receipt content.
  */
 
 

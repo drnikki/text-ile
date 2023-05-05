@@ -85,10 +85,17 @@
 </script>
 
 <script type="module">
+
+    import getReceiptContent from "./js/receipt.js";
+
     // get arrays of receipt data
+    // which set of receipts do we need?
+    const urlParams = new URLSearchParams(window.location.search);
+    const receiptSet = urlParams.get("receiptSet") || "allSprites";
+    document.title = `Receipt Printer | ${receiptSet}`;
     // textContentPrinter is a 2d array formatted for physical printer
     // textContentBrowser is a 1d array formatted for the browser
-    import {textContentPrinter, textContentBrowser} from "./js/receipt.js";
+    const [textContentBrowser, textContentPrinter] = getReceiptContent(receiptSet);
 
     var issueID = 1;
 

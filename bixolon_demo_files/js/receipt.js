@@ -1,59 +1,9 @@
-import {printTriangle1, printTriangle2} from "../../js/sprite/triangles.js";
-import printBug from "../../js/sprite/bug.js";
-import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch} from "../../js/sprite/pattern.js";
-import printClouds from "../../js/sprite/clouds.js";
-import {printChandelierA, printChandelierB} from "../../js/sprite/chandelier.js";
-import printTwinkleBanner from "../../js/sprite/banner.js";
-import printStarburst from "../../js/sprite/starburst.js";
-import printRope from "../../js/sprite/rope.js";
-import printMarioCoinBox from "../../js/sprite/coinBox.js";
-
+import allSpritesReceipt from "./receipt_sets/allSpritesReceipt.js";
 
 /**
- *  this file is used to generate the receipts for shapes-beta.html.
- *  It exports two arrays of receipt data (each element is a single receipt).
- *
- *  Currently generating random receipts.
+ * TODO: describe this file
  */
 
-
-/* number of random receipts to generate */
-const numOfReceipts = 2;
-
-/**
- * receipt data in browser-friendly form. an array of strings using &nbsp;'s and <br/>'s
- * @type {String[]}
- */
-export const textContentBrowser = [];
-
-/**
- * receipt data in printer-friendly form. a 2d array of strings using regular spaces and \n
- * @type {String[][]}
- */
-export const textContentPrinter = [];
-
-for (let i = 0; i < numOfReceipts; i++) {
-    let textContent = ''; // this is what prints on the receipt.
-    for (let y = 0; y < 5; y++) {
-        textContent += printTriangle1() + '<br/>';
-        textContent += printTriangle2() + '<br/>';
-        textContent += printBug() + "<br/>";
-        textContent += printSeedStitch(3);
-        textContent += printClouds();
-        textContent += "<br/><br/>";
-        textContent += printChandelierA();
-        textContent += printChandelierB() + "<br/>";
-        textContent += printTwinkleBanner() + "<br/>";
-        textContent += printStarburst() + "<br/>";
-        textContent += printRope() + "<br/>";
-        textContent += printBasketWeave() + "<br/>";
-        textContent += printHerringBone() + "<br/>";
-        textContent += printDiamond() + "<br/>";
-        textContent += printMarioCoinBox() + "<br/>";
-    }
-    textContentBrowser.push(textContent);
-    textContentPrinter.push(browserToReceipt(textContent));
-}
 
 /**
  * takes a string of browser-friendly receipt data and turns it into a printer-friendly array of receipt lines.
@@ -62,8 +12,44 @@ for (let i = 0; i < numOfReceipts; i++) {
  * @param textContent browser-friendly data
  * @returns {string[]} printer-friendly data
  */
-function browserToReceipt ( textContent ) {
+export function browserToPrinter ( textContent ) {
     const rows = textContent.split(/<\s*\/?\s*br\s*\/?\s*>/); // < (spaces) (possible /) (spaces) br (repeat as before) >
     return rows.map(row => row.replaceAll('&nbsp;', ' ') + '\n');
 }
 
+
+/**
+ * object to hold all the different kinds of receipts. see ./README.md
+ * @type {{}}
+ */
+const allTheReceipts = {};
+
+
+/**
+ * Given a receipt set, make an object out of it and add it to allTheReceipts
+ * @param receiptSet - the receipt set imported from a file in ./receipt_sets
+ */
+const addReceipts = ([keyword, {browserReceipts, printerReceipts}]) => {
+    allTheReceipts[keyword] = {
+        browserReceipts,
+        printerReceipts,
+    };
+};
+
+/**
+ * a list of all the receipt sets imported from the /receipt_sets directory
+ * @type {*[]}
+ */
+const receiptSets = [
+    allSpritesReceipt,
+]
+
+// add each set of receipts to allTheReceipts.
+receiptSets.forEach(addReceipts);
+
+/**
+ * the function we export
+ */
+const getReceiptContent = keyword =>
+    [allTheReceipts[keyword].browserReceipts, allTheReceipts[keyword].printerReceipts];
+export default getReceiptContent;

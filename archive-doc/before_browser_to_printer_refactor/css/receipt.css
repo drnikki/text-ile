@@ -28,12 +28,6 @@
 	margin: 0 auto auto;
 	text-align: left;
 	font-family: 'Andalé Mono', monospace;
-	position: relative;
-}
-
-.print-btn{
-	position: absolute;
-	top: 10px;
 }
 
 .receipt p.lorem {

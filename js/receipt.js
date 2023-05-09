@@ -55,3 +55,8 @@ receiptSets.forEach(addReceipts);
 const getReceiptContent = keyword =>
     [allTheReceipts[keyword].browserReceipts, allTheReceipts[keyword].printerReceipts];
 export default getReceiptContent;
+
+/**
+ * export a list of all the keywords
+ */
+export const keywords = Object.keys(allTheReceipts);

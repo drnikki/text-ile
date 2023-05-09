@@ -27,7 +27,7 @@ const browserReceipts = [];
 
 
 /* number of random receipts to generate */
-const numOfReceipts = 2;
+const numOfReceipts = 6;
 
 for (let i = 0; i < numOfReceipts; i++) {
     let textContent = ''; // this is what prints on the receipt.

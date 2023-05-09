@@ -12,8 +12,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <title>Print with Sprites</title>
 
-    <link rel="stylesheet" type="text/css" href="css/bxl_css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="css/bxl_css/reset.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/bxl_css/style.css" />
     <link rel="stylesheet" type="text/css" href="css/bxl_css/responsive.css" />
     <link rel="stylesheet" type="text/css" href="css/bxl_css/modules.css" />
@@ -27,21 +26,35 @@
 <header>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-offset-1 col-md-2 col-sm-3 col-sm-offset-0 col-xs-6">
+            <div class="col-md-2 col-sm-3 col-xs-6">
                 <h1 class="logo">
                     <img src="images/bxl_logo.png" alt="bixolon logo" class="img-responsive">
                 </h1>
             </div>
-            <div class="col-md-5 col-sm-7 hidden-xs">
-                <h2 class="title">
-                    Web Print Receipt
-                </h2>
+            <div class="col-md-2 col-sm-3 col-xs-6">
+                <h1 class="logo p-1" style="height:100%;">
+                    <img src="images/djl_logo.png" alt="digital-justice-lab logo" height="100" class="img-responsive">
+                </h1>
             </div>
-            <!-- automatically populated based on each receipt -->
-            <div id="print-buttons"></div>
         </div>
     </div>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Receipts</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link">test</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 </header>
+
 
 
 <!-- receipts will be placed in here -->
@@ -86,7 +99,7 @@
 
 <script type="module">
 
-    import getReceiptContent from "./js/receipt.js";
+    import getReceiptContent, {keywords} from "./js/receipt.js";
 
     // get arrays of receipt data
     // which set of receipts do we need?
@@ -154,8 +167,25 @@
         $('.print-btn').css('top', 10 + $(this).scrollTop());
     });
 
+    // add links to nav based on keywords
+    keywords.forEach(word => {
+        $('.navbar-nav').append(`
+            <li class="nav-item">
+                <a class="nav-link" href="./?receiptSet=${word}">${word}</a>
+            </li>
+        `);
+    });
 
+    // add listeners to links to make them work
+    $(`.nav-link`).each((i,e) => {
+        if ($(e).text() === receiptSet) {
+            $(e).addClass("active");
+            $(e).attr("aria-current", "page");
+        }
+    });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
 </body>
 
 

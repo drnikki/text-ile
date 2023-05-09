@@ -1,0 +1,73 @@
+/*------------------------------------------------small pc size-------------------------------------------------------------*/
+@media screen and (max-width:1200px) {
+    
+    /* header */
+    header h2.title{padding-top:25px;font-size:22px}
+    header h4.subtitle{padding-top:15px}
+}
+
+@media screen and (min-width:992px) and (max-width:1200px) {
+	
+}
+
+
+/*------------------------------------------------tablet size-------------------------------------------------------------*/
+@media screen and (max-width:991px) {
+    
+    /* header */
+    header h2.title{text-align:center}
+    header ul.icons img{display:block;height:32px}
+    header ul.icons li{padding-top:32px}
+    header ul.icons li:first-child{margin-right:20px}
+    header h4.subtitle{text-align:center}
+
+    /* main */
+    .main-contents{padding-top:70px}
+    .main-contents .col-md-10 .row:last-child{margin-bottom:70px}
+
+
+}
+
+@media screen and (min-width:768px) and (max-width:991px) {
+	
+	.main-contents .form-control{padding-left:0px;text-align:center}
+}
+
+
+/*------------------------------------------------mobile size-------------------------------------------------------------*/
+@media screen and (max-width:767px) {
+	
+	/* header */	
+	header ul.icons{padding-top:30px}
+	header ul.icons li{padding-top:0}
+	header ul.icons li:first-child{margin-right:20px}
+	header ul.icons img{display:block;height:30px}
+
+	/* main */
+	.main-contents{padding-top:0}
+	.product,.made,.discard{margin-bottom:50px}
+	.main-contents .col-md-10 .row:last-child{margin-bottom:140px}	
+	.main-contents h2{font-size:20px}
+	.main-contents .form-group{width:100%;float:none}
+	.main-contents .labels #input-div{width:48%}
+	.main-contents .labels #input-div input#plus,.main-contents .labels #input-div input#minus{width:21px;height:19px}
+
+	/* footer */
+	footer.container-fluid{position:relative}
+	footer.container-fluid .col-md-10 ul li p{font-size:12px}
+	footer.container-fluid .col-md-10 ul li select{width:100px;padding-left:10px;font-size:11px;}
+	
+}
+
+@media screen and (min-width:320px) and (max-width:767px) {
+	/* footer */
+	footer.container-fluid{position:relative}
+}
+
+@media screen and (max-width:480px) {	
+
+	/* footer */
+	footer.container-fluid{position:relative;height:auto;padding-bottom:50px}
+	footer.container-fluid .col-md-10 ul li:first-child{width:100%;margin-bottom:20px;text-align:center}
+	
+}

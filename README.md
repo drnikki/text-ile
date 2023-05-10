@@ -17,8 +17,7 @@ In VSCode, you can install the "Live Server" extension.  Starting a live server 
 
 
 ## Choosing what to work on next
-In order to decide what to work on next, visit the [project page](https://github.com/users/drnikki/projects/1/views/1) and look at the roadmap tab.    The issues are grouped by iteration (aka, 1-week phase of development).  
-- Choose any issues remaining in the current iteration.  
-- If all have been assigned, check for any open Pull Requests that are not yours.  
---- If you find a PR, test it, review the code, and report your results.
-- If you've reviewed all open PRs, take an issue from the next iteration (any one you'd like!)
+In order to decide what to work on next, go in this order:
+1 - are there open pull requests that need review? Do those first
+2 - Look for things you can complete before the Friday checkin.  In other words, if it's already Wednesday, try to choose something smaller than if it's Saturday morning. :) 
+3 - unsure? just ask Nikki. 

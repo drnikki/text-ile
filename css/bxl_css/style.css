@@ -1,0 +1,63 @@
+body{font-style:"Noto Sans KR","Roboto",sans-serif}
+
+/* header */
+header{width:100%;background:#ff9933}
+header h1.logo{height:100px;padding-top:37px}
+header h2.title{padding-top:40px;font-size:26px;color:#fff;line-height:18px}
+header div.col-md-5:after{display:block;clear:both}
+header ul.icons{float:right}
+header ul.icons:after{display:block;clear:both}
+header ul.icons li{float:left;padding-top:25px}
+header ul.icons li:first-child{margin-right:40px}
+
+/* main */
+.main-contents{padding-top:74px}
+.main-contents h1{padding:70px 0;font-size:24px;font-weight:bold;text-align:center}
+.main-contents .col-md-10 .row{margin-bottom:50px}
+.main-contents .col-md-10 .row:last-child{margin-bottom:90px}
+.main-contents .col-md-10 .row .col-md-6:after{content:"";display:block;clear:both}
+.main-contents h2{padding-bottom:20px;font-size:23px;color:#333;letter-spacing:-0.5px}
+.main-contents select{width:700px;max-width:100%;padding:16px 0 16px 30px;-webkit-appearance: none;-moz-appearance:none;appearance:none;border:1px solid #a9a9a9;background:url(../images/main/arrow.png) no-repeat right 30px center;line-height:1;border-radius:5px}
+.main-contents select.text option{color:#333}
+.main-contents .form-group-container{max-width:700px}
+.main-contents .form-group{float:left;width:30%}
+.main-contents .col-md-10 .row .col-md-6 .form-group{margin-right:5%}
+.main-contents .col-md-10 .row .col-md-6 .form-group:last-child{margin-right:0}
+.main-contents .form-control{height:50px;padding:16px 0 16px 30px;border:1px solid #a9a9a9;font-size:16px}
+.form-control[readonly]{cursor:normal;background:transparent;cursor:text}
+.main-contents .form-group .input-group-addon{padding:6px 15px;background:#ff9933;border:none}
+.main-contents .form-group .input-group-addon .glyphicon{font-size:24px;color:#fff}
+.main-contents .form-group .input-group-addon2{display:table-cell;width:1%;padding:6px 15px;background:#666;border-right:1px solid #a9a9a9;cursor:pointer;text-align:center;white-space:nowrap;vertical-align:middle}
+.main-contents .form-group .input-group-addon2 .glyphicon{font-size:24px;color:#fff}
+.main-contents .form-group .input-group-addon2 .glyphicon.glyphicon-refresh{top:3px}
+.main-contents .btn-primary{background:#ff9933;border-color:#ff9933}
+.main-contents .bootstrap-datetimepicker-widget .picker-switch td span{color:#ff9933}
+.main-contents .labels:after{display:block;clear:both}
+.main-contents .labels > div{float:left}
+.main-contents .labels #input-div{position:relative;width:60%;margin-right:10px}
+.main-contents .labels #input-div input#count{width:100%;height:50px;padding-left:30px;border:1px solid #a9a9a9;border-radius:5px;font-size:16px;color:#333}
+.main-contents .labels #input-div input#plus,.main-contents .labels #input-div input#minus{width:21px;height:19px;position:absolute;background-repeat:no-repeat;background-color:transparent;border:none
+background-repeat:no-repeat;background-color:transparent;border:none}
+.main-contents .labels #input-div input#plus{top:3px;right:20px;background-image:url(../images/main/plus.png)}
+.main-contents .labels #input-div input#minus{bottom:3px;right:20px;background-image:url(../images/main/minus.png)}
+
+
+/* footer */
+footer.container-fluid{position:fixed;left:0;bottom:0;height:60px;width:100%;background:#373232}
+footer.container-fluid .col-md-10 ul{padding-top:20px}
+footer.container-fluid .col-md-10 ul:after{display:block;clear:both}
+footer.container-fluid .col-md-10 ul li{float:right}
+footer.container-fluid .col-md-10 ul li:first-child{float:left;}
+footer.container-fluid .col-md-10 ul li:first-child + li{margin-left:10px}
+footer.container-fluid .col-md-10 ul li p{font-size:14px;color:#fff}
+footer.container-fluid .col-md-10 ul li select{width:120px;max-width:100%;height:30px;padding-left:15px;-webkit-appearance: none;-moz-appearance:none;appearance:none;border:1px solid #696464;background-image:url(../images/main/arrow2.png);background-repeat:no-repeat;background-position:right 15px center;background-color:#373232;line-height:1;font-size:12px;font-weight:100;color:#fff}
+footer.container-fluid .col-md-10 ul li select::-ms-expand { display: none; }
+footer.container-fluid .col-md-10 ul li select option{font-weight:100}
+
+/* Crome padding hack */
+@media screen and (-webkit-min-device-pixel-ratio:0)
+
+{
+	.main-contents {padding-top:88px}	
+}
+

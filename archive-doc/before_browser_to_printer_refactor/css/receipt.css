@@ -7,8 +7,8 @@
 }
 /** todo thelinks are ugly **/
 
-.active {
-	text-decoration: underline;
+.activeLink {
+    font-weight: bold;
 }
 
 #receipts{
@@ -23,7 +23,7 @@
 
 .receipt{
 	background: white;
-	width: 420px;
+	width: 400px;
 	padding: 15px;
 	margin: 0 auto auto;
 	text-align: left;
@@ -110,10 +110,6 @@ section {
 	max-width: 40rem;
 	margin: 0 auto;
 	border: 2px solid #d0d0d5;
-}
-
-header {
-	margin-bottom: 1rem;
 }
 
 #years {

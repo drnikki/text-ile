@@ -19,7 +19,8 @@ allTheReceipts = {
 3. complete the 4 tasks marked `TODO:` in the template code
 
 ### current keywords
-- allSprites ***(current default)***
+- allSprites
+- 7_columns  ***(current default)***
 
 ## visualize and print
 Each receipt set can be visualized and printed from `shapes-beta.html?receiptSet=KEYWORD`.

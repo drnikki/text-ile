@@ -1,4 +1,5 @@
 import allSpritesReceipt from "./receipt_sets/allSpritesReceipt.js";
+import sevenColumns from "./receipt_sets/7columns.js"
 
 /**
  * The purpose of this file is to provide the function `getReceiptContent`. We first import
@@ -44,6 +45,7 @@ const addReceipts = ([keyword, {browserReceipts, printerReceipts}]) => {
  */
 const receiptSets = [
     allSpritesReceipt,
+    sevenColumns,
 ]
 
 // add each set of receipts to allTheReceipts.

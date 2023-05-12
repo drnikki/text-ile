@@ -38,7 +38,7 @@ browserReceipts.push(receipt1);
 
 // receipt 2
 let receipt2 = "";
-for (let i=0; i<20; i++) receipt2 += printChandelierA() + `<br/>` + printChandelierB() + `<br/>`;
+for (let i=0; i<20; i++) receipt2 += printChandelierA() +  printChandelierB();
 browserReceipts.push(receipt2);
 
 // receipt 3

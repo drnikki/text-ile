@@ -34,7 +34,6 @@ export default function printClouds() {
         wholeCloud += makeItRain(cloudCount, spacePrefix);
     }
 
-    console.log(wholeCloud)
 
     return wholeCloud;
 }

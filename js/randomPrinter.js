@@ -20,7 +20,10 @@ const config = {
 /**
  *  redefined receipt print function
  */
-const print = text => printText(text,  0, 0, false, false, false, 1, 0);
+const print = text => {
+    console.log(text);
+    printText(text,  0, 0, false, false, false, 1, 0);
+}
 
 /**
  * used to store information about incomplete sprites.

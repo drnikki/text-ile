@@ -72,7 +72,7 @@ const printLoop = {
         // print what we are printing
         // print text function defined in ./bxl/bxlpos.js, which should be included as its own <script> tag
         for (let i = spriteInfo.startFrom; i < spriteInfo.startFrom + printNum; i++)
-            printText(spriteInfo.printerSprite[i], 0, 0, false, false, false, 1, 0);
+            printText(i >= spriteInfo.printerSprite.length ? `\n` : spriteInfo.printerSprite[i], 0, 0, false, false, false, 1, 0);
 
         // we are no longer in progress
         if (spriteInfo.startFrom + printNum >= spriteInfo.printerSprite.length) resetSprite(sprite);

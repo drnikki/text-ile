@@ -64,7 +64,7 @@ const printLoop = {
         }
 
         // pick num of rows to print (any extra are printed as blank lines)
-        const [max, min] = config.numLinesBounds;
+        const [min, max] = config.numLinesBounds;
         let printNum =  Math.floor(Math.random() * (max - min + 1) + min);
 
         // display what we are printing

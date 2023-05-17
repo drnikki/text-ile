@@ -17,6 +17,10 @@ const config = {
     fillEmptySpace: true, // if true, any leftover "rows" after a sprite is finished printing will be filled in with blank space
 }
 
+/**
+ *  redefined receipt print function
+ */
+const print = text => printText(text,  0, 0, false, false, false, 1, 0);
 
 /**
  * used to store information about incomplete sprites.
@@ -49,6 +53,7 @@ const printLoop = {
     looping: false,
     nextUpdateTime: null,
     timeoutID: null,
+    wholeSprites: false,
 
     // the actual thing we're repeating
     action() {
@@ -56,36 +61,43 @@ const printLoop = {
         const sprite = spriteFunctions[Math.floor(Math.random()*spriteFunctions.length)];
         const spriteInfo = spriteHolder.get(sprite);
 
-        // check to see if we had a leftover
-        if (!spriteInfo.inProgress) {
-            spriteInfo.inProgress = true;
-            spriteInfo.browserSprite = "";
-            for (let i=0; i<config.numSprites; i++) spriteInfo.browserSprite += sprite(); // add sprites
-            spriteInfo.printerSprite = browserToPrinter(spriteInfo.browserSprite);
-            spriteInfo.startFrom = 0;
+        // are we printing whole sprites at a time?
+        if (printLoop.wholeSprites) {
+            const browserSprite = sprite();
+            setReceiptInBrowser(-1, {browserSprite});
+            browserToPrinter(browserSprite).forEach(print);
+
+        } else { // partial sprites
+            // check to see if we had a leftover
+            if (!spriteInfo.inProgress) {
+                spriteInfo.inProgress = true;
+                spriteInfo.browserSprite = "";
+                for (let i = 0; i < config.numSprites; i++) spriteInfo.browserSprite += sprite(); // add sprites
+                spriteInfo.printerSprite = browserToPrinter(spriteInfo.browserSprite);
+                spriteInfo.startFrom = 0;
+            }
+
+            // pick num of rows to print (any extra are printed as blank lines)
+            const [min, max] = config.numLinesBounds;
+            let printNum = Math.floor(Math.random() * (max - min + 1) + min);
+
+            // display what we are printing
+            setReceiptInBrowser(printNum, spriteInfo);
+            // print what we are printing.
+            // print text function defined in ./bxl/bxlpos.js, which should be included as its own <script> tag
+            for (let i = spriteInfo.startFrom; i < spriteInfo.startFrom + printNum; i++) {
+                if (i >= spriteInfo.printerSprite.length) {
+                    // we're out of bounds
+                    if (config.fillEmptySpace) print('\n'); // print blank line
+                    else break;
+                } else print(spriteInfo.printerSprite[i]); // print row
+            }
+
+            // we are no longer in progress
+            if (spriteInfo.startFrom + printNum >= spriteInfo.printerSprite.length) resetSprite(sprite);
+            // we are still in progress
+            else spriteInfo.startFrom += printNum;
         }
-
-        // pick num of rows to print (any extra are printed as blank lines)
-        const [min, max] = config.numLinesBounds;
-        let printNum =  Math.floor(Math.random() * (max - min + 1) + min);
-
-        // display what we are printing
-        setReceiptInBrowser(printNum, spriteInfo);
-        // print what we are printing
-        // print text function defined in ./bxl/bxlpos.js, which should be included as its own <script> tag
-        for (let i = spriteInfo.startFrom; i < spriteInfo.startFrom + printNum; i++){
-            if (i >= spriteInfo.printerSprite.length) {
-                // we're out of bounds
-                if (config.fillEmptySpace) printText('\n', 0, 0, false, false, false, 1, 0); // print blank line
-                else break;
-            } else printText(spriteInfo.printerSprite[i], 0, 0, false, false, false, 1, 0); // print row
-        }
-
-        // we are no longer in progress
-        if (spriteInfo.startFrom + printNum >= spriteInfo.printerSprite.length) resetSprite(sprite);
-        // we are still in progress
-        else spriteInfo.startFrom += printNum;
-
         // repeat action if looping
         if (printLoop.looping) {
             // find wait time
@@ -98,6 +110,14 @@ const printLoop = {
             // wait
             printLoop.timeoutID = setTimeout(printLoop.action, timeout);
         }
+    },
+
+    // switch between partial sprites and whole sprites
+    changePrintMode() {
+        const wasLooping = printLoop.looping;
+        printLoop.stop();
+        printLoop.wholeSprites = !printLoop.wholeSprites;
+        if (wasLooping) printLoop.start();
     },
 
     start() { // start the loop
@@ -118,3 +138,5 @@ const printLoop = {
 // add listener to print button
 $(`#start-print-btn`).on("click", printLoop.start);
 $(`#stop-print-btn`).on("click", printLoop.stop);
+// toggle print mode when checkbox is clicked
+$(`#toggleFullSprite`).on('change', printLoop.changePrintMode);

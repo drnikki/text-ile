@@ -47,6 +47,20 @@ const setReceiptInBrowser = (printNum, {startFrom, browserSprite}) => {
     $('#receipt-content').html(browserSprite);
     $('#print-from-row').html(printNum === -1 ? `_____` : `${startFrom} - ${startFrom + printNum - 1}`);
 }
+/**
+ * convert milliseconds to human-readable
+ */
+const msToTime = ms => {
+    let seconds = Math.floor((ms / 1000) % 60),
+        minutes = Math.floor((ms / (1000 * 60)) % 60),
+        hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
+
+    hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+    return hours + ":" + minutes + ":" + seconds;
+}
 
 /**
  *  an object to handle the loop.
@@ -54,8 +68,10 @@ const setReceiptInBrowser = (printNum, {startFrom, browserSprite}) => {
  */
 const printLoop = {
     looping: false,
-    nextUpdateTime: null,
-    timeoutID: null,
+    countDown: {
+        id: null, // interval id
+        timeLeft: null, // ms
+    },
     wholeSprites: false,
 
     // the actual thing we're repeating
@@ -106,10 +122,13 @@ const printLoop = {
             // find wait time
             const [min, max] = config.randomIntervalBounds;
             const timeout = Math.floor(Math.random() * (max - min + 1) + min);
-            printLoop.nextUpdateTime = new Date();
-            printLoop.nextUpdateTime.setTime(new Date().getTime() + timeout);
-            // set wait time in browser
-            $(`#update-time`).html(`<br/>` + printLoop.nextUpdateTime.toString());
+            printLoop.countDown.timeLeft = timeout;
+            // create interval
+            clearInterval(printLoop.countDown.id);
+            printLoop.countDown.id = setInterval(() => {
+                printLoop.countDown.timeLeft -= 1000;
+                $(`#update-time`).html(msToTime(printLoop.countDown.timeLeft));
+            }, 1000); // every second
             // wait
             printLoop.timeoutID = setTimeout(printLoop.action, timeout);
         }
@@ -126,6 +145,7 @@ const printLoop = {
     start() { // start the loop
         printLoop.looping = true;
         clearTimeout(printLoop.timeoutID);
+        clearInterval(printLoop.countDown.id);
         printLoop.action();
     },
 
@@ -133,6 +153,7 @@ const printLoop = {
         printLoop.looping = false;
         printLoop.nextUpdateTime = null;
         clearTimeout(printLoop.timeoutID);
+        clearInterval(printLoop.countDown.id);
         setReceiptInBrowser(-1, {browserSprite: ""});
         $(`#update-time`).html("_____");
     },

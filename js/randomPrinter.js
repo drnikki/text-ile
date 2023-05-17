@@ -11,7 +11,7 @@ import {browserToPrinter} from "./receipt.js";
  * @type {{randomIntervalBounds: number[], numLinesBounds: number[]}}
  */
 const config = {
-    randomIntervalBounds: [0.5 * 60 * 1000, 1 * 60 * 1000], // 2-7 minutes in milliseconds
+    randomIntervalBounds: [2 * 60 * 1000, 7 * 60 * 1000], // 2-7 minutes in milliseconds
     numLinesBounds: [3, 30],
 }
 

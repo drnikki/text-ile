@@ -36,7 +36,7 @@ spriteFunctions.forEach(resetSprite);
 
 const setReceiptInBrowser = ({startFrom, browserSprite}) => {
     $('#receipt-content').html(browserSprite);
-    $('#print-from-row').html(`#` + startFrom);
+    $('#print-from-row').html(startFrom);
 }
 
 /**
@@ -99,8 +99,11 @@ const printLoop = {
         printLoop.looping = false;
         printLoop.nextUpdateTime = null;
         clearTimeout(printLoop.timeoutID);
+        setReceiptInBrowser({startFrom: "_____", browserSprite: ""});
+        $(`#update-time`).html("_____");
     },
 };
 
 // add listener to print button
-$(`#print-btn`).on("click", printLoop.start);
+$(`#start-print-btn`).on("click", printLoop.start);
+$(`#stop-print-btn`).on("click", printLoop.stop);

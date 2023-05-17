@@ -21,7 +21,10 @@
 </header>
 <main>
     <div style="position: fixed;">
-        <button id="print-btn" class="btn btn-outline-light">Start Printing</button>
+        <div class="btn-group" role="group">
+            <button id="start-print-btn" class="btn btn-outline-light">Start Printing</button>
+            <button id="stop-print-btn" class="btn btn-outline-light">Stop Printing</button>
+        </div>
         <div style="color:white;" >
             printing from row: <span id="print-from-row">_________</span><br/>
             next update time: <span id="update-time">__________</span>

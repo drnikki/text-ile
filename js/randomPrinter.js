@@ -20,10 +20,39 @@ const config = {
 /**
  *  redefined receipt print function
  */
-const print = text => {
-    console.log(text);
-    printText(text,  0, 0, false, false, false, 1, 0);
-}
+const printHandler = {
+    lines: [],
+    issueID: 1,
+    // store a line to be submitted with submitPrint
+    println (text) {
+        printHandler.lines.push(text);
+    },
+    reset() {
+        printHandler.lines = [];
+    },
+    // submit lines to the printer
+    submitPrint () {
+        setPosId(printHandler.issueID);
+        checkPrinterStatus();
+        printHandler.lines.forEach((line => {
+            console.log(line);
+            printText(line,  0, 0, false, false, false, 1, 0)
+        }));
+        const strSubmit = getPosData();
+        printHandler.issueID++;
+        requestPrint("Printer1", strSubmit, console.log);
+
+        // reset
+        printHandler.reset();
+    },
+};
+
+// // old attempt at printing TODO: see if this can be removed
+// const print = text => {
+//     console.log(text);
+//     printText(text,  0, 0, false, false, false, 1, 0);
+// }
+
 
 /**
  * used to store information about incomplete sprites.
@@ -84,7 +113,7 @@ const printLoop = {
         if (printLoop.wholeSprites) {
             const browserSprite = sprite();
             setReceiptInBrowser(-1, {browserSprite});
-            browserToPrinter(browserSprite).forEach(print);
+            browserToPrinter(browserSprite).forEach(printHandler.println);
 
         } else { // partial sprites
             // check to see if we had a leftover
@@ -107,9 +136,9 @@ const printLoop = {
             for (let i = spriteInfo.startFrom; i < spriteInfo.startFrom + printNum; i++) {
                 if (i >= spriteInfo.printerSprite.length) {
                     // we're out of bounds
-                    if (config.fillEmptySpace) print('\n'); // print blank line
+                    if (config.fillEmptySpace) printHandler.println('\n'); // print blank line
                     else break;
-                } else print(spriteInfo.printerSprite[i]); // print row
+                } else printHandler.println(spriteInfo.printerSprite[i]); // print row
             }
 
             // we are no longer in progress
@@ -117,6 +146,9 @@ const printLoop = {
             // we are still in progress
             else spriteInfo.startFrom += printNum;
         }
+        //submit print
+        printHandler.submitPrint();
+
         // repeat action if looping
         if (printLoop.looping) {
             // find wait time

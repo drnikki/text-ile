@@ -5,23 +5,26 @@
  */
 
 $('#site-nav')
-    .addClass("container-fluid")
+    .addClass("navbar navbar-expand-lg")
     .attr("aria-label", "site-wide-navigation")
     .html(`
-        <div class="row">
-            <div class="col-md-2 col-sm-3 col-xs-6">
+            <div class="navbar-brand">
                 <h1 class="logo">
                     <img src="images/bxl_logo.png" alt="bixolon logo" class="img-responsive">
                 </h1>
             </div>
-            <div class="col-md-2 col-sm-3 col-xs-6">
+            <div class="navbar-brand">
                 <h1 class="logo p-1" style="height:100%;">
                     <img src="images/djl_logo.png" alt="digital-justice-lab logo" height="100" class="img-responsive">
                 </h1>
             </div>
-            <ul>
-                <li><a href="./">receipt sets</a></li>
-                <li><a href="./random-printer.html">random printer</a></li>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#site-nav-links" aria-controls="site-nav-links" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="site-nav-links">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="./">receipt sets</a></li>
+                <li class="nav-item"><a class="nav-link" href="./random-printer.html">random printer</a></li>
             </ul>
-        </div>
+            </div>
     `);

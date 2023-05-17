@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="js/bxl/bxlcommon.js"></script>
+<script src="js/bxl/bxlpos.js"></script>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible">
@@ -20,16 +23,16 @@
     <script src="js/components/NavBar.js"></script>
 </header>
 <main>
-    <div style="position: fixed;">
+    <aside style="position: fixed;">
         <div class="btn-group" role="group">
             <button id="start-print-btn" class="btn btn-outline-light">Start Printing</button>
             <button id="stop-print-btn" class="btn btn-outline-light">Stop Printing</button>
         </div>
         <div style="color:white;" >
-            printing from row: <span id="print-from-row">_________</span><br/>
+            printing rows: <span id="print-from-row">_________</span><br/>
             next update time: <span id="update-time">__________</span>
         </div>
-    </div>
+    </aside>
     <div class="receipts">
         <div class="receipt">
             <h3>Currently Printing:</h3>

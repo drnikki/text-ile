@@ -34,44 +34,45 @@ const resetSprite = sprite => spriteHolder.set(sprite, {
 // add each sprite function to spriteHolder with clean slate
 spriteFunctions.forEach(resetSprite);
 
-const setReceiptInBrowser = ({startFrom, browserSprite}) => {
+const setReceiptInBrowser = (printNum, {startFrom, browserSprite}) => {
     $('#receipt-content').html(browserSprite);
-    $('#print-from-row').html(startFrom);
+    $('#print-from-row').html(printNum === -1 ? `_____` : `${startFrom} - ${startFrom + printNum - 1}`);
 }
 
 /**
  *  an object to handle the loop.
- *  I know this is a weird way to do this, but i'm just exploring and learning
+ *  I know this is a weird way to do this, but i'm just exploring and learning right now
  */
 const printLoop = {
     looping: false,
     nextUpdateTime: null,
     timeoutID: null,
-    action() {
 
+    // the actual thing we're repeating
+    action() {
         // pick random sprite
         const sprite = spriteFunctions[Math.floor(Math.random()*spriteFunctions.length)];
         const spriteInfo = spriteHolder.get(sprite);
-
 
         // check to see if we had a leftover
         if (!spriteInfo.inProgress) {
             spriteInfo.inProgress = true;
             spriteInfo.browserSprite = "";
-            for (let i=0; i<10; i++) spriteInfo.browserSprite += sprite();
+            for (let i=0; i<5; i++) spriteInfo.browserSprite += sprite(); // add 5 sprites
             spriteInfo.printerSprite = browserToPrinter(spriteInfo.browserSprite);
             spriteInfo.startFrom = 0;
         }
-
 
         // pick num of rows to print (any extra are printed as blank lines)
         const [max, min] = config.numLinesBounds;
         let printNum =  Math.floor(Math.random() * (max - min + 1) + min);
 
-        // TODO: do the printing
         // display what we are printing
-        setReceiptInBrowser(spriteInfo);
-
+        setReceiptInBrowser(printNum, spriteInfo);
+        // print what we are printing
+        // print text function defined in ./bxl/bxlpos.js, which should be included as its own <script> tag
+        for (let i = spriteInfo.startFrom; i < spriteInfo.startFrom + printNum; i++)
+            printText(spriteInfo.printerSprite[i], 0, 0, false, false, false, 1, 0);
 
         // we are no longer in progress
         if (spriteInfo.startFrom + printNum >= spriteInfo.printerSprite.length) resetSprite(sprite);
@@ -80,11 +81,14 @@ const printLoop = {
 
         // repeat action if looping
         if (printLoop.looping) {
+            // find wait time
             const [min, max] = config.randomIntervalBounds;
             const timeout = Math.floor(Math.random() * (max - min + 1) + min);
             printLoop.nextUpdateTime = new Date();
             printLoop.nextUpdateTime.setTime(new Date().getTime() + timeout);
+            // set wait time in browser
             $(`#update-time`).html(`<br/>` + printLoop.nextUpdateTime.toString());
+            // wait
             printLoop.timeoutID = setTimeout(printLoop.action, timeout);
         }
     },
@@ -95,11 +99,11 @@ const printLoop = {
         printLoop.action();
     },
 
-    stop() { // stop the loop
+    stop() { // stop the loop and reset everything
         printLoop.looping = false;
         printLoop.nextUpdateTime = null;
         clearTimeout(printLoop.timeoutID);
-        setReceiptInBrowser({startFrom: "_____", browserSprite: ""});
+        setReceiptInBrowser(-1, {browserSprite: ""});
         $(`#update-time`).html("_____");
     },
 };

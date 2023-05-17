@@ -7,7 +7,6 @@ function chandelierCluster(chandelierGrid, x, y, arrowPiece) {
         for (let j=x; j<(x+3); j++) {
             chandelierGrid[i][j] = chars[charIndex]
             charIndex++;
-            console.log(chars[charIndex])
         }
     }
     return chandelierGrid
@@ -19,7 +18,6 @@ export function printChandelierA() {
     let chandelierGrid = Array.from(Array(n), _ => Array(m).fill('&nbsp;'));
 
     var brassRows = Math.floor((Math.random() * 3) + 4); // btwn 4 and 6
-    console.log(brassRows);
     var crystalRows = Math.floor((Math.random() * 3) + 1); // btwn 1 and 3 (each row is rly 2 rows)
     var crystalWidth = '';
     var crystalPrefix = ''; // the # of spaces before crystals start.

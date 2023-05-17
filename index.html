@@ -24,21 +24,9 @@
 
 <body onload="initialize()">
 <header>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2 col-sm-3 col-xs-6">
-                <h1 class="logo">
-                    <img src="images/bxl_logo.png" alt="bixolon logo" class="img-responsive">
-                </h1>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6">
-                <h1 class="logo p-1" style="height:100%;">
-                    <img src="images/djl_logo.png" alt="digital-justice-lab logo" height="100" class="img-responsive">
-                </h1>
-            </div>
-        </div>
-    </div>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav id="site-nav"></nav>
+    <script src="js/components/NavBar.js"></script>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" aria-label="receipt-set nav">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Receipts</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -152,9 +140,9 @@
 
     // add cosmetics and functionality to the print receipt buttons
     $('.print-btn').each((i, e) => {
-        $(e).addClass("btn btn-primary"); // make it look good
-        $(e).html(`Print #${i+1}`); // give it some text
-        $(e).on("click", () => PrintReceipt(i)); // make it print the correct receipt
+        $(e).addClass("btn btn-primary") // make it look good
+            .html(`Print #${i+1}`) // give it some text
+            .on("click", () => PrintReceipt(i)); // make it print the correct receipt
     });
 
     // scroll the buttons vertically with screen

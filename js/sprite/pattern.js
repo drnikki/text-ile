@@ -111,7 +111,7 @@ export const printDotPattern = (rowCount = 9) => {
 /**
  * print seed stitch pattern
  */
-export function printSeedStitch(rowCount) {
+export function printSeedStitch(rowCount = 10) {
     let line = '';
     let columns = 40;
     let pattern = '';

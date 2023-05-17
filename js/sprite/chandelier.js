@@ -165,3 +165,7 @@ export function printChandelierB() {
     }
     return arrText;
 }
+
+export function printChandeliersAB () {
+    return printChandelierA() + printChandelierB();
+}

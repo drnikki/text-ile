@@ -13,6 +13,8 @@ import {browserToPrinter} from "./receipt.js";
 const config = {
     randomIntervalBounds: [2 * 60 * 1000, 7 * 60 * 1000], // 2-7 minutes in milliseconds
     numLinesBounds: [3, 30],
+    numSprites: 5, // the number of sprites to generate at once (eg. you can see 5 diamonds at once in browser)
+    fillEmptySpace: true, // if true, any leftover "rows" after a sprite is finished printing will be filled in with blank space
 }
 
 
@@ -58,7 +60,7 @@ const printLoop = {
         if (!spriteInfo.inProgress) {
             spriteInfo.inProgress = true;
             spriteInfo.browserSprite = "";
-            for (let i=0; i<5; i++) spriteInfo.browserSprite += sprite(); // add 5 sprites
+            for (let i=0; i<config.numSprites; i++) spriteInfo.browserSprite += sprite(); // add sprites
             spriteInfo.printerSprite = browserToPrinter(spriteInfo.browserSprite);
             spriteInfo.startFrom = 0;
         }
@@ -71,8 +73,13 @@ const printLoop = {
         setReceiptInBrowser(printNum, spriteInfo);
         // print what we are printing
         // print text function defined in ./bxl/bxlpos.js, which should be included as its own <script> tag
-        for (let i = spriteInfo.startFrom; i < spriteInfo.startFrom + printNum; i++)
-            printText(i >= spriteInfo.printerSprite.length ? `\n` : spriteInfo.printerSprite[i], 0, 0, false, false, false, 1, 0);
+        for (let i = spriteInfo.startFrom; i < spriteInfo.startFrom + printNum; i++){
+            if (i >= spriteInfo.printerSprite.length) {
+                // we're out of bounds
+                if (config.fillEmptySpace) printText('\n', 0, 0, false, false, false, 1, 0); // print blank line
+                else break;
+            } else printText(spriteInfo.printerSprite[i], 0, 0, false, false, false, 1, 0); // print row
+        }
 
         // we are no longer in progress
         if (spriteInfo.startFrom + printNum >= spriteInfo.printerSprite.length) resetSprite(sprite);

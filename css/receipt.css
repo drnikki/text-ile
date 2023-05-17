@@ -35,6 +35,13 @@
 
 }
 
+#site-nav .nav-link {
+	color: white;
+	font-size: larger;
+}
+#site-nav .nav-link:hover {
+	color: lightgrey;
+}
 
 #configForm, #configForm table {
     color: white;

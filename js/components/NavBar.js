@@ -15,7 +15,7 @@ $('#site-nav')
             </div>
             <div class="navbar-brand">
                 <h1 class="logo p-1" style="height:100%;">
-                    <img src="images/djl_logo.png" alt="digital-justice-lab logo" height="100" class="img-responsive">
+                    <a href="https://digitaljusticelab.com/" target="_blank"><img src="images/djl_logo.png" alt="digital-justice-lab logo" height="100" class="img-responsive"></a>
                 </h1>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#site-nav-links" aria-controls="site-nav-links" aria-expanded="false" aria-label="Toggle navigation">

@@ -113,7 +113,7 @@ const printLoop = {
         if (printLoop.wholeSprites) {
             const browserSprite = sprite();
             setReceiptInBrowser(-1, {browserSprite});
-            browserToPrinter(browserSprite).forEach(printHandler.println);
+            printHandler.lines = browserToPrinter(browserSprite);
 
         } else { // partial sprites
             // check to see if we had a leftover

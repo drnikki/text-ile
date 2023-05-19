@@ -1,5 +1,5 @@
 import {browserToPrinter} from "../receipt.js";
-import {getTimestamp, generateHash} from "../stringManipulation.js";
+import {getTimestamp, generateHash, numToSpace} from "../stringManipulation.js";
 import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch} from "../sprite/pattern.js";
 import printMarioCoinBox from "../sprite/coinBox.js";
 
@@ -36,13 +36,26 @@ let receipt1 = "";
 for (let i =0; i<400; i++) {
     receipt1 += generateHash() + `<br/>`;
     receipt1 +="-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" + `<br/>`;
-
 }
 browserReceipts.push(receipt1);
 
 // receipt 2 - just timestamps!
 let receipt2 = "";
-for (let i=0; i<20; i++) receipt2 += getTimestamp() + `<br/>`;
+//for (let i =0; i<20; i++) receipt1 += (Math.random() < 0.5 ? printTwinkleBanner(true) : printStarburst()) + `<br/>`;
+for (let i =0; i<400; i++) {
+    receipt2 += generateHash() + `<br/>`;
+    receipt2 += numToSpace() + "-<[]>- .. -<[]>- .. -<[]>- .. -<[]>- .. " + `<br/>`;
+    receipt2 += generateHash() + `<br/>`;
+    receipt2 += numToSpace() + " .. -<[]>- .. -<[]>- .. -<[]>- .. -<[]>-" + `<br/>`;
+    receipt2 += generateHash() + `<br/>`;
+    receipt2 += numToSpace() + "=>- .. -<[]>- .. -<[]>- .. -<[]>- .. -" + `<br/>`;
+    receipt2 += generateHash() + `<br/>`;
+    receipt2 += numToSpace() + ". -<[]>- .. -<[]>- .. -<[]>- .. -<[]>- " + `<br/>`;
+    receipt2 += generateHash() + `<br/>`;
+    receipt2 += numToSpace() + "- .. -<[]>- .. -<[]>- .. -<[]>- .. -<" + `<br/>`;
+
+    
+}
 browserReceipts.push(receipt2);
 
 // receipt 3 - this is a demo of all of the patterns and how they can take

@@ -7,6 +7,7 @@ import printMarioCoinBox from "../sprite/coinBox.js";
 import {printTriangle1, printTriangle2} from "../sprite/triangles.js";
 import printBug from "../sprite/bug.js";
 import printRope from "../sprite/rope.js";
+import {getTimestamp, generateHash} from "../stringManipulation.js";
 
 
 /**
@@ -33,7 +34,9 @@ const browserReceipts = [];
 
 // receipt 1
 let receipt1 = "";
-for (let i =0; i<20; i++) receipt1 += (Math.random() < 0.5 ? printTwinkleBanner(true) : printStarburst()) + `<br/>`;
+//for (let i =0; i<20; i++) receipt1 += (Math.random() < 0.5 ? printTwinkleBanner(true) : printStarburst()) + `<br/>`;
+for (let i =0; i<20; i++) receipt1 += (Math.random() < 0.5 ? getTimestamp() : generateHash()) + `<br/>`;
+
 browserReceipts.push(receipt1);
 
 // receipt 2

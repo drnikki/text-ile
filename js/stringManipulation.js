@@ -1,3 +1,5 @@
+import sha1 from "./sha1.min.js"
+
 /**
  * a bunch of helper functions for string manipulation that can be reused throughout the project
  */
@@ -40,3 +42,28 @@ export const addBlocks = (block1, block2) => {
     if (rows1.length !== rows2.length) throw new Error(`blocks must have same number of rows; got ${rows1.length} and ${rows2.length}`);
     return rows1.map((row, i) => row + rows2[i]).join('<br/>');
 };
+
+/**
+ * This function returns a random timestamp betwen now (aka before the HASTAC conference) and the rough date of its founding: 2003.
+ */
+export function getTimestamp() {
+    const hastacFounding = new Date("January 1, 2003"); // keeping this human readable in case it needs to change.
+    const end = Date.now(); // this one too.
+
+    // note that we don't need to getTime() from end because it's above.  
+    return new Date(hastacFounding.getTime() + Math.random() * (end - hastacFounding.getTime())).getTime();
+  }
+
+/**
+ * Generates a hash using 
+ * 
+ * @returns a 40 character sha1 hash
+ */
+export function generateHash() {
+    const array = new Uint32Array(10);
+    // we love cryptographically strong randoms.
+    const vals = crypto.getRandomValues(array);
+
+    return sha1(vals);
+ }
+

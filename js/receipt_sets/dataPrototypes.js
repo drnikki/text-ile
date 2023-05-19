@@ -32,7 +32,7 @@ const browserReceipts = [];
  *  create each of the seven receipts
  */
 
-// receipt 1 - hash plus manually entered text patterns.
+// receipt 1 - TIMESTAMPS
 let receipt1 = "";
 //for (let i =0; i<20; i++) receipt1 += (Math.random() < 0.5 ? printTwinkleBanner(true) : printStarburst()) + `<br/>`;
 for (let i =0; i<400; i++) {
@@ -45,9 +45,6 @@ for (let i =0; i<400; i++) {
     receipt1 += numToSpace(2)+ getTimestamp() + numToSpace(10)+ getTimestamp() + numToSpace(2) + `<br/>`;
     receipt1 += getTimestamp() + numToSpace(14)+ getTimestamp() + `<br/>`;
 
-
-
-
 }
 browserReceipts.push(receipt1);
 
@@ -55,13 +52,13 @@ browserReceipts.push(receipt1);
 let receipt2 = "";
 //for (let i =0; i<20; i++) receipt1 += (Math.random() < 0.5 ? printTwinkleBanner(true) : printStarburst()) + `<br/>`;
 for (let i =0; i<400; i++) {
-    receipt2 += printClouds();
-    receipt2 += printClouds();
-    receipt2 += printClouds();
-    receipt2 += printClouds();
-    receipt2 += printClouds();
-    receipt2 += printClouds();
-    receipt2 += printClouds();
+    receipt2 += getTimestamp() + numToSpace(14)+  `<br/>`;
+    receipt2 += numToSpace(2) + getTimestamp() +  `<br/>`;
+    receipt2 += numToSpace(4)+ getTimestamp() +  `<br/>`;
+    receipt2 += numToSpace(6)+ getTimestamp() +  `<br/>`;
+    receipt2 += numToSpace(4)+ getTimestamp() +   `<br/>`;
+    receipt2 += numToSpace(2)+ getTimestamp() +   `<br/>`;
+    receipt2 += getTimestamp() + numToSpace(14) + `<br/>`;
 
     
 }

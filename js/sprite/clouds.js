@@ -1,4 +1,4 @@
-import {numToSpace, randomSpacer} from "../stringManipulation.js";
+import {numToSpace, numToChar, randomSpacer} from "../stringManipulation.js";
 
 
 export default function printClouds() {
@@ -26,12 +26,12 @@ export default function printClouds() {
     // convert startPosition to a string of nonbreaking spaces
     // so that it can just be appended to each row
 
-    var spacePrefix = numToSpace(startPosition);
+    var spacePrefix = numToChar(startPosition,'-');
 
     var wholeCloud = '';
     wholeCloud += oneCloud(spacePrefix);
     if (isRain) {
-        wholeCloud += makeItRain(cloudCount, spacePrefix);
+      //  wholeCloud += makeItRain(cloudCount, spacePrefix);
     }
 
     console.log(wholeCloud)
@@ -49,15 +49,15 @@ function oneCloud(prefix) {
     var row = '';
     var oneWholeCloud = '';
 
-    row = prefix + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(()<br/>";
+    row = prefix + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((()<br/>";
     oneWholeCloud = row;
-    row = prefix +"&nbsp;&nbsp;&nbsp;&nbsp;(((())<br/>";
+    row = prefix +"&nbsp;&nbsp;&nbsp((((()))<br/>";
     oneWholeCloud += row;
-    row = prefix +"&nbsp;&nbsp;(((((()))))<br/>";
+    row = prefix +"&nbsp;&nbsp;((((((())))))<br/>";
     oneWholeCloud += row;
-    row = prefix +"(((())))))<br/>";
+    row = prefix +"((((((((()))))))))<br/>";
     oneWholeCloud += row;
-    row = prefix + "&nbsp;&nbsp;((())))<br/>";
+    row = prefix + "&nbsp;&nbsp;(((((()))))<br/>";
     oneWholeCloud += row;
 
     return oneWholeCloud;
@@ -66,14 +66,14 @@ function oneCloud(prefix) {
 
 function makeItRain(cloudCount, prefix) {
     // how many rows of rain will we make?
-    var rainRows =  Math.floor((Math.random() * 12) + 4); // btwn 4 and 12 @MOLLY?!
+    var rainRows =  Math.floor((Math.random() *5) + 4); // btwn 4 and 12 @MOLLY?!
 
     // we'd do something about the width of the rain based on the Clouds
     let someRain = ''; // the contents of the rain.
 
     // FOR ONE CLOUD
     for (let r = 0; r < rainRows; r++) {
-        someRain += prefix + randomSpacer(1, 7) + "; <br/>"; // @TODO randomize the rain.
+        someRain += prefix + randomSpacer(1, 3) + "; <br/>"; // @TODO randomize the rain.
     }
 
     return someRain;

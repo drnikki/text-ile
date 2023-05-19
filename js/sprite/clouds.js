@@ -14,7 +14,7 @@ export default function printClouds() {
     let startPosition = 1;
     switch(cloudCount) {
         case 1:
-            startPosition = Math.floor((Math.random() * 26) + 1); // btwn 1 and 26
+            startPosition = Math.floor((Math.random() * 24) + 1); // btwn 1 and 26
             break;
         case 2:
             startPosition = Math.floor((Math.random() * 12) + 1); // btwn 1 and 12
@@ -49,15 +49,15 @@ function oneCloud(prefix) {
     var row = '';
     var oneWholeCloud = '';
 
-    row = prefix + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((()<br/>";
+    row = prefix + "------((()<br/>";
     oneWholeCloud = row;
-    row = prefix +"&nbsp;&nbsp;&nbsp((((()))<br/>";
+    row = prefix +"---((((()))<br/>";
     oneWholeCloud += row;
-    row = prefix +"&nbsp;&nbsp;((((((())))))<br/>";
+    row = prefix +"--((((((())))))<br/>";
     oneWholeCloud += row;
     row = prefix +"((((((((()))))))))<br/>";
     oneWholeCloud += row;
-    row = prefix + "&nbsp;&nbsp;(((((()))))<br/>";
+    row = prefix + "--(((((()))))<br/>";
     oneWholeCloud += row;
 
     return oneWholeCloud;

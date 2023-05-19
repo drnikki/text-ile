@@ -1,5 +1,5 @@
 import {browserToPrinter} from "../receipt.js";
-import {getTimestamp, generateHash, numToSpace} from "../stringManipulation.js";
+import {getTimestamp, generateHash, numToSpace, numToChar} from "../stringManipulation.js";
 import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch} from "../sprite/pattern.js";
 import printMarioCoinBox from "../sprite/coinBox.js";
 import printStarburst from "../sprite/starburst.js";
@@ -52,13 +52,13 @@ browserReceipts.push(receipt1);
 let receipt2 = "";
 //for (let i =0; i<20; i++) receipt1 += (Math.random() < 0.5 ? printTwinkleBanner(true) : printStarburst()) + `<br/>`;
 for (let i =0; i<400; i++) {
-    receipt2 += getTimestamp() + numToSpace(14)+  `<br/>`;
-    receipt2 += numToSpace(2) + getTimestamp() +  `<br/>`;
-    receipt2 += numToSpace(4)+ getTimestamp() +  `<br/>`;
-    receipt2 += numToSpace(6)+ getTimestamp() +  `<br/>`;
-    receipt2 += numToSpace(4)+ getTimestamp() +   `<br/>`;
-    receipt2 += numToSpace(2)+ getTimestamp() +   `<br/>`;
-    receipt2 += getTimestamp() + numToSpace(14) + `<br/>`;
+    receipt2 += getTimestamp() + numToChar(27, "-") +  `<br/>`;
+    receipt2 += numToSpace(2) + getTimestamp() + numToChar(25, "-") +  `<br/>`;
+    receipt2 += numToSpace(4)+ getTimestamp() + numToChar(23, "-") + `<br/>`;
+    receipt2 += numToSpace(6)+ getTimestamp() + numToChar(21, "-") +  `<br/>`;
+    receipt2 += numToSpace(4)+ getTimestamp() + numToChar(23, "-") +  `<br/>`;
+    receipt2 += numToSpace(2)+ getTimestamp() + numToChar(25, "-") +  `<br/>`;
+    receipt2 += getTimestamp()  + numToChar(27, "-") + `<br/>`;
 
     
 }
@@ -73,21 +73,16 @@ for (let i =0; i<400; i++) {
     receipt3 += printDiamond(2);
     receipt3 += printBasketWeave(3);
     receipt3 += printDiamond(2);
-  //  receipt3 += generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>`;
-   // receipt3 += printHerringBone(2);
-   // receipt3 += printSeedStitch(2);
 
 }
 browserReceipts.push(receipt3);
 
 // receipt 4 - what does it look like when we put "data" alongside sprites?
-let receipt4 = '';
-for (let i=0; i < 7; i++) {
-    receipt4 += printMarioCoinBox() + generateHash() + `<br/>`;
-    receipt4 += printMarioCoinBox() + getTimestamp() + `<br/>`;
-
-}
+let receipt4 = "";
+for (let i=0; i<20; i++) receipt4 += (printClouds()) + `<br/>`;
 browserReceipts.push(receipt4);
+
+
 
 // // receipt 5
 // browserReceipts.push(receipt3);

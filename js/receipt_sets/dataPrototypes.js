@@ -4,6 +4,7 @@ import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch} from 
 import printMarioCoinBox from "../sprite/coinBox.js";
 import printStarburst from "../sprite/starburst.js";
 import printClouds from "../sprite/clouds.js";
+import printTwinkleBanner from "../sprite/banner.js";
 
 /**
  * This set of receipts is an experimental set to visualize some new
@@ -64,18 +65,6 @@ for (let i =0; i<400; i++) {
 }
 browserReceipts.push(receipt2);
 
-// receipt 3 - this is a demo of all of the patterns and how they can take
-// args for # of lines.
-let receipt3 = "";
-for (let i =0; i<400; i++) {
-    // LOLOL i know, it's just for testing!
-    receipt3 += generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>`;
-    receipt3 += printDiamond(2);
-    receipt3 += printBasketWeave(3);
-    receipt3 += printDiamond(2);
-
-}
-browserReceipts.push(receipt3);
 
 // receipt 4 - what does it look like when we put "data" alongside sprites?
 let receipt4 = "";
@@ -91,15 +80,32 @@ browserReceipts.push(receipt4);
 // browserReceipts.push(receipt2);
 
 // // receipt 7
-// let receipt7 = '';
-// for (let i=0; i<5; i++) receipt7 += printRope() + '<br/>';
-// browserReceipts.push(receipt7);
+let receipt7 = '';
+for (let i=0; i<5; i++) {
+    receipt7 += printStarburst() + '<br/>';
+    }
+browserReceipts.push(receipt7);
 
-// // receipt 8
-// let receipt8 = "";
-// for (let i =0; i<20; i++) receipt8 += (Math.random() < 0.5 ? printTwinkleBanner(false) : printStarburst()) + `<br/>`;
-// browserReceipts.push(receipt8);
+// receipt 8
+let receipt8 = "";
+for (let i =0; i<20; i++) {
+    receipt8 += printTwinkleBanner(false) + `<br/>`;
+}
+browserReceipts.push(receipt8);
 
+
+// receipt 3 - this is a demo of all of the patterns and how they can take
+// args for # of lines.
+let receipt3 = "";
+for (let i =0; i<400; i++) {
+    // LOLOL i know, it's just for testing!
+    receipt3 += generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>`;
+    receipt3 += printDiamond(2);
+    receipt3 += printBasketWeave(3);
+    receipt3 += printDiamond(2);
+
+}
+browserReceipts.push(receipt3);
 
 /**
  * receipt data in printer-friendly form. a 2d array of strings using regular spaces and \n

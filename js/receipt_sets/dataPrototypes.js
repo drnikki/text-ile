@@ -2,6 +2,8 @@ import {browserToPrinter} from "../receipt.js";
 import {getTimestamp, generateHash, numToSpace} from "../stringManipulation.js";
 import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch} from "../sprite/pattern.js";
 import printMarioCoinBox from "../sprite/coinBox.js";
+import printStarburst from "../sprite/starburst.js";
+import printClouds from "../sprite/clouds.js";
 
 /**
  * This set of receipts is an experimental set to visualize some new
@@ -30,12 +32,19 @@ const browserReceipts = [];
  *  create each of the seven receipts
  */
 
-// receipt 1 - hash plus manually entered text patterns.
+// receipt 1 - TIMESTAMPS
 let receipt1 = "";
 //for (let i =0; i<20; i++) receipt1 += (Math.random() < 0.5 ? printTwinkleBanner(true) : printStarburst()) + `<br/>`;
 for (let i =0; i<400; i++) {
-    receipt1 += generateHash() + `<br/>`;
-    receipt1 +="-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" + `<br/>`;
+
+    receipt1 += getTimestamp() + numToSpace(14)+ getTimestamp() + `<br/>`;
+    receipt1 += numToSpace(2) + getTimestamp() + numToSpace(10)+ getTimestamp() + numToSpace(2) + `<br/>`;
+    receipt1 += numToSpace(4)+ getTimestamp() + numToSpace(6)+ getTimestamp() + numToSpace(4) + `<br/>`;
+    receipt1 += numToSpace(6)+ getTimestamp() + numToSpace(2)+ getTimestamp() + numToSpace(6) + `<br/>`;
+    receipt1 += numToSpace(4)+ getTimestamp() + numToSpace(6)+ getTimestamp() + numToSpace(4) + `<br/>`;
+    receipt1 += numToSpace(2)+ getTimestamp() + numToSpace(10)+ getTimestamp() + numToSpace(2) + `<br/>`;
+    receipt1 += getTimestamp() + numToSpace(14)+ getTimestamp() + `<br/>`;
+
 }
 browserReceipts.push(receipt1);
 
@@ -43,16 +52,13 @@ browserReceipts.push(receipt1);
 let receipt2 = "";
 //for (let i =0; i<20; i++) receipt1 += (Math.random() < 0.5 ? printTwinkleBanner(true) : printStarburst()) + `<br/>`;
 for (let i =0; i<400; i++) {
-    receipt2 += generateHash() + `<br/>`;
-    receipt2 += numToSpace() + "-<[]>- .. -<[]>- .. -<[]>- .. -<[]>- .. " + `<br/>`;
-    receipt2 += generateHash() + `<br/>`;
-    receipt2 += numToSpace() + " .. -<[]>- .. -<[]>- .. -<[]>- .. -<[]>-" + `<br/>`;
-    receipt2 += generateHash() + `<br/>`;
-    receipt2 += numToSpace() + "=>- .. -<[]>- .. -<[]>- .. -<[]>- .. -" + `<br/>`;
-    receipt2 += generateHash() + `<br/>`;
-    receipt2 += numToSpace() + ". -<[]>- .. -<[]>- .. -<[]>- .. -<[]>- " + `<br/>`;
-    receipt2 += generateHash() + `<br/>`;
-    receipt2 += numToSpace() + "- .. -<[]>- .. -<[]>- .. -<[]>- .. -<" + `<br/>`;
+    receipt2 += getTimestamp() + numToSpace(14)+  `<br/>`;
+    receipt2 += numToSpace(2) + getTimestamp() +  `<br/>`;
+    receipt2 += numToSpace(4)+ getTimestamp() +  `<br/>`;
+    receipt2 += numToSpace(6)+ getTimestamp() +  `<br/>`;
+    receipt2 += numToSpace(4)+ getTimestamp() +   `<br/>`;
+    receipt2 += numToSpace(2)+ getTimestamp() +   `<br/>`;
+    receipt2 += getTimestamp() + numToSpace(14) + `<br/>`;
 
     
 }

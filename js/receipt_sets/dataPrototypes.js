@@ -63,12 +63,13 @@ browserReceipts.push(receipt2);
 let receipt3 = "";
 for (let i =0; i<400; i++) {
     // LOLOL i know, it's just for testing!
-    receipt3 += generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>`;
-    receipt3 += printDiamond(5);
-    receipt3 += printBasketWeave(4);
-    receipt3 += generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>`;
-    receipt3 += printHerringBone(2);
-    receipt3 += printSeedStitch(2);
+    receipt3 += generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>`;
+    receipt3 += printDiamond(2);
+    receipt3 += printBasketWeave(3);
+    receipt3 += printDiamond(2);
+  //  receipt3 += generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>`;
+   // receipt3 += printHerringBone(2);
+   // receipt3 += printSeedStitch(2);
 
 }
 browserReceipts.push(receipt3);

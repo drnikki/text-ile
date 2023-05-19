@@ -17,6 +17,19 @@ export function numToSpace(howMany) {
 
     return prefix;
 }
+/*
+* This helper function just converts a number to a repeating character
+* That's all it does
+*/
+export function numToChar(howMany,whatChar) {
+    // convert # to characters
+    let prefix = '';
+    for (let s =0; s < howMany; s++) {
+        prefix += whatChar;
+    }
+
+    return prefix;
+}
 
 // this helper function generates a random number between a min and a max
 // and returns that # in spaces

@@ -85,7 +85,7 @@ export const printDiamond = (rows=10) => {
 /**
  * print seed stitch pattern
  */
-export function printSeedStitch(rowCount) {
+export function printSeedStitch(rowCount = 10) {
     let line = '';
     let columns = 40;
     let pattern = '';

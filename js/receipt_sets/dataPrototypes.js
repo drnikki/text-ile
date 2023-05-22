@@ -105,7 +105,7 @@ browserReceipts.push(receipt7);
 // receipt 8
 let receipt8 = "";
 for (let i =0; i<80; i++) {
-    receipt8 += printTwinkleBanner(false) + `<br/>`;
+    receipt8 += printTwinkleBanner(true) + `<br/>`;
 }
 browserReceipts.push(receipt8);
 

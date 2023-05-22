@@ -1,7 +1,15 @@
-import {numToSpace, numToChar, randomSpacer} from "../stringManipulation.js";
+import {numToSpace, numToChar, randomSpacer, reverseString} from "../stringManipulation.js";
 
 
-export default function printClouds(spaceChar,minLeft, maxLeft) {
+/**
+ * 
+ * @param {*} spaceChar 
+ * @param {*} minLeft 
+ * @param {*} maxLeft 
+ * @param {*} flipped - do we reverse to "flip" or no
+ * @returns 
+ */
+export default function printClouds(spaceChar,minLeft, maxLeft, flipped) {
 
     ///
     /// set variables for this instance of clouds
@@ -13,31 +21,22 @@ export default function printClouds(spaceChar,minLeft, maxLeft) {
     var isRain = Math.random() > 0.5;
     // where do the clouds start? (position is different based on cloudCount)
     let startPosition = 1;
-    //switch(cloudCount) {
-     //   case 1:
-    
+
     startPosition = Math.floor((Math.random() * maxLeft) + minLeft); // btwn 10 and 32
     
-      //  case 2:
-        //    startPosition = Math.floor((Math.random() * 12) + 1); // btwn 1 and 12
-        //    break;
-        //case 3:
-         //   startPosition = Math.floor((Math.random() * 3) + 1); // btwn 1 and 3
-         //   break;
-    //}
-    // convert startPosition to a string of nonbreaking spaces
-    // so that it can just be appended to each row
-
     //creates leader before cloud with character
     var spacePrefix = numToChar(startPosition,spaceChar);
 
     var wholeCloud = '';
-    wholeCloud += oneCloud(spacePrefix, spaceChar);
-    if (isRain) {
-      //  wholeCloud += makeItRain(cloudCount, spacePrefix);
+   
+    // if flipped == TRUE, then flip it before it goes into the variable.
+    if (flipped) {
+       wholeCloud =  oneCloudFlipped(startPosition, spaceChar);
+    } else {
+        wholeCloud = oneCloud(spacePrefix, spaceChar);
     }
-
-    console.log(wholeCloud)
+    
+    
 
     return wholeCloud;
     
@@ -66,6 +65,34 @@ function oneCloud(prefix, spaceChar) {
 
     return oneWholeCloud;
 }
+
+/**
+ * I just... here it is flipped, i just couldn't -n
+ * 
+ * @param {*} startPosition - the numeric start pos
+ * @param {*} spaceChar 
+ * @returns 
+ */
+function oneCloudFlipped(startPosition, spaceChar) {
+    var prefix = numToChar(startPosition,"&nbsp;");
+
+    var row = '';
+    var oneWholeCloud = '';
+    //prefix = "&nbsp;";
+    row = "&nbsp;".repeat(6) +  "((()" + spaceChar.repeat(30) + "<br/>";
+    oneWholeCloud = row;
+    row =  "&nbsp;".repeat(3) + "((((())))"  + spaceChar.repeat(28) + "<br/>";
+    oneWholeCloud += row;
+    row =  "&nbsp;".repeat(2) + "((((((())))))"   + spaceChar.repeat(25) + "<br/>"
+    oneWholeCloud += row;
+    row = "((((((((()))))))))" + spaceChar.repeat(22) +"<br />";
+    oneWholeCloud += row ;
+    row = prefix + "&nbsp;".repeat(2) + "(((((()))))"  + spaceChar.repeat(24) +  "<br/>";
+    oneWholeCloud += row;
+
+    return oneWholeCloud;
+}
+
 
 
 function makeItRain(cloudCount, prefix) {

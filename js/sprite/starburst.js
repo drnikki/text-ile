@@ -1,4 +1,4 @@
-
+import { getTimestamp } from "../stringManipulation.js";
 
 
 // helper function to get a random int within a certain range
@@ -10,7 +10,7 @@ function getRandomInt(min, max) {
 
 export default function printStarburst(width = 20, height = 20) {
     let availChars = "#*."
-    const centChar = "#"
+    let centChar = getTimestamp();
     // var centChar = availChars[Math.floor(Math.random() * availChars.length)]     //uncomment to make central character random
 
     // dimensions of 2d array. uncomment following lines to make dimensions random within given range
@@ -91,10 +91,10 @@ export default function printStarburst(width = 20, height = 20) {
         }
     }
 
-    createSpreadChar(starGrid, "*", centChar, xmid_min, xmid_max, ymid_min, ymid_max, 4);
-    createSpreadChar(starGrid, ".", centChar, xmid_min, xmid_max, ymid_min, ymid_max, 10);
-    createSpreadChar(starGrid, "*", centChar, 0, m - 1, 0, n - 1, 3);
-    createSpreadChar(starGrid, ".", centChar, 0, m - 1, 0, n - 1, 7);
+    createSpreadChar(starGrid, "*", "**", xmid_min, xmid_max, ymid_min, ymid_max, 4);
+    createSpreadChar(starGrid, "&&", "&&", xmid_min, xmid_max, ymid_min, ymid_max, 10);
+    createSpreadChar(starGrid, "xx*", "xx", 0, m - 1, 0, n - 1, 3);
+    createSpreadChar(starGrid, "x.", "uu", 0, m - 1, 0, n - 1, 7);
 
     // convert 2d array into string
     let arrText='';

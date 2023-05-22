@@ -1,5 +1,5 @@
 import {browserToPrinter} from "../receipt.js";
-import {getTimestamp, generateHash, numToSpace, numToChar} from "../stringManipulation.js";
+import {getTimestamp, generateHash, numToSpace, numToChar, reverseString} from "../stringManipulation.js";
 import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch} from "../sprite/pattern.js";
 import printMarioCoinBox from "../sprite/coinBox.js";
 import printStarburst from "../sprite/starburst.js";
@@ -57,19 +57,18 @@ for (let i =0; i<400; i++) {
 }
 browserReceipts.push(receipt1);
 
-// receipt 2 - just timestamps!
+// receipt 2 - LINES THEN timestamps 
+// DO NOT EDIT - duplicate and change.
 let receipt2 = "";
 //for (let i =0; i<20; i++) receipt1 += (Math.random() < 0.5 ? printTwinkleBanner(true) : printStarburst()) + `<br/>`;
 for (let i =0; i<50; i++) {
-    receipt2 += getTimestamp() + numToChar(27, "-") +  `<br/>`;
-    receipt2 += numToSpace(2) + getTimestamp() + numToChar(25, "-") +  `<br/>`;
-    receipt2 += numToSpace(4)+ getTimestamp() + numToChar(23, "-") + `<br/>`;
-    receipt2 += numToSpace(6)+ getTimestamp() + numToChar(21, "-") +  `<br/>`;
-    receipt2 += numToSpace(4)+ getTimestamp() + numToChar(23, "-") +  `<br/>`;
-    receipt2 += numToSpace(2)+ getTimestamp() + numToChar(25, "-") +  `<br/>`;
-    receipt2 += getTimestamp()  + numToChar(27, "-") + `<br/>`;
-
-    
+    receipt2 += numToChar(27, "-") + getTimestamp() +   `<br/>`;
+    receipt2 +=  numToChar(25, "-") +   getTimestamp() + numToSpace(2) + `<br/>`;
+    receipt2 +=  numToChar(23, "-") +   getTimestamp() + numToSpace(4) +`<br/>`;
+    receipt2 +=  numToChar(21, "-") +   getTimestamp() + numToSpace(6) + `<br/>`;
+    receipt2 +=  numToChar(23, "-") +   getTimestamp() + numToSpace(4) + `<br/>`;
+    receipt2 +=  numToChar(25, "-") +   getTimestamp() + numToSpace(2) + `<br/>`;
+    receipt2 += numToChar(27, "-") + getTimestamp()  +  `<br/>`;    
 }
 browserReceipts.push(receipt2);
 
@@ -77,7 +76,7 @@ browserReceipts.push(receipt2);
 // receipt 3 - what does it look like when we put "data" alongside sprites?
 let receipt3 = "";
 for (let i=0; i<100; i++){
-receipt3 += (printClouds('-', 10, 14)) + `<br/>`;
+receipt3 += (printClouds('-', 0, 4, 1)) + `<br/>`;
 }
 browserReceipts.push(receipt3);
 
@@ -123,7 +122,7 @@ for (let i =0; i<400; i++) {
     receiptZ += printDiamond(2);
 
 }
-browserReceipts.push(receipt3);
+browserReceipts.push(receiptZ);
 
 /**
  * receipt data in printer-friendly form. a 2d array of strings using regular spaces and \n

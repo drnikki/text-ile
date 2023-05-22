@@ -1,7 +1,8 @@
 import {numToSpace, numToChar, randomSpacer} from "../stringManipulation.js";
 
 
-export default function printClouds() {
+export default function printClouds(spaceChar,minLeft, maxLeft) {
+
     ///
     /// set variables for this instance of clouds
     ///
@@ -12,24 +13,26 @@ export default function printClouds() {
     var isRain = Math.random() > 0.5;
     // where do the clouds start? (position is different based on cloudCount)
     let startPosition = 1;
-    switch(cloudCount) {
-        case 1:
-            startPosition = Math.floor((Math.random() * 24) + 1); // btwn 1 and 26
-            break;
-        case 2:
-            startPosition = Math.floor((Math.random() * 12) + 1); // btwn 1 and 12
-            break;
-        case 3:
-            startPosition = Math.floor((Math.random() * 3) + 1); // btwn 1 and 3
-            break;
-    }
+    //switch(cloudCount) {
+     //   case 1:
+    
+    startPosition = Math.floor((Math.random() * maxLeft) + minLeft); // btwn 10 and 32
+    
+      //  case 2:
+        //    startPosition = Math.floor((Math.random() * 12) + 1); // btwn 1 and 12
+        //    break;
+        //case 3:
+         //   startPosition = Math.floor((Math.random() * 3) + 1); // btwn 1 and 3
+         //   break;
+    //}
     // convert startPosition to a string of nonbreaking spaces
     // so that it can just be appended to each row
 
-    var spacePrefix = numToChar(startPosition,'-');
+    //creates leader before cloud with character
+    var spacePrefix = numToChar(startPosition,spaceChar);
 
     var wholeCloud = '';
-    wholeCloud += oneCloud(spacePrefix);
+    wholeCloud += oneCloud(spacePrefix, spaceChar);
     if (isRain) {
       //  wholeCloud += makeItRain(cloudCount, spacePrefix);
     }
@@ -37,6 +40,7 @@ export default function printClouds() {
     console.log(wholeCloud)
 
     return wholeCloud;
+    
 }
 // figure out how to render the whole shape, from the top down
 // clouds have 5 rows plus rain if it exists
@@ -45,19 +49,19 @@ export default function printClouds() {
 // were going into a <pre> tag.
 
 
-function oneCloud(prefix) {
+function oneCloud(prefix, spaceChar) {
     var row = '';
     var oneWholeCloud = '';
 
-    row = prefix + "------((()<br/>";
+    row = prefix + spaceChar.repeat(6) + "((()<br/>";
     oneWholeCloud = row;
-    row = prefix +"---((((()))<br/>";
+    row = prefix + spaceChar.repeat(3) + "((((())))<br/>";
     oneWholeCloud += row;
-    row = prefix +"--((((((())))))<br/>";
+    row = prefix + spaceChar.repeat(2) + "((((((())))))<br/>";
     oneWholeCloud += row;
     row = prefix +"((((((((()))))))))<br/>";
     oneWholeCloud += row;
-    row = prefix + "--(((((()))))<br/>";
+    row = prefix + spaceChar.repeat(2) +"(((((()))))<br/>";
     oneWholeCloud += row;
 
     return oneWholeCloud;

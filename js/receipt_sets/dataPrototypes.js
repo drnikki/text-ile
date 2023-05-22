@@ -5,6 +5,8 @@ import printMarioCoinBox from "../sprite/coinBox.js";
 import printStarburst from "../sprite/starburst.js";
 import printClouds from "../sprite/clouds.js";
 import printTwinkleBanner from "../sprite/banner.js";
+import printInkBlot from "../sprite/inkblot.js";
+
 
 /**
  * This set of receipts is an experimental set to visualize some new
@@ -33,6 +35,12 @@ const browserReceipts = [];
  *  create each of the seven receipts
  */
 
+let receipt9 = "";
+for (let i =0; i<80; i++) {
+    receipt9 += printInkBlot() + `<br/>`;
+}
+browserReceipts.push(receipt9);
+
 // receipt 1 - TIMESTAMPS
 let receipt1 = "";
 //for (let i =0; i<20; i++) receipt1 += (Math.random() < 0.5 ? printTwinkleBanner(true) : printStarburst()) + `<br/>`;
@@ -52,7 +60,7 @@ browserReceipts.push(receipt1);
 // receipt 2 - just timestamps!
 let receipt2 = "";
 //for (let i =0; i<20; i++) receipt1 += (Math.random() < 0.5 ? printTwinkleBanner(true) : printStarburst()) + `<br/>`;
-for (let i =0; i<400; i++) {
+for (let i =0; i<50; i++) {
     receipt2 += getTimestamp() + numToChar(27, "-") +  `<br/>`;
     receipt2 += numToSpace(2) + getTimestamp() + numToChar(25, "-") +  `<br/>`;
     receipt2 += numToSpace(4)+ getTimestamp() + numToChar(23, "-") + `<br/>`;
@@ -66,11 +74,19 @@ for (let i =0; i<400; i++) {
 browserReceipts.push(receipt2);
 
 
-// receipt 4 - what does it look like when we put "data" alongside sprites?
-let receipt4 = "";
-for (let i=0; i<20; i++) receipt4 += (printClouds()) + `<br/>`;
-browserReceipts.push(receipt4);
+// receipt 3 - what does it look like when we put "data" alongside sprites?
+let receipt3 = "";
+for (let i=0; i<100; i++){
+receipt3 += (printClouds('-', 10, 14)) + `<br/>`;
+}
+browserReceipts.push(receipt3);
 
+//Reciept4 - clouds no lines
+
+let receipt4 = "";
+receipt4 = numToSpace(40);
+for (let i=0; i<100; i++) receipt4 += (printClouds('&nbsp;', 1, 15)) + `<br/>`;
+browserReceipts.push(receipt4)
 
 
 // // receipt 5
@@ -81,6 +97,7 @@ browserReceipts.push(receipt4);
 
 // // receipt 7
 let receipt7 = '';
+receipt7 = numToSpace(400);
 for (let i=0; i<5; i++) {
     receipt7 += printStarburst() + '<br/>';
     }
@@ -88,21 +105,22 @@ browserReceipts.push(receipt7);
 
 // receipt 8
 let receipt8 = "";
-for (let i =0; i<20; i++) {
+for (let i =0; i<80; i++) {
     receipt8 += printTwinkleBanner(false) + `<br/>`;
 }
 browserReceipts.push(receipt8);
 
 
+
 // receipt 3 - this is a demo of all of the patterns and how they can take
 // args for # of lines.
-let receipt3 = "";
+let receiptZ = "";
 for (let i =0; i<400; i++) {
     // LOLOL i know, it's just for testing!
-    receipt3 += generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>`;
-    receipt3 += printDiamond(2);
-    receipt3 += printBasketWeave(3);
-    receipt3 += printDiamond(2);
+    receiptZ+= generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>`;
+    receiptZ += printDiamond(2);
+    receiptZ += printBasketWeave(3);
+    receiptZ += printDiamond(2);
 
 }
 browserReceipts.push(receipt3);

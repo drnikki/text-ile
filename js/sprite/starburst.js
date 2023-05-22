@@ -8,7 +8,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export default function printStarburst(width = 20, height = 15) {
+export default function printStarburst(width = 20, height = 20) {
     let availChars = "#*."
     const centChar = "#"
     // var centChar = availChars[Math.floor(Math.random() * availChars.length)]     //uncomment to make central character random

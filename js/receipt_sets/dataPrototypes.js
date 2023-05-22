@@ -76,7 +76,7 @@ browserReceipts.push(receipt2);
 // receipt 3 - what does it look like when we put "data" alongside sprites?
 let receipt3 = "";
 for (let i=0; i<100; i++){
-receipt3 += (printClouds('-', 0, 4, 1)) + `<br/>`;
+receipt3 += (printClouds('-', 0, 10, 1)) + `<br/>`;
 }
 browserReceipts.push(receipt3);
 

@@ -11,21 +11,13 @@ import {numToSpace, numToChar, randomSpacer, reverseString} from "../stringManip
  */
 export default function printClouds(spaceChar,minLeft, maxLeft, flipped) {
 
-    ///
-    /// set variables for this instance of clouds
-    ///
-
-    // 1. determine whether or not there are 1, 2 or 3 clouds
-    var cloudCount = Math.floor((Math.random() * 3) + 1); // btwn 1 and 3
-    // is there rain?
-    var isRain = Math.random() > 0.5;
     // where do the clouds start? (position is different based on cloudCount)
     let startPosition = 1;
 
-    startPosition = Math.floor((Math.random() * maxLeft) + minLeft); // btwn 10 and 32
+    startPosition = Math.floor((Math.random() * maxLeft) + minLeft); 
     
     //creates leader before cloud with character
-    var spacePrefix = numToChar(startPosition,spaceChar);
+    var spacePrefix = numToChar(startPosition, spaceChar);
 
     var wholeCloud = '';
    
@@ -74,21 +66,32 @@ function oneCloud(prefix, spaceChar) {
  * @returns 
  */
 function oneCloudFlipped(startPosition, spaceChar) {
-    var prefix = numToChar(startPosition,"&nbsp;");
+    // we have to fill it with spaces because the lines are on the right.
+    var prefix = numToChar(startPosition, "&nbsp;");
 
     var row = '';
     var oneWholeCloud = '';
+    var fill = ''; // this is to calculate how long the fills are
     //prefix = "&nbsp;";
-    row = "&nbsp;".repeat(6) +  "((()" + spaceChar.repeat(30) + "<br/>";
-    oneWholeCloud = row;
-    row =  "&nbsp;".repeat(3) + "((((())))"  + spaceChar.repeat(28) + "<br/>";
-    oneWholeCloud += row;
-    row =  "&nbsp;".repeat(2) + "((((((())))))"   + spaceChar.repeat(25) + "<br/>"
-    oneWholeCloud += row;
-    row = "((((((((()))))))))" + spaceChar.repeat(22) +"<br />";
-    oneWholeCloud += row ;
-    row = prefix + "&nbsp;".repeat(2) + "(((((()))))"  + spaceChar.repeat(24) +  "<br/>";
-    oneWholeCloud += row;
+    row = prefix + "&nbsp;".repeat(6) +  "((()";
+    fill = numToChar((30 - startPosition), spaceChar);
+    oneWholeCloud += row + fill + "<br />"; // do the calculation
+
+    row =  prefix + "&nbsp;".repeat(3) + "((((())))";
+    fill = numToChar((28 - startPosition), spaceChar);
+    oneWholeCloud += row + fill + "<br />";
+
+    row =  prefix + "&nbsp;".repeat(2) + "((((((())))))";
+    fill = numToChar((25 - startPosition), spaceChar);
+    oneWholeCloud += row + fill + "<br />";
+
+    row = prefix + "((((((((()))))))))";
+    fill = numToChar((22 - startPosition), spaceChar);
+    oneWholeCloud += row + fill + "<br />";
+
+    row = prefix + "&nbsp;".repeat(2) + "(((((()))))";
+    fill = numToChar((27 - startPosition), spaceChar);
+    oneWholeCloud += row + fill + "<br />";
 
     return oneWholeCloud;
 }

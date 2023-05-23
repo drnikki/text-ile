@@ -1,6 +1,6 @@
 import {printTriangle1, printTriangle2} from "../sprite/triangles.js";
 import printBug from "../sprite/bug.js";
-import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch} from "../sprite/pattern.js";
+import {printBasketWeave, printDiamond, printDotPattern, printHerringBone, printSeedStitch} from "../sprite/pattern.js";
 import printClouds from "../sprite/clouds.js";
 import {printChandelierA, printChandelierB} from "../sprite/chandelier.js";
 import printTwinkleBanner from "../sprite/banner.js";
@@ -47,6 +47,7 @@ for (let i = 0; i < numOfReceipts; i++) {
         textContent += printBasketWeave() + "<br/>";
         textContent += printHerringBone() + "<br/>";
         textContent += printDiamond() + "<br/>";
+        textContent += printDotPattern() + "<br/>";
         textContent += printMarioCoinBox() + "<br/>";
         textContent += printPeteca() + "<br/>";
     }

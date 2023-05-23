@@ -28,8 +28,6 @@ export default function printClouds(spaceChar,minLeft, maxLeft, flipped) {
         wholeCloud = oneCloud(spacePrefix, spaceChar);
     }
     
-    
-
     return wholeCloud;
     
 }

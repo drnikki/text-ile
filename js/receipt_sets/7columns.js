@@ -47,7 +47,7 @@ browserReceipts.push(receipt2);
 
 // receipt 3
 let receipt3 = "";
-for (let i=0; i<20; i++) receipt3 += (Math.random() < 0.75 ? printClouds('+, 10, 20') : printMarioCoinBox()) + `<br/>`;
+for (let i=0; i<20; i++) receipt3 += (Math.random() < 0.75 ? printClouds() : printMarioCoinBox()) + `<br/>`;
 browserReceipts.push(receipt3);
 
 // receipt 4

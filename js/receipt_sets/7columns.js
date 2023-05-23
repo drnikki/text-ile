@@ -8,6 +8,7 @@ import {printTriangle1, printTriangle2} from "../sprite/triangles.js";
 import printBug from "../sprite/bug.js";
 import printRope from "../sprite/rope.js";
 import { printDiamondButterfly } from "../sprite/diamondButterfly.js";
+import {getTimestamp, generateHash} from "../stringManipulation.js";
 
 
 /**
@@ -34,7 +35,9 @@ const browserReceipts = [];
 
 // receipt 1
 let receipt1 = "";
-for (let i =0; i<20; i++) receipt1 += (Math.random() < 0.5 ? printTwinkleBanner(true) : printStarburst()) + `<br/>`;
+//for (let i =0; i<20; i++) receipt1 += (Math.random() < 0.5 ? printTwinkleBanner(true) : printStarburst()) + `<br/>`;
+for (let i =0; i<20; i++) receipt1 += (Math.random() < 0.5 ? getTimestamp() : generateHash()) + `<br/>`;
+
 browserReceipts.push(receipt1);
 
 // receipt 2
@@ -44,7 +47,7 @@ browserReceipts.push(receipt2);
 
 // receipt 3
 let receipt3 = "";
-for (let i=0; i<20; i++) receipt3 += (Math.random() < 0.75 ? printClouds() : printMarioCoinBox()) + `<br/>`;
+for (let i=0; i<20; i++) receipt3 += (Math.random() < 0.75 ? printClouds('+, 10, 20') : printMarioCoinBox()) + `<br/>`;
 browserReceipts.push(receipt3);
 
 // receipt 4
@@ -60,12 +63,12 @@ browserReceipts.push(receipt2);
 
 // receipt 7
 let receipt7 = '';
-for (let i=0; i<5; i++) receipt7 += printRope() + '<br/>';
+for (let i=0; i<20; i++) receipt7 += printRope() + '<br/>';
 browserReceipts.push(receipt7);
 
 // receipt 8
 let receipt8 = "";
-for (let i =0; i<20; i++) receipt8 += (Math.random() < 0.5 ? printTwinkleBanner(false) : printStarburst()) + `<br/>`;
+for (let i =0; i<20; i++) receipt8 += (Math.random() < 0 ? printTwinkleBanner(false) : printStarburst()) + `<br/>`;
 browserReceipts.push(receipt8);
 
 /**

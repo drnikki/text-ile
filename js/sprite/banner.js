@@ -6,7 +6,7 @@
 const printTwinkleBanner = (left = Math.random() < 0.5) => {
     const ribbonChoices = "_*':-^";
     // decide how many ribbons to use
-    const numRibbons = Math.floor((Math.random() * 11) + 20) // random int from 20-30
+    const numRibbons = Math.floor((Math.random() * 30) + 5) // random int from 5-35
 
     // create top pole
     let pole = '';
@@ -16,9 +16,10 @@ const printTwinkleBanner = (left = Math.random() < 0.5) => {
     // decide the order of ribbon styles
     let longestRibbonLength = 0;
     let ribbonStyles = [];
+    let maxRibbonLength = Math.floor((Math.random() * 30) + 3)
     for (let i = 0; i < numRibbons; i++) {
         const choice = Math.floor(Math.random() * ribbonChoices.length); // pick random char from ribbonChoices string
-        const length =  Math.floor((Math.random() * 9) + 3) // random length between 3 and 11
+        const length =  Math.floor((Math.random() * maxRibbonLength) + 1) // random length between 3 and 11
         ribbonStyles.push({
             style: ribbonChoices.charAt(choice),
             length

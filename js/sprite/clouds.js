@@ -30,9 +30,7 @@ export default function printClouds() {
 
     var wholeCloud = '';
     wholeCloud += oneCloud(spacePrefix);
-    if (isRain) {
-        wholeCloud += makeItRain(cloudCount, spacePrefix);
-    }
+
 
 
     return wholeCloud;

@@ -8,7 +8,7 @@ import printClouds from "./clouds.js";
 import printMarioCoinBox from "./coinBox.js";
 import printRope from "./rope.js";
 import {printTriangle1, printTriangle2} from "./triangles.js";
-import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch} from "./pattern.js";
+import {printBasketWeave, printDiamond, printDotPattern, printHerringBone, printSeedStitch} from "./pattern.js";
 import printTwinkleBanner from "./banner.js";
 
 
@@ -26,5 +26,6 @@ export default [
     printBasketWeave,
     printHerringBone,
     printDiamond,
-    printSeedStitch
+    printDotPattern,
+    printSeedStitch,
 ]

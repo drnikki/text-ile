@@ -11,6 +11,7 @@ import {printTriangle1, printTriangle2} from "./triangles.js";
 import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch} from "./pattern.js";
 import printTwinkleBanner from "./banner.js";
 import printChevron from "./chevron.js";
+import printBird from "./bird.js";
 
 
 export default [
@@ -29,4 +30,5 @@ export default [
     printDiamond,
     printSeedStitch,
     printChevron,
+    printBird,
 ]

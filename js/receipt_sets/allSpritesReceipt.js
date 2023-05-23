@@ -9,6 +9,7 @@ import printRope from "../sprite/rope.js";
 import printMarioCoinBox from "../sprite/coinBox.js";
 import {browserToPrinter} from "../receipt.js";
 import printChevron from "../sprite/chevron.js";
+import printBird from "../sprite/bird.js";
 
 /**
  * generate 1 or more receipts that each have all the sprites on them
@@ -49,6 +50,7 @@ for (let i = 0; i < numOfReceipts; i++) {
         textContent += printDiamond() + "<br/>";
         textContent += printMarioCoinBox() + "<br/>";
         textContent += printChevron() + "<br/>";
+        textContent += printBird() + "<br/>";
     }
     browserReceipts.push(textContent);
 }

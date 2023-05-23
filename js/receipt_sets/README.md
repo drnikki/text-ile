@@ -21,6 +21,7 @@ allTheReceipts = {
 ### current keywords
 - allSprites
 - 7_columns  ***(current default)***
+- dataPrototypes
 
 ## visualize and print
 Each receipt set can be visualized and printed from `shapes-beta.html?receiptSet=KEYWORD`.

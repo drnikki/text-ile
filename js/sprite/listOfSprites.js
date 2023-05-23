@@ -27,5 +27,5 @@ export default [
     printHerringBone,
     printDiamond,
     printDotPattern,
-    printSeedStitch
+    printSeedStitch,
 ]

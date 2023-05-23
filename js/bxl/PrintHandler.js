@@ -4,7 +4,7 @@
  * (1) if you are adding lines to be printed one-by-one, then you can instantiate a PrintHandler object and use the addLine and submitPrint methods.
  * (2) if you already have your lines that you want printed stored in an array, then you can simply use the static method PrintHandler.printLines, and it will handle all the printing for you
  * Option (2) can also be imported as its own standalone function.
- * @author Michael Crockett (line 392 onward)
+ * @author Michael Crockett (line 400 onward)
  */
 
 

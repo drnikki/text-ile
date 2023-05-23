@@ -97,19 +97,3 @@ function oneCloudFlipped(startPosition, spaceChar) {
 }
 
 
-
-function makeItRain(cloudCount, prefix) {
-    // how many rows of rain will we make?
-    var rainRows =  Math.floor((Math.random() *5) + 4); // btwn 4 and 12 @MOLLY?!
-
-    // we'd do something about the width of the rain based on the Clouds
-    let someRain = ''; // the contents of the rain.
-
-    // FOR ONE CLOUD
-    for (let r = 0; r < rainRows; r++) {
-        someRain += prefix + randomSpacer(1, 3) + "; <br/>"; // @TODO randomize the rain.
-    }
-
-    return someRain;
-}
-

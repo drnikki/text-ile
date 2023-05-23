@@ -1,6 +1,6 @@
 import {printTriangle1, printTriangle2} from "../sprite/triangles.js";
 import printBug from "../sprite/bug.js";
-import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch} from "../sprite/pattern.js";
+import {printBasketWeave, printDiamond, printDotPattern, printHerringBone, printSeedStitch} from "../sprite/pattern.js";
 import printClouds from "../sprite/clouds.js";
 import {printChandelierA, printChandelierB} from "../sprite/chandelier.js";
 import printTwinkleBanner from "../sprite/banner.js";
@@ -10,6 +10,8 @@ import printMarioCoinBox from "../sprite/coinBox.js";
 import {browserToPrinter} from "../receipt.js";
 import printChevron from "../sprite/chevron.js";
 import printBird from "../sprite/bird.js";
+import printPeteca from "../sprite/peteca.js";
+
 
 /**
  * generate 1 or more receipts that each have all the sprites on them
@@ -48,9 +50,11 @@ for (let i = 0; i < numOfReceipts; i++) {
         textContent += printBasketWeave() + "<br/>";
         textContent += printHerringBone() + "<br/>";
         textContent += printDiamond() + "<br/>";
+        textContent += printDotPattern() + "<br/>";
         textContent += printMarioCoinBox() + "<br/>";
         textContent += printChevron() + "<br/>";
         textContent += printBird() + "<br/>";
+        textContent += printPeteca() + "<br/>";
     }
     browserReceipts.push(textContent);
 }

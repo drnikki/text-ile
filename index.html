@@ -1,8 +1,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<script src="js/bxl/bxlcommon.js"></script>
-<script src="js/bxl/bxlpos.js"></script>
 
 
 <head>
@@ -22,7 +20,7 @@
 
 
 
-<body onload="initialize()">
+<body>
 <header>
     <nav id="site-nav"></nav>
     <script src="js/components/NavBar.js"></script>
@@ -50,14 +48,7 @@
         <div class="col-md-10 col-md-offset-1">
             <ul>
                 <li>
-                    <p>© 2018 Bixolon. All right reserved. &nbsp;&nbsp;
-                        <select id="sampleBoxMode">
-                            <option value="http">HTTP</option>
-                            <option value="https">HTTPS</option>
-                            <option value="ws">WS</option>
-                            <option value="wss">WSS</option>
-                        </select>
-                    </p>
+                    <p>© 2018 Bixolon. All right reserved. &nbsp;&nbsp;</p>
                 </li>
             </ul>
         </div>
@@ -65,24 +56,10 @@
 </footer>
 
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#sampleBoxMode').on('change',function(){
-            if(this.value == 'http') {
-                setConnectionMode("http:");
-            } else if(this.value == 'https') {
-                setConnectionMode("https:");
-            } else if(this.value == 'ws') {
-                setConnectionMode("ws:");
-            } else if(this.value == 'wss') {
-                setConnectionMode("wss:");
-            }
-        });
-    });
-</script>
+
 
 <script type="module">
-
+    import PrintHandler from "./js/bxl/PrintHandler.js";
     import getReceiptContent, {keywords} from "./js/receipt.js";
 
     // get arrays of receipt data
@@ -94,34 +71,17 @@
     // textContentBrowser is a 1d array formatted for the browser
     const [textContentBrowser, textContentPrinter] = getReceiptContent(receiptSet);
 
-    var issueID = 1;
-
-
-    function viewResult(result) {
-        console.log(result);
-    }
+    const printHandler = new PrintHandler();
 
     /**
      * assuming the array textContentPrinter is defined correctly, print a physical receipt
      * @param receiptNum the index of the receipt text in textContentPrinter
      */
     function PrintReceipt(receiptNum) {
-
-        setPosId(issueID);
-        checkPrinterStatus();
-
-        // physically print each row of receipt
-        textContentPrinter[receiptNum].forEach(row => {
-            console.log(row);  // use this line for testing, when you don't want to print physical receipts
-            printText(row, 0, 0, false, false, false, 1, 0)
-        });
-        printText("\n", 0, 0, false, false, false, 1, 0);
-
-        var strSubmit = getPosData();
-
-        issueID++;
-        requestPrint("Printer1", strSubmit, viewResult);
-
+        // prepare lines to print
+        printHandler.setLines(textContentPrinter[receiptNum]);
+        // print lines
+        printHandler.submitPrint(true);
         return true;
     } // end PrintReceipt()
 

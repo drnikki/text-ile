@@ -8,6 +8,7 @@ import printStarburst from "../sprite/starburst.js";
 import printRope from "../sprite/rope.js";
 import printMarioCoinBox from "../sprite/coinBox.js";
 import {browserToPrinter} from "../receipt.js";
+import printChevron from "../sprite/chevron.js";
 
 /**
  * generate 1 or more receipts that each have all the sprites on them
@@ -47,6 +48,7 @@ for (let i = 0; i < numOfReceipts; i++) {
         textContent += printHerringBone() + "<br/>";
         textContent += printDiamond() + "<br/>";
         textContent += printMarioCoinBox() + "<br/>";
+        textContent += printChevron() + "<br/>";
     }
     browserReceipts.push(textContent);
 }

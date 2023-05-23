@@ -7,6 +7,7 @@ import printMarioCoinBox from "../sprite/coinBox.js";
 import {printTriangle1, printTriangle2} from "../sprite/triangles.js";
 import printBug from "../sprite/bug.js";
 import printRope from "../sprite/rope.js";
+import { printDiamondButterfly } from "../sprite/diamondButterfly.js";
 import {getTimestamp, generateHash} from "../stringManipulation.js";
 
 

@@ -10,7 +10,10 @@ import printRope from "./rope.js";
 import {printTriangle1, printTriangle2} from "./triangles.js";
 import {printBasketWeave, printDiamond, printDotPattern, printHerringBone, printSeedStitch} from "./pattern.js";
 import printTwinkleBanner from "./banner.js";
+import printChevron from "./chevron.js";
+import printBird from "./bird.js";
 import printPeteca from "./peteca.js";
+
 
 
 export default [
@@ -28,6 +31,8 @@ export default [
     printHerringBone,
     printDiamond,
     printSeedStitch,
+    printChevron,
+    printBird,
     printPeteca,
     printDotPattern,
 ]

@@ -91,9 +91,9 @@ export const printDotPattern = (rowCount = 9) => {
     let printChar = '';
     for (let x = 0; x < rowCount; x++) {
         printChar = ";";  // 1st row
-        if (x % 2 == 0) { // 2nd row 
+        if (x % 3 === 0) { // 2nd row
             printChar = ":"
-        } else if ( x % 3 == 0) { // 3rd row
+        } else if ( x % 3 === 2) { // 3rd row
             printChar = ".";
         }
         for (let y=0; y < columns; y++) {

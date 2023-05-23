@@ -59,7 +59,7 @@
 
 
 <script type="module">
-    import PrintHandler from "./js/bxl/PrintHandler.js";
+    import {printLines} from "./js/bxl/PrintHandler.js";
     import getReceiptContent, {keywords} from "./js/receipt.js";
 
     // get arrays of receipt data
@@ -71,17 +71,14 @@
     // textContentBrowser is a 1d array formatted for the browser
     const [textContentBrowser, textContentPrinter] = getReceiptContent(receiptSet);
 
-    const printHandler = new PrintHandler();
 
     /**
      * assuming the array textContentPrinter is defined correctly, print a physical receipt
      * @param receiptNum the index of the receipt text in textContentPrinter
      */
     function PrintReceipt(receiptNum) {
-        // prepare lines to print
-        printHandler.setLines(textContentPrinter[receiptNum]);
         // print lines
-        printHandler.submitPrint(true);
+        printLines(textContentPrinter[receiptNum], true);
         return true;
     } // end PrintReceipt()
 

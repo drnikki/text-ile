@@ -9,7 +9,7 @@ import {numToSpace, numToChar, randomSpacer, reverseString} from "../stringManip
  * @param {*} flipped - do we reverse to "flip" or no
  * @returns 
  */
-export default function printClouds(spaceChar,minLeft, maxLeft, flipped) {
+export default function printClouds(spaceChar = "&nbsp;", minLeft = 0, maxLeft = 10, flipped = 0) {
 
     // where do the clouds start? (position is different based on cloudCount)
     let startPosition = 1;

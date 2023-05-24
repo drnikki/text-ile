@@ -1,4 +1,5 @@
 import { numToSpace } from "../stringManipulation.js";
+import { getTimestamp } from "../stringManipulation.js";
 
 /**
  *
@@ -27,8 +28,8 @@ import { numToSpace } from "../stringManipulation.js";
         spacer + "[]--???-------???---[]" + "<br/>" + spacer + "[]---???-----???----[]" + "<br/>" + 
         spacer + "[]---------???------[]" + "<br/>" + spacer + "[]--------???-------[]" + "<br/>" + 
         spacer + "[]--------???-------[]" + "<br/>" + spacer + "[]------------------[]" + "<br/>" + 
-        spacer + "[]--------??--------[]" + "<br/>" + spacer + "[]------------------[]" + "<br/>" + 
-        spacer + "[][][][][][][][][][][]" + "<br/>";
+        spacer + "[]--------??--------[]" + "<br/>" + spacer + "[]---" + getTimestamp() + "--[]" + "<br/>" + 
+        spacer + "[][][][][][][][][][][]" ;
 }
 
 export default printMarioCoinBox;

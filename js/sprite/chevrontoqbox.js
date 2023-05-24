@@ -29,7 +29,7 @@ export function printChevronToQBox(state) {
                 '' + numToSpace(25) + '*)' +  "<br/>" +
                 '/ / / / / / / / / / / /*)' + numToSpace(10) + '&nbsp;&nbsp;&nbsp;&nbsp;' + "<br/>" +
                 '************************)' + numToSpace(10) + '' + numToSpace(5) + '' + "<br/>" +
-                '|||||||||||||||||||||||)' + numToSpace(10) + '' + numToSpace(5) + '&nbsp; ' + "<br/>" +
+                '|||||||||||||||||||||||)'   + "<br/>" +
                 '*********************)' + numToSpace(10) + '' + numToSpace(5) + '&nbsp;&nbsp;' + "<br/>";
             break;
         case 3: // right, up

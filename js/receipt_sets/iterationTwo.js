@@ -1,6 +1,6 @@
 import {browserToPrinter} from "../receipt.js";
 import {getTimestamp, generateHash, numToSpace, numToChar, reverseString} from "../stringManipulation.js";
-import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch} from "../sprite/pattern.js";
+import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch, printGradientFloor} from "../sprite/pattern.js";
 import printMarioCoinBox from "../sprite/coinBox.js";
 import printStarburst from "../sprite/starburst.js";
 import printClouds from "../sprite/clouds.js";
@@ -14,6 +14,8 @@ import { printDiamondButterfly } from "../sprite/diamondButterfly.js";
 import printPeteca from "../sprite/peteca.js";
 import printBird from "../sprite/bird.js";
 import printChevron from "../sprite/chevron.js";
+import { printChevronToQBox } from "../sprite/chevrontoqbox.js";
+
 
 
 /**
@@ -107,7 +109,7 @@ let receiptCloudteca = "";
 for (let i=0; i<100; i++) {
     receiptCloudteca += printClouds('&nbsp;', 1, 15) + "<br /><br />"; 
     receiptCloudteca += printPeteca() + "<br />";  
-    receiptCloudteca += printBasketWeave(5) + "<br />";  
+    receiptCloudteca += printGradientFloor() + "<br />";  
 }
 browserReceipts.push(receiptCloudteca);
 
@@ -127,7 +129,7 @@ browserReceipts.push(receiptBirdBugL);
 // 7 - chevron / coinbox align R
 let chevronCoin1 = "";
 for (let i=0; i<100; i++) {
-    chevronCoin1 += printChevron() + "<br />"; 
+    chevronCoin1 += printChevron(); 
     chevronCoin1 += printMarioCoinBox("right") + "<br />"; //  
 }
 browserReceipts.push(chevronCoin1);
@@ -136,7 +138,8 @@ browserReceipts.push(chevronCoin1);
 // 8 - chevron / coinbox align L
 let chevronCoin2 = "";
 for (let i=0; i<100; i++) {
-    chevronCoin2 += printChevron() + "<br />"; 
+    chevronCoin2 += printChevron(); 
+    chevronCoin2 += printChevronToQBox(2);
     chevronCoin2 += printMarioCoinBox("left") + "<br />"; //  
 }
 browserReceipts.push(chevronCoin2);

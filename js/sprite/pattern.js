@@ -132,3 +132,14 @@ export function printSeedStitch(rowCount = 10) {
 
     return pattern;
 }
+
+export function printGradientFloor(){
+    return '########################################' + "<br/>" +
+    '*** ******* ******* ******* ******* ****'  + "<br/>" +
+    'xxxx xxxxxxx xxxxxxx xxxxxxx xxxxxxx xxx'  + "<br/>" +
+    ';;;;; ;;;;;;; ;;;;;;; ;;;;;;; ;;;;;;; ;;' + "<br/>" +
+    ':::::: ::::::: ::::::: ::::::: ::::::: :' + "<br/>" +
+    '&nbsp;....... ....... ....... ....... ....... ' + "<br/>" +
+    '&nbsp;';
+;
+}

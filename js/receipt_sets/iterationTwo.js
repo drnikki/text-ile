@@ -128,7 +128,9 @@ browserReceipts.push(receiptBirdBugL);
 // 7 - chevron / coinbox align R
 let chevronCoin1 = "";
 for (let i=0; i<100; i++) {
+    chevronCoin1 += printChevronToQBox(4)
     chevronCoin1 += printChevron(); 
+    chevronCoin1+=printChevronToQBox(3)
     chevronCoin1 += printMarioCoinBox("right") + "<br />"; //  
 }
 browserReceipts.push(chevronCoin1);
@@ -137,6 +139,7 @@ browserReceipts.push(chevronCoin1);
 // 8 - chevron / coinbox align L
 let chevronCoin2 = "";
 for (let i=0; i<100; i++) {
+    chevronCoin2 += printChevronToQBox(1);
     chevronCoin2 += printChevron(); 
     chevronCoin2 += printChevronToQBox(2);
     chevronCoin2 += printMarioCoinBox("left") + "<br />"; //  

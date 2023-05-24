@@ -1,6 +1,6 @@
 import {browserToPrinter} from "../receipt.js";
 import {getTimestamp, generateHash, numToSpace, numToChar, reverseString} from "../stringManipulation.js";
-import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch, printGradientFloor} from "../sprite/pattern.js";
+import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch, printTimestampWaves, printTimeLines, printGradientFloor} from "../sprite/pattern.js";
 import printMarioCoinBox from "../sprite/coinBox.js";
 import printStarburst from "../sprite/starburst.js";
 import printClouds from "../sprite/clouds.js";
@@ -63,19 +63,13 @@ const browserReceipts = [];
 
 // 1 - rope
 let receiptRope= '';
-for (let i=0; i<20; i++) receiptRope += printRope() + '<br/>';
+for (let i=0; i<20; i++) receiptRope += printRope();
 browserReceipts.push(receiptRope);
 
 //  2 - timestamp waves
 let receiptTimestampWaves = "";
-for (let i =0; i<400; i++) {
-    receiptTimestampWaves += getTimestamp() + numToSpace(14)+ getTimestamp() + `<br/>`;
-    receiptTimestampWaves += numToSpace(2) + getTimestamp() + numToSpace(10)+ getTimestamp() + numToSpace(2) + `<br/>`;
-    receiptTimestampWaves += numToSpace(4)+ getTimestamp() + numToSpace(6)+ getTimestamp() + numToSpace(4) + `<br/>`;
-    receiptTimestampWaves += numToSpace(6)+ getTimestamp() + numToSpace(2)+ getTimestamp() + numToSpace(6) + `<br/>`;
-    receiptTimestampWaves += numToSpace(4)+ getTimestamp() + numToSpace(6)+ getTimestamp() + numToSpace(4) + `<br/>`;
-    receiptTimestampWaves += numToSpace(2)+ getTimestamp() + numToSpace(10)+ getTimestamp() + numToSpace(2) + `<br/>`;
-    receiptTimestampWaves += getTimestamp() + numToSpace(14)+ getTimestamp() + `<br/>`;
+for (let i =0; i<30; i++) {
+    receiptTimestampWaves += printTimestampWaves();
 }
 browserReceipts.push(receiptTimestampWaves);
 
@@ -86,13 +80,7 @@ browserReceipts.push(receiptTimestampWaves);
 // 12 - lines to timestamp waves
 let receiptTimeToLine = "";
 for (let i =0; i<50; i++) {
-    receiptTimeToLine += numToChar(27, "-") + getTimestamp() +   `<br/>`;
-    receiptTimeToLine +=  numToChar(25, "-") +   getTimestamp() + numToSpace(2) + `<br/>`;
-    receiptTimeToLine +=  numToChar(23, "-") +   getTimestamp() + numToSpace(4) +`<br/>`;
-    receiptTimeToLine +=  numToChar(21, "-") +   getTimestamp() + numToSpace(6) + `<br/>`;
-    receiptTimeToLine +=  numToChar(23, "-") +   getTimestamp() + numToSpace(4) + `<br/>`;
-    receiptTimeToLine +=  numToChar(25, "-") +   getTimestamp() + numToSpace(2) + `<br/>`;
-    receiptTimeToLine += numToChar(27, "-") + getTimestamp()  +  `<br/>`;    
+    receiptTimeToLine += printTimeLines(false);   
 }
 browserReceipts.push(receiptTimeToLine);
 
@@ -107,9 +95,20 @@ browserReceipts.push(receiptLineToCloud)
 // TODO - alternating Cloud left, pateca right and reverse
 let receiptCloudteca = "";
 for (let i=0; i<100; i++) {
+    // this will print each combination in a pattern.
+    // TODO it could be randomized
     receiptCloudteca += printClouds('&nbsp;', 1, 15) + "<br /><br />"; 
+//<<<<<<< HEAD
     receiptCloudteca += printPeteca() + "<br />";  
     receiptCloudteca += printGradientFloor() + "<br />";  
+//=======
+    receiptCloudteca += printPeteca(16 + Math.floor(Math.random() * 8)) + "<br />";  // pateca on the right, between 16 and 24
+    receiptCloudteca += printBasketWeave(5) + "<br />";  
+
+    receiptCloudteca += printClouds('&nbsp;', 15, 35) + "<br /><br />"; 
+    receiptCloudteca += printPeteca(1 + Math.floor(Math.random() * 11)) + "<br />";  // pateca on the left
+    receiptCloudteca += printBasketWeave(5) + "<br />"; 
+//>>>>>>> 48c3718e577a07be568ae5c6e2db0d773465579e
 }
 browserReceipts.push(receiptCloudteca);
 
@@ -117,7 +116,7 @@ browserReceipts.push(receiptCloudteca);
 // TODO bird flip
 let receiptBirdBugL = "";
 for (let i=0; i<100; i++) {
-    receiptBirdBugL += printBird() + "<br />"; 
+    receiptBirdBugL += printBird(false) + "<br />"; 
     receiptBirdBugL += printTriangle1() + "<br />"; // 
     receiptBirdBugL += printBug() + "<br />"; // 
     receiptBirdBugL += printTriangle2() + "<br />"; // 
@@ -165,20 +164,14 @@ browserReceipts.push(receiptBirdBugR);
 // TODO fix these 
 let receiptCloudToLine = "";
 receiptCloudToLine = numToSpace(40);
-for (let i=0; i<100; i++) receiptCloudToLine += (printClouds('-', 1, 15)) + `<br/>`;
+for (let i=0; i<100; i++) receiptCloudToLine += (printClouds('-', 1, 15, 1)) + `<br/>`;
 browserReceipts.push(receiptCloudToLine)
 
 
 // 12 - lines to timestamp waves
 let receiptLineToTime = "";
 for (let i =0; i<50; i++) {
-    receiptLineToTime += numToChar(27, "-") + getTimestamp() +   `<br/>`;
-    receiptLineToTime +=  numToChar(25, "-") +   getTimestamp() + numToSpace(2) + `<br/>`;
-    receiptLineToTime +=  numToChar(23, "-") +   getTimestamp() + numToSpace(4) +`<br/>`;
-    receiptLineToTime +=  numToChar(21, "-") +   getTimestamp() + numToSpace(6) + `<br/>`;
-    receiptLineToTime +=  numToChar(23, "-") +   getTimestamp() + numToSpace(4) + `<br/>`;
-    receiptLineToTime +=  numToChar(25, "-") +   getTimestamp() + numToSpace(2) + `<br/>`;
-    receiptLineToTime += numToChar(27, "-") + getTimestamp()  +  `<br/>`;    
+    receiptLineToTime += printTimeLines(true);
 }
 browserReceipts.push(receiptLineToTime);
 

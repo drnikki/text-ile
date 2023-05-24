@@ -1,6 +1,6 @@
 import {browserToPrinter} from "../receipt.js";
 import {getTimestamp, generateHash, numToSpace, numToChar, reverseString} from "../stringManipulation.js";
-import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch, printTimestampWaves, printTimeLines} from "../sprite/pattern.js";
+import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch, printTimestampWaves, printTimeLines, printGradientFloor} from "../sprite/pattern.js";
 import printMarioCoinBox from "../sprite/coinBox.js";
 import printStarburst from "../sprite/starburst.js";
 import printClouds from "../sprite/clouds.js";
@@ -14,6 +14,8 @@ import { printDiamondButterfly } from "../sprite/diamondButterfly.js";
 import printPeteca from "../sprite/peteca.js";
 import printBird from "../sprite/bird.js";
 import printChevron from "../sprite/chevron.js";
+import { printChevronToQBox } from "../sprite/chevrontoqbox.js";
+
 
 
 /**
@@ -96,12 +98,17 @@ for (let i=0; i<100; i++) {
     // this will print each combination in a pattern.
     // TODO it could be randomized
     receiptCloudteca += printClouds('&nbsp;', 1, 15) + "<br /><br />"; 
+//<<<<<<< HEAD
+    receiptCloudteca += printPeteca() + "<br />";  
+    receiptCloudteca += printGradientFloor() + "<br />";  
+//=======
     receiptCloudteca += printPeteca(16 + Math.floor(Math.random() * 8)) + "<br />";  // pateca on the right, between 16 and 24
     receiptCloudteca += printBasketWeave(5) + "<br />";  
 
     receiptCloudteca += printClouds('&nbsp;', 15, 35) + "<br /><br />"; 
     receiptCloudteca += printPeteca(1 + Math.floor(Math.random() * 11)) + "<br />";  // pateca on the left
     receiptCloudteca += printBasketWeave(5) + "<br />"; 
+//>>>>>>> 48c3718e577a07be568ae5c6e2db0d773465579e
 }
 browserReceipts.push(receiptCloudteca);
 
@@ -121,7 +128,9 @@ browserReceipts.push(receiptBirdBugL);
 // 7 - chevron / coinbox align R
 let chevronCoin1 = "";
 for (let i=0; i<100; i++) {
-    chevronCoin1 += printChevron() + "<br />"; 
+    chevronCoin1 += printChevronToQBox(4)
+    chevronCoin1 += printChevron(); 
+    chevronCoin1+=printChevronToQBox(3)
     chevronCoin1 += printMarioCoinBox("right") + "<br />"; //  
 }
 browserReceipts.push(chevronCoin1);
@@ -130,7 +139,9 @@ browserReceipts.push(chevronCoin1);
 // 8 - chevron / coinbox align L
 let chevronCoin2 = "";
 for (let i=0; i<100; i++) {
-    chevronCoin2 += printChevron() + "<br />"; 
+    chevronCoin2 += printChevronToQBox(1);
+    chevronCoin2 += printChevron(); 
+    chevronCoin2 += printChevronToQBox(2);
     chevronCoin2 += printMarioCoinBox("left") + "<br />"; //  
 }
 browserReceipts.push(chevronCoin2);

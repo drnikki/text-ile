@@ -23,7 +23,7 @@ export default function printClouds(spaceChar = "&nbsp;", minLeft = 0, maxLeft =
    
     // if flipped == TRUE, then flip it before it goes into the variable.
     if (flipped) {
-       wholeCloud =  oneCloudFlipped(startPosition, spaceChar);
+       wholeCloud = oneCloudFlipped(startPosition, spaceChar);
     } else {
         wholeCloud = oneCloud(spacePrefix, spaceChar);
     }

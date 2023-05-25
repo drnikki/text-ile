@@ -1,6 +1,7 @@
 import allSpritesReceipt from "./receipt_sets/allSpritesReceipt.js";
 import sevenColumns from "./receipt_sets/7columns.js"
 import iterationOne from "./receipt_sets/iterationOne.js";
+import iterationTwo from "./receipt_sets/iterationTwo.js";
 
 /**
  * The purpose of this file is to provide the function `getReceiptContent`. We first import
@@ -48,6 +49,7 @@ const receiptSets = [
     allSpritesReceipt,
     sevenColumns,
     iterationOne,
+    iterationTwo,
 ]
 
 // add each set of receipts to allTheReceipts.

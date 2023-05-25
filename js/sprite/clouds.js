@@ -15,7 +15,9 @@ export default function printClouds(spaceChar = "&nbsp;", minLeft = 0, maxLeft =
     let startPosition = 1;
 
     startPosition = Math.floor((Math.random() * maxLeft) + minLeft); 
-    
+    // my brain is so tired... sometimes the max left is too high, sooo
+    if (startPosition > 22) startPosition = 21;
+    console.log(startPosition);
     //creates leader before cloud with character
     var spacePrefix = numToChar(startPosition, spaceChar);
 
@@ -23,7 +25,7 @@ export default function printClouds(spaceChar = "&nbsp;", minLeft = 0, maxLeft =
    
     // if flipped == TRUE, then flip it before it goes into the variable.
     if (flipped) {
-       wholeCloud =  oneCloudFlipped(startPosition, spaceChar);
+       wholeCloud = oneCloudFlipped(startPosition, spaceChar);
     } else {
         wholeCloud = oneCloud(spacePrefix, spaceChar);
     }

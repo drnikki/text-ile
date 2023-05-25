@@ -5,7 +5,7 @@
 
 /**
  * peteca sprite
- * @param padding - offset on the left. default is random value from 0 to 28
+ * @param padding - offset on the left. default is random value from 0 to 10
  */
 const printPeteca = (padding = Math.floor(Math.random() * 10)) => (`
     ${'&nbsp;'.repeat(padding)}&nbsp;&nbsp;&nbsp;&nbsp;\\

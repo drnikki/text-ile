@@ -28,6 +28,7 @@
 	margin: 0 auto auto;
 	text-align: left;
 	font-family: 'Andalé Mono', monospace;
+	white-space: nowrap;
 }
 
 .receipt p.lorem {

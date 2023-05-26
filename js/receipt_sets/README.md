@@ -23,6 +23,7 @@ allTheReceipts = {
 - 7_columns  ***(current default)***
 - iterationOne
 - iterationTwo
+- iterationThree
 
 ## visualize and print
 Each receipt set can be visualized and printed from `shapes-beta.html?receiptSet=KEYWORD`.

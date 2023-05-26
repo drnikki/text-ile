@@ -14,6 +14,7 @@ import { printDiamondButterfly } from "./diamondButterfly.js";
 import printChevron from "./chevron.js";
 import printBird from "./bird.js";
 import printPeteca from "./peteca.js";
+import printTimeBlock from "./timeBlocks.js";
 
 export default [
     printTwinkleBanner,
@@ -35,4 +36,5 @@ export default [
     printBird,
     printPeteca,
     printDotPattern,
+    printTimeBlock,
 ]

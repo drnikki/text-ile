@@ -87,9 +87,14 @@ browserReceipts.push(arrowTime);
 // 4 - Leo's diamonds and clouds
 let diamondsClouds = "";
 for (let i=0; i<100; i++) {
-    diamondsClouds += printDiamondButterfly();
+    
+    for (let x=0; x<5; x++) {
+        diamondsClouds += printDiamondButterfly();
+    }
+    diamondsClouds += "<br/><br/><br/>"; // spaaaace 
     diamondsClouds += printClouds();
-
+    diamondsClouds += printClouds() ;
+    diamondsClouds += printClouds() + "<br/><br/><br/>";
 }
 browserReceipts.push(diamondsClouds);
 

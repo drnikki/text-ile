@@ -3,7 +3,7 @@ var pos_data = {id:0, functions:{}};
 var pos_func = {};
 var incPosNum = 0;
 
-function getPosData() {
+export function getPosData() {
     pos_data.functions = pos_func;
     pos_func = {};
     incPosNum = 0;
@@ -11,11 +11,11 @@ function getPosData() {
     return JSON.stringify(pos_data);
 }
 
-function setPosId(setId) {
+export function setPosId(setId) {
     pos_data.id = setId;
 }
 
-function checkPrinterStatus() {
+export function checkPrinterStatus() {
     var _a = {checkPrinterStatus:[]};
     pos_func["func"+incPosNum] = _a;
     incPosNum++;
@@ -51,7 +51,7 @@ function setCharacterset(charset) {
     incPosNum++;
 }
 
-function printText(text, horizontal, vertical, bold, invert, underline, fonttype, alignment) {
+export function printText(text, horizontal, vertical, bold, invert, underline, fonttype, alignment) {
     var _a = {printText:[text, horizontal, vertical, bold, invert, underline, fonttype, alignment]};
     pos_func["func"+incPosNum] = _a;
     incPosNum++;

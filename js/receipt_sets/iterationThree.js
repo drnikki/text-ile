@@ -93,7 +93,7 @@ for (let i=0; i<100; i++) {
     }
     diamondsClouds += "<br/><br/><br/>"; // spaaaace 
     diamondsClouds += printClouds();
-    diamondsClouds += printClouds() ;
+    diamondsClouds += printClouds();
     diamondsClouds += printClouds() + "<br/><br/><br/>";
 }
 browserReceipts.push(diamondsClouds);

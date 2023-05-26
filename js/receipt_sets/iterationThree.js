@@ -1,5 +1,5 @@
 import {browserToPrinter} from "../receipt.js";
-import {getTimestamp, generateHash, numToSpace, numToChar, reverseString} from "../stringManipulation.js";
+import {getTimestamp, generateHash, numToSpace, numToChar, reverseString, imposeBlocks} from "../stringManipulation.js";
 import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch, printTimestampWaves, printTimeLines, printGradientFloor} from "../sprite/pattern.js";
 import printMarioCoinBox from "../sprite/coinBox.js";
 import printStarburst from "../sprite/starburst.js";
@@ -89,12 +89,16 @@ let diamondsClouds = "";
 for (let i=0; i<100; i++) {
     
     for (let x=0; x<5; x++) {
-        diamondsClouds += printDiamondButterfly();
+        diamondsClouds += printDiamondButterfly() + "<br/>".repeat(3);
     }
-    diamondsClouds += "<br/><br/><br/>"; // spaaaace 
-    diamondsClouds += printClouds();
-    diamondsClouds += printClouds();
-    diamondsClouds += printClouds() + "<br/><br/><br/>";
+    diamondsClouds += "<br/><br/><br/>"; // spaaaace
+
+    let clouds = imposeBlocks(printClouds(), "<br/>".repeat(3) + printClouds());
+    clouds = imposeBlocks(clouds, "<br/>".repeat(8) + printClouds());
+    clouds = imposeBlocks(clouds, "<br/>".repeat(11) + printClouds());
+
+    diamondsClouds += clouds;
+
 }
 browserReceipts.push(diamondsClouds);
 

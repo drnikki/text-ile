@@ -1,40 +1,30 @@
-import { getTimestamp } from "../stringManipulation.js";
-import { mergeString } from "../stringManipulation.js";
+import { getTimestamp, mergeString } from "../stringManipulation.js";
 
 
 export default function printTimeBlocks() {
-    // ---------- config (these can be parameters if necessary)
-    let minHeight = 7; // TODO randomize these
-    let maxHeight = 30;
-    let vOverlap = 2; // TODO would be great to randomize these
-    let hOverlap = 7; 
-
-    // todo randomize the start / "left" position of the blocks
+    var config = new Map([
+        ['minHeight', 5],
+        ['maxHeight', 20],
+        ['minHOverlap', 3],
+        ['maxHOverlap', 10],
+        ['blockSpaceMin', 3],
+        ['blockSpaceMax', 30],
+     ]);
 
     let timeBlocks = '';
 
-    const blockA = [];
-    const blockB = [];
+    // the number of "regular" rows is the randomized distance between the bottom of one right block
+    // and the start of the next one
+    let regularRows = config.get('blockSpaceMin') + Math.floor(Math.random() * config.get('blockSpaceMin'));  
 
-    // TODO - make random height
-    for (let i =0; i < 10; i++) {
-        blockA.push(getTimestamp());
-    } 
-
-    for (let i =0; i < 10; i++) {
-        blockB.push(getTimestamp());
-    } 
-
-    // the number of "regular" rows is the height minus the vOverlap, so we can just print those
-    let regularRows = 9; // TODO 
     for (let i =0; i < regularRows; i++) {
-        timeBlocks = getTimestamp().toString().split('').join(' ') + "<br />";
+        timeBlocks += getTimestamp().toString().split('').join(' ') + "<br />";
     } 
     // at this point we need to start overlapping
     // the number of characters of a timestamp we print w/o overlap is determined by
     // 13 - hOverlap
-    let heightOverlap = 13 - vOverlap; 
-    let widthOverlap = 13 - hOverlap; // TODO these names are terrible. I have no brain left, plz make better.
+    let heightOverlap = config.get('minHOverlap') + Math.floor(Math.random() * config.get('maxHOverlap'));  
+    let widthOverlap = 13 - heightOverlap; // TODO these names are terrible. I have no brain left, plz make better.
     for (let i =0; i < heightOverlap; i++) {
        // 1 get two timestamps
        var timeA = getTimestamp().toString();

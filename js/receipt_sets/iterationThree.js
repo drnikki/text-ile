@@ -16,7 +16,7 @@ import printBird from "../sprite/bird.js";
 import printChevron from "../sprite/chevron.js";
 import { printChevronToQBox } from "../sprite/chevrontoqbox.js";
 import printTimeBlocks from "../sprite/timeBlocks.js";
-
+import printArrowTime from "../sprite/arrowTime.js";
 /**
  * Iteration Three! 
  */
@@ -61,8 +61,15 @@ const browserReceipts = [];
  */
 
 
-let timeBlocks = "";
 
+
+// // 1 - rope
+// let receiptRope= '';
+// for (let i=0; i<20; i++) receiptRope += printRope();
+// browserReceipts.push(receiptRope);
+
+// 2 - timestamp blocks
+let timeBlocks = "";
 
 for (let i=0; i<6; i++) {
     timeBlocks += printTimeBlocks();
@@ -70,68 +77,22 @@ for (let i=0; i<6; i++) {
 
 browserReceipts.push(timeBlocks);
 
-
-/*
-function addSpace(str) {
-  return str.split('').join(' ');
+// 3 - timestamp overlap arrow
+let arrowTime = "";
+for (let i=0; i<100; i++) {
+    arrowTime += printArrowTime();
 }
+browserReceipts.push(arrowTime);
 
-const str1 = 'coffee';
-const str2 = 'banana';
+// 4 - Leo's diamonds and clouds
+let diamondsClouds = "";
+for (let i=0; i<100; i++) {
+    diamondsClouds += printDiamondButterfly();
+    diamondsClouds += printClouds();
 
-console.log(addSpace(str1)); // c o f f e e
-console.log(addSpace(str2)); // b a n a n a
-*/
+}
+browserReceipts.push(diamondsClouds);
 
-
-
-
-
-
-
-
-// // TODO: make this a sprite that will accept a parameter or two for the number of "mountains"
-
-// let arrowTime = "";
-// for (let i=0; i<100; i++) {
-//     // tight loop goes out
-
-//     for (let x=0; x<18; x+=2) {
-        
-//         arrowTime += numToSpace(x) + getTimestamp() + "<br/>";
-//     }
-//     // tight loop comes back
-//     for (let x=18; x>=0; x-=2) {
-        
-//         arrowTime += numToSpace(x) + getTimestamp() + "<br/>";
-//     }
-
-//     // wide loop goes out
-//     for (let x=0; x<28; x+=2) {
-//         // line a
-//         arrowTime += numToSpace(x) + getTimestamp() + "<br/>";
-//         // line b
-//         arrowTime += numToSpace(x + 4)  + getTimestamp() + "<br />"
-//     }
-//     // wide loop comes back
-//     for (let x=28; x >=0; x-=2) {
-//         // line a
-//         arrowTime += numToSpace(x) + getTimestamp() + "<br/>";
-//         // line b
-//         arrowTime += numToSpace(x + 4)  + getTimestamp() + "<br />"
-//     }
-
-// }
-// browserReceipts.push(arrowTime);
-
-
-
-
-
-// // 1 - rope
-// let receiptRope= '';
-// for (let i=0; i<20; i++) receiptRope += printRope();
-// browserReceipts.push(receiptRope);
 
 
 // // 5 - cloud with pateca  and pattern

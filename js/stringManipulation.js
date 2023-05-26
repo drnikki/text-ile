@@ -141,7 +141,7 @@ const imposeStrings = (str1, str2) => str2.split("").map((char, i) => char === '
  * @param {string} block2 a string made up of rows that are separated by <br> tags
  * @return {string} blocks imposed
  */
-export function imposeBlocks(block1, block2, offsetX, offsetY) {
+export function imposeBlocks(block1, block2, offsetX = 0, offsetY = 0) {
     //split up both blocks
     let rows1 = block1.replaceAll("&nbsp;", " ").split(/<\s*\/?\s*br\s*\/?\s*>/);
     let rows2 = block2.replaceAll("&nbsp;", " ").split(/<\s*\/?\s*br\s*\/?\s*>/);

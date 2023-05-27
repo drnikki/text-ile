@@ -93,12 +93,14 @@ for (let i=0; i<100; i++) {
     }
     diamondsClouds += "<br/><br/><br/>"; // spaaaace
 
+    // vertical position of each cloud (horizontal position is already randomized)
     const cloudPositions = [
         Math.floor(Math.random() * 3),
         Math.floor(Math.random() * 3) + 3,
         Math.floor(Math.random() * 3) + 6,
         Math.floor(Math.random() * 3) + 9,
     ];
+
     let clouds = imposeBlocks("<br/>".repeat(cloudPositions[0]) + printClouds(), "<br/>".repeat(cloudPositions[1]) + printClouds());
     clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[2]) + printClouds());
     clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[3]) + printClouds());

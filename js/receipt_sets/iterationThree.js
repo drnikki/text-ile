@@ -1,5 +1,5 @@
 import {browserToPrinter} from "../receipt.js";
-import {getTimestamp, generateHash, numToSpace, numToChar, reverseString} from "../stringManipulation.js";
+import {getTimestamp, generateHash, numToSpace, numToChar, reverseString, imposeBlocks} from "../stringManipulation.js";
 import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch, printTimestampWaves, printTimeLines, printGradientFloor} from "../sprite/pattern.js";
 import printMarioCoinBox from "../sprite/coinBox.js";
 import printStarburst from "../sprite/starburst.js";
@@ -89,12 +89,31 @@ let diamondsClouds = "";
 for (let i=0; i<100; i++) {
     
     for (let x=0; x<5; x++) {
-        diamondsClouds += printDiamondButterfly();
+        diamondsClouds += printDiamondButterfly() + "<br/>".repeat(3);
     }
+<<<<<<< HEAD
     diamondsClouds += "<br/><br/><br/>"; // spaaaace 
     diamondsClouds += printClouds();
     diamondsClouds += printClouds();
     diamondsClouds += printClouds() + "<br/><br/><br/>";
+=======
+    diamondsClouds += "<br/><br/><br/>"; // spaaaace
+
+    // vertical position of each cloud (horizontal position is already randomized)
+    const cloudPositions = [
+        Math.floor(Math.random() * 3),
+        Math.floor(Math.random() * 3) + 3,
+        Math.floor(Math.random() * 3) + 6,
+        Math.floor(Math.random() * 3) + 9,
+    ];
+
+    let clouds = imposeBlocks("<br/>".repeat(cloudPositions[0]) + printClouds(), "<br/>".repeat(cloudPositions[1]) + printClouds());
+    clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[2]) + printClouds());
+    clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[3]) + printClouds());
+
+    diamondsClouds += clouds;
+
+>>>>>>> b0911af9ac46da8bd28bc852824bfb37b8e3dfdb
 }
 browserReceipts.push(diamondsClouds);
 

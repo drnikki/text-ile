@@ -95,10 +95,12 @@ for (let i=0; i<100; i++) {
 
     // vertical position of each cloud (horizontal position is already randomized)
     const cloudPositions = [
-        Math.floor(Math.random() * 3),
-        Math.floor(Math.random() * 3) + 3,
-        Math.floor(Math.random() * 3) + 6,
-        Math.floor(Math.random() * 3) + 9,
+        //clouds stack lower to higher so top cloud sits over the rest
+        Math.floor(Math.random() * 6) + 15,
+        Math.floor(Math.random() * 6)+ 8,
+        Math.floor(Math.random() * 6) + 4,
+        Math.floor(Math.random() * 6),
+       
     ];
 
     let clouds = imposeBlocks("<br/>".repeat(cloudPositions[0]) + printClouds(), "<br/>".repeat(cloudPositions[1]) + printClouds());
@@ -186,17 +188,33 @@ browserReceipts.push(receiptCloudteca);
 
 
 // 11 - Leo's diamonds and clouds
-diamondsClouds = "";
+//let diamondsClouds = "";
 for (let i=0; i<100; i++) {
+    
     for (let x=0; x<5; x++) {
-        diamondsClouds += printDiamondButterfly();
+        diamondsClouds += printDiamondButterfly() + "<br/>".repeat(3);
     }
-    diamondsClouds += "<br/><br/><br/>"; // spaaaace 
-    diamondsClouds += printClouds();
-    diamondsClouds += printClouds();
-    diamondsClouds += printClouds() + "<br/><br/><br/>";
+    diamondsClouds += "<br/><br/><br/>"; // spaaaace
+
+    // vertical position of each cloud (horizontal position is already randomized)
+    const cloudPositions = [
+        //clouds stack lower to higher so top cloud sits over the rest
+        Math.floor(Math.random() * 6) + 15,
+        Math.floor(Math.random() * 6) + 8,
+        Math.floor(Math.random() * 6) + 4,
+        Math.floor(Math.random() * 6),
+       
+    ];
+
+    let clouds = imposeBlocks("<br/>".repeat(cloudPositions[0]) + printClouds(), "<br/>".repeat(cloudPositions[1]) + printClouds());
+    clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[2]) + printClouds());
+    clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[3]) + printClouds()) + "<br/><br /><br />";
+
+    diamondsClouds += clouds;
+
 }
 browserReceipts.push(diamondsClouds);
+
 
 
 // 12 - timestamp overlap arrow

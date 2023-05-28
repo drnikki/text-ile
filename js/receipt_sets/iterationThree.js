@@ -91,12 +91,6 @@ for (let i=0; i<100; i++) {
     for (let x=0; x<5; x++) {
         diamondsClouds += printDiamondButterfly() + "<br/>".repeat(3);
     }
-<<<<<<< HEAD
-    diamondsClouds += "<br/><br/><br/>"; // spaaaace 
-    diamondsClouds += printClouds();
-    diamondsClouds += printClouds();
-    diamondsClouds += printClouds() + "<br/><br/><br/>";
-=======
     diamondsClouds += "<br/><br/><br/>"; // spaaaace
 
     // vertical position of each cloud (horizontal position is already randomized)
@@ -109,11 +103,10 @@ for (let i=0; i<100; i++) {
 
     let clouds = imposeBlocks("<br/>".repeat(cloudPositions[0]) + printClouds(), "<br/>".repeat(cloudPositions[1]) + printClouds());
     clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[2]) + printClouds());
-    clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[3]) + printClouds());
+    clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[3]) + printClouds()) + "<br/><br /><br />";
 
     diamondsClouds += clouds;
 
->>>>>>> b0911af9ac46da8bd28bc852824bfb37b8e3dfdb
 }
 browserReceipts.push(diamondsClouds);
 

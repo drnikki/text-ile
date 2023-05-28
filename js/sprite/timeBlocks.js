@@ -5,7 +5,7 @@ export default function printTimeBlocks(columnLeft = true) {
     // the column of numbers along one edge is 25 chars long (13 #s + 12 spaces)
 
     // for us this is equivalent to receipts being 40 columns.
-    const displayWidth = 40; // this will get changed if we move to a global column config.
+    const displayWidth = 39; // this will get changed if we move to a global column config.
     let timeblocks = '';
 
     if (columnLeft) {
@@ -16,8 +16,8 @@ export default function printTimeBlocks(columnLeft = true) {
             ['maxHOverlap', 15], // TODO delete these - we don't need them and they're CONFUSING.
             ['distanceBetweenMin', 3], // the space between when a block ends and the next block starts 
             ['distanceBetweenMax', 12],
-            ['minX', 3], // the X (horizontal) position of the TOP LEFT CORNER  <- THIS CHANGES when flipped
-            ['maxX', 15],
+            ['minX', 5], // the X (horizontal) position of the TOP LEFT CORNER  <- THIS CHANGES when flipped
+            ['maxX', 13],
         ]);
     } else { // the column of numbers is on the right.
         console.log('its false');
@@ -28,8 +28,8 @@ export default function printTimeBlocks(columnLeft = true) {
             ['maxHOverlap', 15],
             ['distanceBetweenMin', 3], // the space between when a block ends and the next block starts 
             ['distanceBetweenMax', 12],
-            ['minX', 2], // the X (horizontal) position of the TOP LEFT CORNER  <- THIS CHANGES when flipped
-            ['maxX', 20],
+            ['minX', 4], // the X (horizontal) position of the TOP LEFT CORNER  <- THIS CHANGES when flipped
+            ['maxX', 13],
         ]);
     }
 
@@ -55,43 +55,34 @@ export default function printTimeBlocks(columnLeft = true) {
             // 1 get two timestamps and split them into arrays.
             let timeLeft = getTimestamp().toString().split("");
             let timeRight = getTimestamp().toString().split("");
-
-            // this is the number of characters from the left that we are overlapping
-            let charOverlap = Math.floor(blockX / 2); 
-
-            // until we're at blockX, print the column
-           // let column = timeLeft.toString().substring(0, charOverlap).split('').join(' ');
-            // the number of characters we merge needs to get us to the 26th vertical column
-            // before we start printing spaces again. 
-            console.log("blockx" + blockX);
-
             // the overlap zone is still kind of wonky, so the easiest way to make it look right
             // is to loop through one character at a time until we're where we need to be
-
             let oneRow = '';
             for (let i =0; i < displayWidth; i++) {
                 if (i < blockX) {
                     oneRow += timeLeft.shift();
-                    oneRow += " ";
+                    oneRow += "&nbsp;";
+                    // DANGER!  We're altering the loop from within
+                    i++; // because we're adding 2 chars in one iteration.
                 }
                 // when we're at X
                 if (i == blockX) {
                     oneRow += timeRight.shift();
                 }
                 // when we're past X, but not yet at 25 (aka the time to start spacing the block out)
-                if (i > blockX && i < 25) {
-                    if(timeLeft.length > 0) {
+                if (i > blockX && i < 23) {
+                    if(timeLeft.length > 0 && timeRight.length > 0) {
                         oneRow += timeLeft.shift() + timeRight.shift();
+                        i++;
                     }
-
                 }
-                if (i > 25 && timeRight.length > 0) {
+                if (i > 23 && timeRight.length > 0) {
                     oneRow += timeRight.shift();
-                    oneRow += " ";
+                    oneRow += "&nbsp;";
+                    i++;
                 }
 
             }
-            console.log(oneRow);
             oneRow += "<br />";
             timeblocks += oneRow;
             
@@ -101,28 +92,42 @@ export default function printTimeBlocks(columnLeft = true) {
 
     } else { // column is on the right.
         for (let i =0; i < blockHeight; i++) {
-            // 1 get two timestamps
-            var timeLeft = getTimestamp().toString();
-            var timeRight = getTimestamp().toString();
-            if (blockX <= 15) {
-                timeblocks += numToSpace(blockX - 1); // we start with empty space.
-            }
-            let charOverlap = Math.floor(blockX / 2); 
+            // 1 get two timestamps and split them into arrays.
+            let timeLeft = getTimestamp().toString().split(""); // is the BLOCK
+            let timeRight = getTimestamp().toString().split(""); // is the COLUMN
 
-             // 1  print regular #s
-             let blockA = timeLeft.toString().substring(0, charOverlap).split('').join(' ');
-             let mergedBlock = mergeString(timeLeft.substring(charOverlap, 12), timeRight.substring(0, charOverlap));
-             // get a second times stamp for the other block
-             let blockB = timeRight.substring(charOverlap, 12).split('').join(' ');
-     
-             timeblocks += blockA + mergedBlock + blockB + "<br/>";
-             // 2 - print the overlapping #s
-             // 3 - print regular #s
-             
-         } 
-     
-     
-         return timeblocks;
+            // the overlap zone is still kind of wonky, so the easiest way to make it look right
+            // is to loop through one character at a time until we're where we need to be
+            let oneRow = '';
+            for (let i =0; i < displayWidth; i++) {
+                if (i < blockX) {
+                    oneRow += numToSpace(1); 
+                }
+                // when we're at X / before start of column
+                if (i >= blockX && i < 15) {
+                    oneRow += timeLeft.shift();
+                    oneRow += "&nbsp;";
+                    i++; // we add done because we're using the i as a column marker
+                }
+                // when it's time to start the column AND there's still some of the left block remaining
+                if (i >= 15 && i < 24 && timeLeft.length > 0) {
+                        oneRow += timeLeft.shift() + timeRight.shift();
+                        i++; // adding 2 characters, so add 1 to iterator
+                    }
+                
+                if (i > 23 && timeRight.length > 0) {
+                    oneRow += timeRight.shift();
+                    oneRow += "&nbsp;";
+                    i++;
+                }
+
+            }
+            oneRow += "<br />";
+            timeblocks += oneRow;
+            
+        } 
+
+        return timeblocks;
     }
 
 }

@@ -57,7 +57,7 @@ export const addBlocks = (block1, block2) => {
 };
 
 /**
- * This function returns a random timestamp betwen now (aka before the HASTAC conference) and the rough date of its founding: 2003.
+ * This function returns a random timestamp between now (aka before the HASTAC conference) and the rough date of its founding: 2003.
  */
 export function getTimestamp() {
     const hastacFounding = new Date("January 1, 2003"); // keeping this human readable in case it needs to change.
@@ -68,7 +68,7 @@ export function getTimestamp() {
   }
 
 /**
- * Generates a hash using 
+ * Generates a hash.
  * 
  * @returns a 40 character sha1 hash
  */
@@ -137,6 +137,7 @@ const imposeStrings = (str1, str2) => str2.split("").map((char, i) => char === '
 
 /**
  * impose string block2 on top of string block1. assumes whitespace in the form of &nbsp;'s .
+ * @author Michael Crockett
  * @param {string} block1 a string made up of rows that are separated by <br> tags
  * @param {string} block2 a string made up of rows that are separated by <br> tags
  * @return {string} blocks imposed
@@ -189,4 +190,17 @@ export function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+/**
+ * helper function to count the number of characters in a string
+ * assuming it has HTML and nonbreaking spaces in it.
+ */
+export function countCharacters(charString) {
+    // 1. replace all nbsp; with " "
+    var clean = charString.replaceAll("&nbsp;", " ");
+    // strip any HTML (just in case)
+    const regex = /(<([^>]+)>)/ig;
+    clean = clean.replace(regex, "");
+    return clean.length;
 }

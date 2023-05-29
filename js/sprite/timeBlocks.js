@@ -1,4 +1,4 @@
-import { getTimestamp, mergeString, getRandomInt, numToSpace } from "../stringManipulation.js";
+import { getTimestamp, mergeString, getRandomInt, numToSpace, countCharacters} from "../stringManipulation.js";
 
 
 export default function printTimeBlocks(columnLeft = true) {
@@ -122,6 +122,8 @@ export default function printTimeBlocks(columnLeft = true) {
                 }
 
             }
+           // THIS IS SHADY, AND IT'S BECAUSE WE ARE RUSHING
+           if (countCharacters(oneRow) >40) oneRow = oneRow.trimEnd();
             oneRow += "<br />";
             timeblocks += oneRow;
             

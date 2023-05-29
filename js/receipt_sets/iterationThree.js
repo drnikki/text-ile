@@ -80,7 +80,7 @@ browserReceipts.push(timeBlocks);
 // 3 - timestamp overlap arrow
 let arrowTime = "";
 for (let i=0; i<100; i++) {
-    arrowTime += printArrowTime();
+    arrowTime += printArrowTime(false);
 }
 browserReceipts.push(arrowTime);
 
@@ -91,12 +91,6 @@ for (let i=0; i<100; i++) {
     for (let x=0; x<5; x++) {
         diamondsClouds += printDiamondButterfly() + "<br/>".repeat(3);
     }
-<<<<<<< HEAD
-    diamondsClouds += "<br/><br/><br/>"; // spaaaace 
-    diamondsClouds += printClouds();
-    diamondsClouds += printClouds();
-    diamondsClouds += printClouds() + "<br/><br/><br/>";
-=======
     diamondsClouds += "<br/><br/><br/>"; // spaaaace
 
     // vertical position of each cloud (horizontal position is already randomized)
@@ -113,7 +107,6 @@ for (let i=0; i<100; i++) {
 
     diamondsClouds += clouds;
 
->>>>>>> b0911af9ac46da8bd28bc852824bfb37b8e3dfdb
 }
 browserReceipts.push(diamondsClouds);
 
@@ -217,7 +210,7 @@ browserReceipts.push(arrowTime);
 // 13 - timestamp blocks
 timeBlocks = "";
 for (let i=0; i<6; i++) {
-    timeBlocks += printTimeBlocks();
+    timeBlocks += printTimeBlocks(false);
 }
 browserReceipts.push(timeBlocks);
 

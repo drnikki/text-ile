@@ -103,7 +103,7 @@ for (let i=0; i<100; i++) {
 
     let clouds = imposeBlocks("<br/>".repeat(cloudPositions[0]) + printClouds(), "<br/>".repeat(cloudPositions[1]) + printClouds());
     clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[2]) + printClouds());
-    clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[3]) + printClouds());
+    clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[3]) + printClouds()) + "<br/><br /><br />";
 
     diamondsClouds += clouds;
 

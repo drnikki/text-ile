@@ -43,16 +43,20 @@ export default function printClouds(spaceChar = "&nbsp;", minLeft = 0, maxLeft =
 function oneCloud(prefix, spaceChar) {
     var row = '';
     var oneWholeCloud = '';
-
-    row = prefix + spaceChar.repeat(6) + "((()<br/>";
+   
+    row = prefix + spaceChar.repeat(7) + "_<br/>";
     oneWholeCloud = row;
-    row = prefix + spaceChar.repeat(3) + "((((())))<br/>";
+    row = prefix + spaceChar.repeat(6) + "{(().<br/>";
     oneWholeCloud += row;
-    row = prefix + spaceChar.repeat(2) + "((((((())))))<br/>";
+    row = prefix + spaceChar.repeat(3) + "{(((())).<br/>";
     oneWholeCloud += row;
-    row = prefix +"((((((((()))))))))<br/>";
+    row = prefix + spaceChar.repeat(2) + "{(((((())))).<br/>";
     oneWholeCloud += row;
-    row = prefix + spaceChar.repeat(2) +"(((((()))))<br/>";
+    row = prefix + "{(((((((()))))))).<br/>";
+    oneWholeCloud += row;
+    row = prefix + spaceChar.repeat(2) +"{((((()))).<br/>";
+    oneWholeCloud += row;
+    row = prefix + spaceChar.repeat(3) +"********<br/>";
     oneWholeCloud += row;
 
     return oneWholeCloud;

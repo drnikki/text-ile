@@ -123,8 +123,6 @@ export default function printTimeBlocks(columnLeft = true) {
                 }
 
             }
-           // THIS IS SHADY, AND IT'S BECAUSE WE ARE RUSHING
-           if (countCharacters(oneRow) >40) oneRow = oneRow.trimEnd();
             oneRow += "<br />";
             timeblocks += oneRow;
             

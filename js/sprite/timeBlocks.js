@@ -100,7 +100,7 @@ export default function printTimeBlocks(columnLeft = true) {
             // is to loop through one character at a time until we're where we need to be
             let oneRow = '';
             for (let i =0; i < displayWidth; i++) {
-                if (i < blockX) {
+                if (i < blockX-1) {
                     oneRow += numToSpace(1); 
                 }
                 // when we're at X / before start of column
@@ -116,6 +116,7 @@ export default function printTimeBlocks(columnLeft = true) {
                     }
                 
                 if (i > 23 && timeRight.length > 0) {
+                    // we're looping through display width minus 1 because down here we add TWO.
                     oneRow += timeRight.shift();
                     oneRow += "&nbsp;";
                     i++;

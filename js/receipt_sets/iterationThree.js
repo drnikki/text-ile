@@ -80,7 +80,7 @@ browserReceipts.push(timeBlocks);
 // 3 - timestamp overlap arrow
 let arrowTime = "";
 for (let i=0; i<100; i++) {
-    arrowTime += printArrowTime();
+    arrowTime += printArrowTime(false);
 }
 browserReceipts.push(arrowTime);
 
@@ -228,7 +228,7 @@ browserReceipts.push(arrowTime);
 // 13 - timestamp blocks
 timeBlocks = "";
 for (let i=0; i<6; i++) {
-    timeBlocks += printTimeBlocks();
+    timeBlocks += printTimeBlocks(false);
 }
 browserReceipts.push(timeBlocks);
 

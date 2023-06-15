@@ -87,7 +87,7 @@ browserReceipts.push(receiptTimeToLine);
 
 // 4 - line to cloud
 let receiptLineToCloud = "";
-receiptLineToCloud = numToSpace(40);
+receiptLineToCloud = '<br/>';
 for (let i=0; i<100; i++) receiptLineToCloud += (printClouds('-', 1, 15)) + `<br/>`;
 browserReceipts.push(receiptLineToCloud)
 
@@ -158,7 +158,7 @@ browserReceipts.push(receiptBirdBugR);
 // 11 - cloud to line
 // TODO fix these 
 let receiptCloudToLine = "";
-receiptCloudToLine = numToSpace(40);
+receiptCloudToLine = '<br/>';
 for (let i=0; i<100; i++) receiptCloudToLine += (printClouds('-', 1, 15, 1)) + `<br/>`;
 browserReceipts.push(receiptCloudToLine)
 

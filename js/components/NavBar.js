@@ -25,6 +25,7 @@ $('#site-nav')
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="./">receipt sets</a></li>
                 <li class="nav-item"><a class="nav-link" href="./random-printer.html">random printer</a></li>
+                <li class="nav-item"><a class="nav-link" href="./multilayer.html">layering</a></li>
             </ul>
             </div>
     `);

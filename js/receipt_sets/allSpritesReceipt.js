@@ -12,6 +12,7 @@ import { printDiamondButterfly } from "../sprite/diamondButterfly.js";
 import printChevron from "../sprite/chevron.js";
 import printBird from "../sprite/bird.js";
 import printPeteca from "../sprite/peteca.js";
+import { printPanda } from "../sprite/panda.js";
 
 /**
  * generate 1 or more receipts that each have all the sprites on them
@@ -36,6 +37,7 @@ const numOfReceipts = 6;
 for (let i = 0; i < numOfReceipts; i++) {
     let textContent = ''; // this is what prints on the receipt.
     for (let y = 0; y < 5; y++) {
+        textContent += printPanda() + '<br/>';
         textContent += printTriangle1() + '<br/>';
         textContent += printTriangle2() + '<br/>';
         textContent += printBug() + "<br/>";

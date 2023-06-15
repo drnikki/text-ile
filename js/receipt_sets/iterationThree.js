@@ -68,14 +68,16 @@ let receiptRope= '';
 for (let i=0; i<20; i++) receiptRope += printRope();
 browserReceipts.push(receiptRope);
 
+
 // 2 - timestamp blocks
 let timeBlocks = "";
-timeBlocks += "";
+// the receipt is smol and weird!
+timeBlocks += "&nbsp;".repeat(39);
 for (let i=0; i<6; i++) {
     timeBlocks += printTimeBlocks();
 }
-
 browserReceipts.push(timeBlocks);
+
 
 // 3 - timestamp overlap arrow
 let arrowTime = "";
@@ -83,6 +85,8 @@ for (let i=0; i<100; i++) {
     arrowTime += printArrowTime(false);
 }
 browserReceipts.push(arrowTime);
+
+
 
 // 4 - Leo's diamonds and clouds
 let diamondsClouds = "";
@@ -113,7 +117,6 @@ for (let i=0; i<100; i++) {
 browserReceipts.push(diamondsClouds);
 
 
-
 // 5 - cloud with pateca  and pattern
 let receiptCloudteca = "";
 for (let i=0; i<100; i++) {
@@ -127,6 +130,7 @@ for (let i=0; i<100; i++) {
     receiptCloudteca += printGradientFloor() + "<br />";  
 }
 browserReceipts.push(receiptCloudteca);
+
 
 // 6 -  bird facing L / triangles / bugs
 let receiptBirdBugL = "";
@@ -196,6 +200,7 @@ for (let i=0; i<100; i++) {
     }
     diamondsClouds += "<br/><br/><br/>"; // spaaaace
 
+
     // vertical position of each cloud (horizontal position is already randomized)
     const cloudPositions = [
         //clouds stack lower to higher so top cloud sits over the rest
@@ -206,14 +211,18 @@ for (let i=0; i<100; i++) {
        
     ];
 
+
     let clouds = imposeBlocks("<br/>".repeat(cloudPositions[0]) + printClouds(), "<br/>".repeat(cloudPositions[1]) + printClouds());
     clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[2]) + printClouds());
     clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[3]) + printClouds()) + "<br/><br /><br />";
 
+
     diamondsClouds += clouds;
+
 
 }
 browserReceipts.push(diamondsClouds);
+
 
 
 
@@ -225,12 +234,16 @@ for (let i=0; i<100; i++) {
 browserReceipts.push(arrowTime);
 
 
+
+
+
 // 13 - timestamp blocks
 timeBlocks = "";
 for (let i=0; i<6; i++) {
     timeBlocks += printTimeBlocks(false);
 }
 browserReceipts.push(timeBlocks);
+
 
 
 // 14 - final receipt rope.

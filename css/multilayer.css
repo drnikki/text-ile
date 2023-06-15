@@ -21,19 +21,35 @@
 	gap: 15pt;
 }
 
-.receipt{
-	background: white;
+.doubleReceipt{
+	z-index: 0;
 	width: 420px;
 	padding: 15px;
+	background: white;
+	display: flex;
+	position: relative;
+	left: 10vw;
+	top: 25vh;
+	display: grid;
+}
+
+.receipt1 {
+	z-index: 50;
 	margin: 0 auto auto;
 	text-align: left;
 	font-family: 'Andalé Mono', monospace;
-	white-space: nowrap;
+	grid-column: 1;
+	grid-row: 1;
 }
 
-.receipt p.lorem {
-	padding-bottom: 15px;
-
+.receipt2 {
+	z-index: 99;
+	color: #d0d0d5;
+	margin: 0 auto auto;
+	text-align: left;
+	font-family: 'Andalé Mono', monospace;
+	grid-column: 1;
+	grid-row: 1;
 }
 
 #site-nav .nav-link {

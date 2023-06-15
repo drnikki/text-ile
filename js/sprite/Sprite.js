@@ -26,7 +26,7 @@ export default class Sprite {
      * get the string of the sprite
      * @returns {String}
      */
-    get sprite() {
+    get spriteText() {
         return this.#spriteText;
     }
 
@@ -96,6 +96,25 @@ export default class Sprite {
                 }).join("")
             )
             .join('<br/>');
+        return this; // so we can chain commands
+    }
+
+    /**
+     * This method constricts the width of the sprite by calling `slice` on each row.
+     * Useful if the sprite you are using is too large for your receipt.
+     * @param startIndex 0th based index at which to begin, inclusive
+     * @param endIndex 0th based index *before* which to end, not inclusive.
+     *  Using a negative index can lead to some wierd behavior if rows are of different lengths.
+     * @returns {Sprite} this sprite, so we can chain commands
+     * @see String.slice
+     */
+    constrictWidth(startIndex, endIndex) {
+        this.#spriteText = this.#spriteText.split(br)
+            .map(row => row
+                .replaceAll("&nbsp;", " ")
+                .slice(startIndex, endIndex)
+                .replaceAll(" ", "&nbsp;")
+            ).join("<br/>");
         return this; // so we can chain commands
     }
 }

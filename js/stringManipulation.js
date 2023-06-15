@@ -5,6 +5,12 @@ import sha1 from "./sha1.min.js"
  */
 
 /**
+ * regex to find break tags
+ * @type {RegExp}
+ */
+export const br = /<\s*\/?\s*br\s*\/?\s*>/;
+
+/**
  * This helper function just converts a number to nonbreaking spaces.
  * That's all it does
  */
@@ -45,8 +51,8 @@ export function randomSpacer(min, max) {
  */
 export const addBlocks = (block1, block2) => {
     //split up both blocks
-    const rows1 = block1.split(/<\s*\/?\s*br\s*\/?\s*>/);
-    let rows2 = block2.split(/<\s*\/?\s*br\s*\/?\s*>/);
+    const rows1 = block1.split(br);
+    let rows2 = block2.split(br);
 
     // band-aid to fix an error
     const diff = rows2.length - rows1.length;
@@ -144,8 +150,8 @@ const imposeStrings = (str1, str2) => str2.split("").map((char, i) => char === '
  */
 export function imposeBlocks(block1, block2, offsetX = 0, offsetY = 0) {
     //split up both blocks
-    let rows1 = block1.replaceAll("&nbsp;", " ").split(/<\s*\/?\s*br\s*\/?\s*>/);
-    let rows2 = block2.replaceAll("&nbsp;", " ").split(/<\s*\/?\s*br\s*\/?\s*>/);
+    let rows1 = block1.replaceAll("&nbsp;", " ").split(br);
+    let rows2 = block2.replaceAll("&nbsp;", " ").split(br);
 
 
     // add horizontal space as needed

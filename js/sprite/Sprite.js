@@ -30,6 +30,11 @@ export default class Sprite {
         return this.#spriteText;
     }
 
+    /**
+     * flips this sprite horizontally, replacing all directed characters with their counterparts.
+     * For example, '(' is replaced with ')' .
+     * @returns {Sprite} this sprite, so we can chain commands
+     */
     flipHorizontal() {
         const rows = this.#spriteText.split(br);
         let flippedRows = [];
@@ -64,10 +69,33 @@ export default class Sprite {
                     }
                 }) // {Character[]}
                 .join('')
-                .replaceAll(";psbn&", "&nbsp;") // spaces fixed
+                .replaceAll(";psbn&", "&nbsp;"); // spaces fixed
             flippedRows.push(padding + flippedRow);
         });
         this.#spriteText =  flippedRows.join('<br/>'); // set updated text
+        return this; // so we can chain commands
+    }
+
+    /**
+     * flip this sprite vertically.
+     * This method does not turn individual characters (besides slashes) upside down; it only rearranges their positions.
+     * @returns {Sprite} this sprite, so we can chain commands
+     */
+    flipVertical() {
+        this.#spriteText = this.#spriteText.split(br)
+            .reverse() // vertical flip
+            .map(row => row.split("").map(char => {  // for each row, flip all slashes
+                    switch (char){
+                        case '\\':
+                            return '/';
+                        case '/':
+                            return '\\';
+                        default:
+                            return char;
+                    }
+                }).join("")
+            )
+            .join('<br/>');
         return this; // so we can chain commands
     }
 }

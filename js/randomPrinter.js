@@ -1,5 +1,6 @@
 import spriteFunctions from "./sprite/listOfSprites.js"
 import {browserToPrinter} from "./receipt.js";
+import PrintHandler from "./PrintHandler.js";
 
 /**
  * used to continuously print random sprites
@@ -17,41 +18,7 @@ const config = {
     fillEmptySpace: true, // if true, any leftover "rows" after a sprite is finished printing will be filled in with blank space
 }
 
-/**
- *  redefined receipt print function
- */
-const printHandler = {
-    lines: [],
-    issueID: 1,
-    // store a line to be submitted with submitPrint
-    println (text) {
-        printHandler.lines.push(text);
-    },
-    reset() {
-        printHandler.lines = [];
-    },
-    // submit lines to the printer
-    submitPrint () {
-        setPosId(printHandler.issueID);
-        checkPrinterStatus();
-        printHandler.lines.forEach((line => {
-            console.log(line);
-            printText(line,  0, 0, false, false, false, 1, 0)
-        }));
-        const strSubmit = getPosData();
-        printHandler.issueID++;
-        requestPrint("Printer1", strSubmit, console.log);
 
-        // reset
-        printHandler.reset();
-    },
-};
-
-// // old attempt at printing TODO: see if this can be removed
-// const print = text => {
-//     console.log(text);
-//     printText(text,  0, 0, false, false, false, 1, 0);
-// }
 
 
 /**
@@ -91,6 +58,9 @@ const msToTime = ms => {
     return hours + ":" + minutes + ":" + seconds;
 }
 
+// object to handle connecting to printer and printing
+const printHandler = new PrintHandler();
+
 /**
  *  an object to handle the loop.
  *  I know this is a weird way to do this, but i'm just exploring and learning right now
@@ -113,7 +83,7 @@ const printLoop = {
         if (printLoop.wholeSprites) {
             const browserSprite = sprite();
             setReceiptInBrowser(-1, {browserSprite});
-            printHandler.lines = browserToPrinter(browserSprite);
+            printHandler.setLines(browserToPrinter(browserSprite));
 
         } else { // partial sprites
             // check to see if we had a leftover
@@ -131,14 +101,13 @@ const printLoop = {
 
             // display what we are printing
             setReceiptInBrowser(printNum, spriteInfo);
-            // print what we are printing.
-            // print text function defined in ./bxl/bxlpos.js, which should be included as its own <script> tag
+            // prepare to print what we are printing.
             for (let i = spriteInfo.startFrom; i < spriteInfo.startFrom + printNum; i++) {
                 if (i >= spriteInfo.printerSprite.length) {
                     // we're out of bounds
-                    if (config.fillEmptySpace) printHandler.println('\n'); // print blank line
+                    if (config.fillEmptySpace) printHandler.addLine('\n'); // print blank line
                     else break;
-                } else printHandler.println(spriteInfo.printerSprite[i]); // print row
+                } else printHandler.addLine(spriteInfo.printerSprite[i]); // print row
             }
 
             // we are no longer in progress
@@ -147,7 +116,7 @@ const printLoop = {
             else spriteInfo.startFrom += printNum;
         }
         //submit print
-        printHandler.submitPrint();
+        printHandler.submitPrint(true);
 
         // repeat action if looping
         if (printLoop.looping) {

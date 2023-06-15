@@ -154,7 +154,7 @@ function checkResult(method, strPrinterName, requestId, responseId, _callback) {
 	}
 }
 
-function requestPrint(strPrinterName, strSubmit, _callback) {
+export function requestPrint(strPrinterName, strSubmit, _callback) {
 	_callback("");
 	var serverURL = getServerURL().url;
 	if (connectionMode == "ws:" || connectionMode == "wss:") {

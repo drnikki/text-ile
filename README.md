@@ -1,4 +1,6 @@
 # Text-ile
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com)
+
 Text-ile is a repository for text-based pattern printing onto receipts to be used in the 20th anniversary HASTAC sculpture.
 
 ## description

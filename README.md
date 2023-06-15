@@ -1,5 +1,29 @@
-# README
-Text-ile is a repository for text-based pattern printing to be used in the 20th anniversary HASTAC scuplture.
+# Text-ile
+Text-ile is a repository for text-based pattern printing onto receipts to be used in the 20th anniversary HASTAC sculpture.
+
+## description
+Text-ile makes use of Bixolon's Web Print SDK (*add link here*) to create a browser-based interface for printing ASCII art.
+
+what does project do/why is it useful
+
+List of [features](#features) below.
+
+clearly define the point of the project
+## installation
+## usage 
+## contributing
+(point toward contributing guidelines)
+
+immediate goals (if any)
+## features
+### contributors
+
+
+
+
+<hr>
+
+# old readme
 
 ## Running locally
 To work on the code locally, you can use any text editor you normally use to work with JavaScript (VSCode is what Nikki uses).  As we have been testing various libraries and modules, we've encoutered some CORS errors.  The fastest way around this is to view the project from a local server.

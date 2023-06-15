@@ -45,8 +45,8 @@ export function randomSpacer(min, max) {
  */
 export const addBlocks = (block1, block2) => {
     //split up both blocks
-    const rows1 = block1.split('<br/>');
-    let rows2 = block2.split('<br/>');
+    const rows1 = block1.split(/<\s*\/?\s*br\s*\/?\s*>/);
+    let rows2 = block2.split(/<\s*\/?\s*br\s*\/?\s*>/);
 
     // band-aid to fix an error
     const diff = rows2.length - rows1.length;
@@ -57,7 +57,7 @@ export const addBlocks = (block1, block2) => {
 };
 
 /**
- * This function returns a random timestamp betwen now (aka before the HASTAC conference) and the rough date of its founding: 2003.
+ * This function returns a random timestamp between now (aka before the HASTAC conference) and the rough date of its founding: 2003.
  */
 export function getTimestamp() {
     const hastacFounding = new Date("January 1, 2003"); // keeping this human readable in case it needs to change.
@@ -68,7 +68,7 @@ export function getTimestamp() {
   }
 
 /**
- * Generates a hash using 
+ * Generates a hash.
  * 
  * @returns a 40 character sha1 hash
  */
@@ -116,4 +116,91 @@ export function mergeString(str1, str2) {
     }
     
     return mergedString;
-  }
+}
+
+
+/**
+ * add a number of spaces to each row
+ * @param rows {string[]}
+ * @param width {number} number of spaces
+ * @returns {string[]}
+ */
+const addHorizontalSpaceToRows = (rows, width) => rows.map(row => row ? " ".repeat(width) + row : row);
+
+/**
+ * returns string 2 with any space replaced by corresponding character in string 1
+ * @param str1
+ * @param str2
+ */
+const imposeStrings = (str1, str2) => str2.split("").map((char, i) => char === ' ' && i < str1.length
+    ? str1.charAt(i) : char ).join("");
+
+/**
+ * impose string block2 on top of string block1. assumes whitespace in the form of &nbsp;'s .
+ * @author Michael Crockett
+ * @param {string} block1 a string made up of rows that are separated by <br> tags
+ * @param {string} block2 a string made up of rows that are separated by <br> tags
+ * @return {string} blocks imposed
+ */
+export function imposeBlocks(block1, block2, offsetX = 0, offsetY = 0) {
+    //split up both blocks
+    let rows1 = block1.replaceAll("&nbsp;", " ").split(/<\s*\/?\s*br\s*\/?\s*>/);
+    let rows2 = block2.replaceAll("&nbsp;", " ").split(/<\s*\/?\s*br\s*\/?\s*>/);
+
+
+    // add horizontal space as needed
+    if (offsetX > 0) rows2 = addHorizontalSpaceToRows(rows2, offsetX) // add horizontal space to block2
+    else if (offsetX < 0) rows1 = addHorizontalSpaceToRows(rows1, -offsetX) // add horizontal space to block1
+
+
+    // add vertical space as needed
+    if (offsetY > 0) for (let i = 0; i < offsetY; i++) rows1.unshift("") // add vertical space to block1
+    else if (offsetY < 0) for (let i = 0; i < -offsetY; i++) rows2.unshift("") // add vertical space to block2
+
+
+    // impose
+    const imposedRows = [];
+
+    // add first unconflicting part
+    if (offsetY>0) for (let i=0; i < offsetY; i++) imposedRows[i] = rows2[i];
+    else {
+        offsetY *= -1;
+        for (let i=0; i < offsetY; i++) imposedRows[i] = rows1[i];
+    }
+
+    // find end of conflict
+    const eoc = Math.min(rows1.length, rows2.length);
+
+    // add conflicting part
+    if (offsetX>0) for (let i = offsetY; i < eoc; i++) imposedRows[i] =
+        rows1[i].slice(0, offsetX) + (rows1[i].length < offsetX ? " ".repeat(offsetX - rows1[i].length) : "") // fill it in with space if there's not enough here
+            + imposeStrings(rows1[i].slice(offsetX), rows2[i].slice(offsetX))
+            + rows1[i].slice(rows2[i].length);
+    else for (let i = offsetY; i < eoc; i++) imposedRows[i] = imposeStrings(rows1[i], rows2[i]) + rows1[i].slice(rows2[i].length);
+
+    // add last non-conflicting part
+    if (rows1.length > rows2.length) for (let i=eoc; i < rows1.length; i++) imposedRows[i] = rows1[i];
+    else for (let i=eoc; i < rows2.length; i++) imposedRows[i] = rows2[i];
+
+    return imposedRows.map(row => row.replaceAll(" ", "&nbsp;")).join("<br/>");
+}
+
+// helper function to get a random int within a certain range
+export function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+/**
+ * helper function to count the number of characters in a string
+ * assuming it has HTML and nonbreaking spaces in it.
+ */
+export function countCharacters(charString) {
+    // 1. replace all nbsp; with " "
+    var clean = charString.replaceAll("&nbsp;", " ");
+    // strip any HTML (just in case)
+    const regex = /(<([^>]+)>)/ig;
+    clean = clean.replace(regex, "");
+    return clean.length;
+}

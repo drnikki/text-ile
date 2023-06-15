@@ -9,12 +9,12 @@ import {numToSpace, numToChar, randomSpacer, reverseString} from "../stringManip
  * @param {*} flipped - do we reverse to "flip" or no
  * @returns 
  */
-export default function printClouds(spaceChar = "&nbsp;", minLeft = 0, maxLeft = 10, flipped = 0) {
+export default function printClouds(spaceChar = "&nbsp;", minLeft = 0, maxLeft = 21, flipped = 0) {
 
     // where do the clouds start? (position is different based on cloudCount)
     let startPosition = 1;
 
-    startPosition = Math.floor((Math.random() * maxLeft) + minLeft); 
+    startPosition = Math.floor((Math.random() * (maxLeft - minLeft + 1)) + minLeft);
     // my brain is so tired... sometimes the max left is too high, sooo
     if (startPosition > 22) startPosition = 21;
     console.log(startPosition);
@@ -43,16 +43,20 @@ export default function printClouds(spaceChar = "&nbsp;", minLeft = 0, maxLeft =
 function oneCloud(prefix, spaceChar) {
     var row = '';
     var oneWholeCloud = '';
-
-    row = prefix + spaceChar.repeat(6) + "((()<br/>";
+   
+    row = prefix + spaceChar.repeat(9) + "_<br/>";
     oneWholeCloud = row;
-    row = prefix + spaceChar.repeat(3) + "((((())))<br/>";
+    row = prefix + spaceChar.repeat(6) + "*(())-<br/>";
     oneWholeCloud += row;
-    row = prefix + spaceChar.repeat(2) + "((((((())))))<br/>";
+    row = prefix + spaceChar.repeat(3) + "*((((()))-<br/>";
     oneWholeCloud += row;
-    row = prefix +"((((((((()))))))))<br/>";
+    row = prefix + spaceChar.repeat(2) + "*((((((()))))-<br/>";
     oneWholeCloud += row;
-    row = prefix + spaceChar.repeat(2) +"(((((()))))<br/>";
+    row = prefix + "*((((((((())))))))-<br/>";
+    oneWholeCloud += row;
+    row = prefix + spaceChar.repeat(2) +"*(((((())))-<br/>";
+    oneWholeCloud += row;
+    row = prefix + spaceChar.repeat(4) +"********<br/>";
     oneWholeCloud += row;
 
     return oneWholeCloud;

@@ -1,12 +1,5 @@
-import { getTimestamp } from "../stringManipulation.js";
+import { getTimestamp, getRandomInt } from "../stringManipulation.js";
 
-
-// helper function to get a random int within a certain range
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
 export default function printStarburst(width = 20, height = 20) {
     let availChars = "#*."

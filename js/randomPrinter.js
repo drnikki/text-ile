@@ -1,6 +1,6 @@
 import spriteFunctions from "./sprite/listOfSprites.js"
 import {browserToPrinter} from "./receipt.js";
-import PrintHandler from "./bxl/PrintHandler.js";
+import PrintHandler from "./PrintHandler.js";
 
 /**
  * used to continuously print random sprites

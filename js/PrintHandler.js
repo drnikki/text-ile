@@ -1,5 +1,5 @@
-import {requestPrint} from "./bxlcommon.js";
-import {setPosId, checkPrinterStatus, printText, getPosData} from "./bxlpos.js";
+import {requestPrint} from "./bxl/bxlcommon.js";
+import {setPosId, checkPrinterStatus, printText, getPosData} from "./bxl/bxlpos.js";
 
 
 /**

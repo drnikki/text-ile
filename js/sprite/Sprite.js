@@ -1,4 +1,4 @@
-import {br} from "../stringManipulation.js";
+import {br, numToSpace} from "../stringManipulation.js";
 
 /**
  * a class to standardize sprite creation and manipulation
@@ -9,17 +9,48 @@ export default class Sprite {
     static receiptWidth = 40;
     /**
      * The characters that make up the sprite.
-     * Spaces should be non-breaking (represented by `&nbsp;`) and line breaks should be break tags `<br/>`.
-     * @type {String}
+     * Spaces should be non-breaking (represented by `&nbsp;`) and lines are separate elements in the array.
+     * @type {String[]}
      */
-    #spriteText;
+    #spriteRows;
 
     /**
-     * @param spriteText {String} The characters that make up the sprite.
-     *  Spaces should be non-breaking (represented by `&nbsp;`) and line breaks should be break tags `<br/>`.
+     * #marginFill tracks how we will fill in the blank margins on either side of the sprite.
+     * This change is not made to the stored sprite because it can interfere with some methods.
+     * @type {{left: string, right: string}}
+     */
+    #marginFill = {left: '&nbsp;', right: '&nbsp;'};
+
+    /**
+     *  @param spriteText {String|String[]} The characters that make up the sprite.
+     *  Spaces should be non-breaking (represented by `&nbsp;`)
+     *  and lines should be break tags `<br/>` or be separate elements in an array.
      */
     constructor(spriteText) {
-        this.#spriteText = spriteText;
+        this.#spriteRows = typeof spriteText === 'string' ? spriteText.split(br) : spriteText;
+    }
+
+    /**
+     * finds the width of the sprite
+     * @returns {number[]} [width, startIndex]
+     */
+    #findWidth(){
+        const [start, end] = this.#spriteRows.reduce(([start, end], currString, i) => {
+            currString = currString.replaceAll("&nbsp;", " ")
+            const trimmedString = currString.trim();
+            const noText = trimmedString[0] === undefined; // check if row has no text
+            const currStart = noText ? start : currString.indexOf(trimmedString[0]);
+            const currEnd = noText ? end : currStart + trimmedString.length;
+            // return the smallest start and largest end so far
+            return [
+                // find smallest starting index
+                Math.min(start, currStart),
+                // find the largest ending index
+                Math.max(end, currEnd),
+            ]},
+            [Sprite.receiptWidth, 0] // initial start and end
+        )
+        return [end - start, start, end];
     }
 
     /**
@@ -27,7 +58,20 @@ export default class Sprite {
      * @returns {String}
      */
     get spriteText() {
-        return this.#spriteText;
+        let {left, right} = this.#marginFill;
+        if (left === '&nbsp;') left = ' ';
+        const filledRows = this.#spriteRows.map(row => {
+            // handle left side
+            row = row.replaceAll("&nbsp;", " ");
+            let newRow = row.trimStart();
+            newRow = left.repeat(row.length - newRow.length) + newRow;
+            // handle right side
+            newRow = newRow.trimEnd();
+            newRow += right.repeat(Sprite.receiptWidth - newRow.length);
+
+            return newRow.replaceAll(" ", "&nbsp;");
+        });
+        return filledRows.join("<br/>");
     }
 
     /**
@@ -36,9 +80,7 @@ export default class Sprite {
      * @returns {Sprite} this sprite, so we can chain commands
      */
     flipHorizontal() {
-        const rows = this.#spriteText.split(br);
-        let flippedRows = [];
-        rows.forEach(row => {
+        this.#spriteRows = this.#spriteRows.map(row => {
             //find length, adjusted based on number of non-breaking spaces
             const spaceCount = (row.match(/&nbsp;/g) || []).length;
             const length = row.length - (5*spaceCount);
@@ -70,9 +112,8 @@ export default class Sprite {
                 }) // {Character[]}
                 .join('')
                 .replaceAll(";psbn&", "&nbsp;"); // spaces fixed
-            flippedRows.push(padding + flippedRow);
+            return padding + flippedRow;
         });
-        this.#spriteText =  flippedRows.join('<br/>'); // set updated text
         return this; // so we can chain commands
     }
 
@@ -82,8 +123,7 @@ export default class Sprite {
      * @returns {Sprite} this sprite, so we can chain commands
      */
     flipVertical() {
-        this.#spriteText = this.#spriteText.split(br)
-            .reverse() // vertical flip
+        this.#spriteRows = this.#spriteRows.reverse() // vertical flip
             .map(row => row.split("").map(char => {  // for each row, flip all slashes
                     switch (char){
                         case '\\':
@@ -94,27 +134,78 @@ export default class Sprite {
                             return char;
                     }
                 }).join("")
-            )
-            .join('<br/>');
+            );
         return this; // so we can chain commands
     }
 
     /**
-     * This method constricts the width of the sprite by calling `slice` on each row.
+     * This method calls `slice` on each row, does not update current sprite
      * Useful if the sprite you are using is too large for your receipt.
      * @param startIndex 0th based index at which to begin, inclusive
      * @param endIndex 0th based index *before* which to end, not inclusive.
-     *  Using a negative index can lead to some wierd behavior if rows are of different lengths.
-     * @returns {Sprite} this sprite, so we can chain commands
+     * @return {string[]} sliced sprite rows
      * @see String.slice
      */
-    constrictWidth(startIndex, endIndex) {
-        this.#spriteText = this.#spriteText.split(br)
-            .map(row => row
-                .replaceAll("&nbsp;", " ")
-                .slice(startIndex, endIndex)
-                .replaceAll(" ", "&nbsp;")
-            ).join("<br/>");
-        return this; // so we can chain commands
+    slicedSprite(startIndex, endIndex) {
+        if (startIndex < 0 || endIndex < 0) throw new RangeError("Negative Index");
+        if (endIndex < startIndex) throw new RangeError("endIndex comes before startIndex");
+        return this.#spriteRows.map(row => row
+            .replaceAll("&nbsp;", " ")
+            .slice(startIndex, endIndex)
+            .replaceAll(" ", "&nbsp;")
+        );
     }
+
+    /**
+     * calls sliceSprite and updates current sprite
+     * @param startIndex
+     * @param endIndex
+     * @returns {Sprite} this sprite, so we can chain commands
+     * @see Sprite.sliceSprite
+     */
+    constrictWidth(startIndex, endIndex) {
+        this.#spriteRows = this.slicedSprite(startIndex, endIndex);
+        return this;
+    }
+
+    /**
+     * set's the characters that will fill in the blank margins on either side of the sprite.
+     * @param left
+     * @param right
+     * @returns {Sprite}
+     */
+    setMarginFill(left, right) {
+        this.#marginFill = {left, right};
+        return this;
+    }
+
+    /**
+     * set sprite alignment
+     * @param alignTo "left", "center", or "right
+     * @returns {Sprite} this sprite, so we can chain commands
+     */
+    setAlign(alignTo) {
+        this.constrictWidth(0, Sprite.receiptWidth); // make sure sprite is at most as wide as the receipt
+        const [spriteWidth, start, end] = this.#findWidth(); // find width and position of sprite
+        const sprite = this.slicedSprite(start, end); // trimmed sprite
+        // figure out where we need to start
+        let newStart;
+        switch (alignTo) {
+            case "left":
+                newStart = 0;
+                break;
+            case "center":
+                newStart = Math.floor((Sprite.receiptWidth - spriteWidth)/2);
+                break;
+            case "right":
+                newStart = Sprite.receiptWidth - spriteWidth;
+                break;
+            default:
+                throw new Error("alignTo must be 'left', 'center', or 'right'")
+        }
+        this.#spriteRows = sprite.map(row => numToSpace(newStart) + row);
+        return this;
+    }
+
+
 }

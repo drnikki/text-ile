@@ -53,11 +53,9 @@ export default class Sprite {
         return [end - start, start, end];
     }
 
-    /**
-     * get the string of the sprite
-     * @returns {String}
-     */
-    get spriteText() {
+
+    toString() {
+        this.constrictWidth(0, Sprite.receiptWidth);
         let {left, right} = this.#marginFill;
         if (left === '&nbsp;') left = ' ';
         const filledRows = this.#spriteRows.map(row => {
@@ -207,5 +205,15 @@ export default class Sprite {
         return this;
     }
 
-
+    /**
+     * offset the sprite to the left or right. Positive number moves right, negative number moves left.
+     * Moving can be destructive to the sprite if it moves past the start or end.
+     * @param amount amount to offset by
+     * @returns {Sprite} this sprite, so we can chain commands
+     */
+    offsetBy(amount) {
+        if (amount >= 0) this.#spriteRows = this.#spriteRows.map(row => numToSpace(amount) + row);
+        else this.#spriteRows = this.#spriteRows.map(row => row.slice(-amount));
+        return this;
+    }
 }

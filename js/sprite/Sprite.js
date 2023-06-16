@@ -213,7 +213,11 @@ export default class Sprite {
      */
     offsetBy(amount) {
         if (amount >= 0) this.#spriteRows = this.#spriteRows.map(row => numToSpace(amount) + row);
-        else this.#spriteRows = this.#spriteRows.map(row => row.slice(-amount));
+        else this.#spriteRows = this.#spriteRows.map(row =>
+            row.replaceAll("&nbsp;", " ")
+                .slice(-amount)
+                .replaceAll(" ", "&nbsp;")
+        );
         return this;
     }
 }

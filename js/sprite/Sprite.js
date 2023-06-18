@@ -12,10 +12,10 @@ export default class Sprite {
      * Spaces should be non-breaking (represented by `&nbsp;`) and lines are separate elements in the array.
      * @type {String[]}
      */
-    #spriteRows;
+    spriteRows;
 
     /**
-     * #marginFill tracks how we will fill in the blank margins on either side of the sprite.
+     * `#marginFill` tracks how we will fill in the blank margins on either side of the sprite.
      * This change is not made to the stored sprite because it can interfere with some methods.
      * @type {{left: string, right: string}}
      */
@@ -27,7 +27,7 @@ export default class Sprite {
      *  and lines should be break tags `<br/>` or be separate elements in an array.
      */
     constructor(spriteText) {
-        this.#spriteRows = typeof spriteText === 'string' ? spriteText.split(br) : spriteText;
+        this.spriteRows = typeof spriteText === 'string' ? spriteText.split(br) : spriteText;
     }
 
     /**
@@ -35,7 +35,7 @@ export default class Sprite {
      * @returns {number[]} [width, startIndex]
      */
     #findWidth(){
-        const [start, end] = this.#spriteRows.reduce(([start, end], currString, i) => {
+        const [start, end] = this.spriteRows.reduce(([start, end], currString, i) => {
             currString = currString.replaceAll("&nbsp;", " ")
             const trimmedString = currString.trim();
             const noText = trimmedString[0] === undefined; // check if row has no text
@@ -58,7 +58,7 @@ export default class Sprite {
         this.constrictWidth(0, Sprite.receiptWidth);
         let {left, right} = this.#marginFill;
         if (left === '&nbsp;') left = ' ';
-        const filledRows = this.#spriteRows.map(row => {
+        const filledRows = this.spriteRows.map(row => {
             // handle left side
             row = row.replaceAll("&nbsp;", " ");
             let newRow = row.trimStart();
@@ -78,7 +78,7 @@ export default class Sprite {
      * @returns {Sprite} this sprite, so we can chain commands
      */
     flipHorizontal() {
-        this.#spriteRows = this.#spriteRows.map(row => {
+        this.spriteRows = this.spriteRows.map(row => {
             //find length, adjusted based on number of non-breaking spaces
             const spaceCount = (row.match(/&nbsp;/g) || []).length;
             const length = row.length - (5*spaceCount);
@@ -121,7 +121,7 @@ export default class Sprite {
      * @returns {Sprite} this sprite, so we can chain commands
      */
     flipVertical() {
-        this.#spriteRows = this.#spriteRows.reverse() // vertical flip
+        this.spriteRows = this.spriteRows.reverse() // vertical flip
             .map(row => row.split("").map(char => {  // for each row, flip all slashes
                     switch (char){
                         case '\\':
@@ -147,7 +147,7 @@ export default class Sprite {
     slicedSprite(startIndex, endIndex) {
         if (startIndex < 0 || endIndex < 0) throw new RangeError("Negative Index");
         if (endIndex < startIndex) throw new RangeError("endIndex comes before startIndex");
-        return this.#spriteRows.map(row => row
+        return this.spriteRows.map(row => row
             .replaceAll("&nbsp;", " ")
             .slice(startIndex, endIndex)
             .replaceAll(" ", "&nbsp;")
@@ -162,7 +162,7 @@ export default class Sprite {
      * @see Sprite.sliceSprite
      */
     constrictWidth(startIndex, endIndex) {
-        this.#spriteRows = this.slicedSprite(startIndex, endIndex);
+        this.spriteRows = this.slicedSprite(startIndex, endIndex);
         return this;
     }
 
@@ -201,7 +201,7 @@ export default class Sprite {
             default:
                 throw new Error("alignTo must be 'left', 'center', or 'right'")
         }
-        this.#spriteRows = sprite.map(row => numToSpace(newStart) + row);
+        this.spriteRows = sprite.map(row => numToSpace(newStart) + row);
         return this;
     }
 
@@ -212,8 +212,8 @@ export default class Sprite {
      * @returns {Sprite} this sprite, so we can chain commands
      */
     offsetBy(amount) {
-        if (amount >= 0) this.#spriteRows = this.#spriteRows.map(row => numToSpace(amount) + row);
-        else this.#spriteRows = this.#spriteRows.map(row =>
+        if (amount >= 0) this.spriteRows = this.spriteRows.map(row => numToSpace(amount) + row);
+        else this.spriteRows = this.spriteRows.map(row =>
             row.replaceAll("&nbsp;", " ")
                 .slice(-amount)
                 .replaceAll(" ", "&nbsp;")

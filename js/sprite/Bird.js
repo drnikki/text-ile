@@ -1,14 +1,10 @@
 import { getTimestamp } from "../stringManipulation.js";
+import Sprite from "./Sprite";
 
 /**
  * bird sprite
  * @author Eva - design
- * @author Michael Crockett - Code
- * 
- * I SWEAR DO NOT TOUCH THESE UNLESS YOU WANT TO SPEND FOREVER FIXING THEM. 
- * EVEN WHEN THEY LOOK OKAY ON SCREEN THEY LOOK BROKEN WHEN PRINTING. 
- * ONLY EDIT IF YOU'RE BY THE PRINTER TO TEST.  
- * 
+ *
  */
 
 /*'*
@@ -115,4 +111,8 @@ const printBird = (beakRight = true) => {
 }
 
 
-export default printBird;
+export default class Bird extends Sprite {
+    constructor() {
+        super(printBird(true));
+    }
+}

@@ -1,4 +1,5 @@
 import {addBlocks} from "../stringManipulation.js";
+import Sprite from "./Sprite.js";
 
 /**
  * class used to generate a single branch for rope sprite
@@ -366,4 +367,11 @@ const printRope = () => {
     return printRopePiece(false) + printRopePiece(true) + printRopePiece(false);
 }
 
-export default printRope;
+/**
+ * rope sprite
+ */
+export default class Rope extends Sprite {
+    constructor() {
+        super(printRope());
+    }
+}

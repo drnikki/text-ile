@@ -1,7 +1,8 @@
 import { getTimestamp, numToSpace } from "../stringManipulation.js";
+import Sprite from "./Sprite.js";
 
 
-export default function printArrowTime(pointRight = true) {
+function printArrowTime(pointRight = true) {
 
     let arrowTime ='';
 
@@ -63,6 +64,10 @@ export default function printArrowTime(pointRight = true) {
 
 
     return arrowTime;
+}
 
-
+export default class ArrowTime extends Sprite {
+    constructor(pointRight) {
+        super(printArrowTime(pointRight));
+    }
 }

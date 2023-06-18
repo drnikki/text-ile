@@ -1,7 +1,7 @@
 import { getTimestamp, getRandomInt } from "../stringManipulation.js";
 
 
-export default function printStarburst(width = 20, height = 20) {
+function printStarburst(width = 20, height = 20) {
     let availChars = "#*."
     let centChar = getTimestamp();
     // var centChar = availChars[Math.floor(Math.random() * availChars.length)]     //uncomment to make central character random
@@ -117,3 +117,8 @@ function createSpreadChar(grid, char, centChar, x_min, x_max, y_min, y_max, max_
     }
 }
 
+export default class Starburst extends Sprite {
+    constructor(width = 20, height = 20) {
+        super(printStarburst(width, height));
+    }
+}

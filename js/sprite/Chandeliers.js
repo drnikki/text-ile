@@ -1,4 +1,4 @@
-// import {numToSpace} from "../stringManipulation.js";
+import Sprite from "./Sprite.js";
 
 function chandelierCluster(chandelierGrid, x, y, arrowPiece) {
     const chars = [arrowPiece, arrowPiece, arrowPiece, '|', '|', '|', ';', '|', ';', 'o', ';', 'o', '&nbsp;', 'o', '&nbsp;']
@@ -168,4 +168,10 @@ export function printChandelierB() {
 
 export function printChandeliersAB () {
     return printChandelierA() + printChandelierB();
+}
+
+export default class Chandeliers extends Sprite {
+    constructor() {
+        super(printChandeliersAB());
+    }
 }

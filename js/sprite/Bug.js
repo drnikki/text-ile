@@ -1,4 +1,5 @@
 import {numToSpace} from "../stringManipulation.js";
+import Sprite from "./Sprite.js";
 
 /**
  * prints the bug
@@ -31,4 +32,8 @@ const printBug = () => (
     + numToSpace(19) + '%%' + '<br/>'
 );
 
-export default printBug;
+export default class Bug extends Sprite{
+    constructor() {
+        super(printBug());
+    }
+}

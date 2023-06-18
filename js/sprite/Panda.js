@@ -1,3 +1,4 @@
+import Sprite from "./Sprite";
 
 export function printPanda() {
     return (
@@ -17,4 +18,10 @@ export function printPanda() {
         "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;..&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;..<br/>" +
         "<br/>" 
         );
+}
+
+export default class Panda extends Sprite {
+    constructor() {
+        super(printPanda());
+    }
 }

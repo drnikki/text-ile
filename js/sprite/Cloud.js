@@ -1,4 +1,5 @@
 import {numToSpace, numToChar, randomSpacer, reverseString} from "../stringManipulation.js";
+import Sprite from "./Sprite.js";
 
 
 /**
@@ -9,7 +10,7 @@ import {numToSpace, numToChar, randomSpacer, reverseString} from "../stringManip
  * @param {*} flipped - do we reverse to "flip" or no
  * @returns 
  */
-export default function printClouds(spaceChar = "&nbsp;", minLeft = 0, maxLeft = 21, flipped = 0) {
+function printClouds(spaceChar = "&nbsp;", minLeft = 0, maxLeft = 21, flipped = 0) {
 
     // where do the clouds start? (position is different based on cloudCount)
     let startPosition = 1;
@@ -100,4 +101,8 @@ function oneCloudFlipped(startPosition, spaceChar) {
     return oneWholeCloud;
 }
 
-
+export default class Cloud extends Sprite {
+    constructor() {
+        super(printClouds());
+    }
+}

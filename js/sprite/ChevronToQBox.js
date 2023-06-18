@@ -1,4 +1,5 @@
 import { numToSpace } from "../stringManipulation.js";
+import Sprite from "./Sprite";
 
 
 export function printChevronToQBox(state) {
@@ -65,4 +66,10 @@ export function printChevronToQBox(state) {
     }
 
 
+}
+
+export default class ChevronToQBox extends Sprite {
+    constructor(state) {
+        super(printChevronToQBox(state));
+    }
 }

@@ -1,4 +1,5 @@
 import {numToSpace} from "../stringManipulation.js";
+import Sprite from "./Sprite.js";
 
 // helper function to get a random int within a certain range
 function getRandomInt(min, max) {
@@ -25,4 +26,10 @@ export function printDiamondButterfly() {
         spacer++;
     }
     return ret
+}
+
+export default class DiamondButterfly extends Sprite {
+    constructor() {
+        super(printDiamondButterfly());
+    }
 }

@@ -1,11 +1,12 @@
 import { getTimestamp, mergeString, getRandomInt, numToSpace, countCharacters} from "../stringManipulation.js";
+import Sprite from "./Sprite.js";
 
 
-export default function printTimeBlocks(columnLeft = true) {
+function printTimeBlocks(columnLeft = true) {
     // the column of numbers along one edge is 25 chars long (13 #s + 12 spaces)
 
     // for us this is equivalent to receipts being 40 columns.
-    const displayWidth = 39; // this will get changed if we move to a global column config.
+    const displayWidth = Sprite.receiptWidth - 1; // this will get changed if we move to a global column config.
     let timeblocks = '';
 
     if (columnLeft) {
@@ -197,4 +198,10 @@ function printRegularRows(columnLeft = true) {
     // } 
 
     return timeRightlocks;
+}
+
+export default class TimeBlocks extends Sprite {
+    constructor(columnLeft = true) {
+        super(printTimeBlocks(columnLeft));
+    }
 }

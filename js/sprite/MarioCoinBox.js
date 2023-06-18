@@ -1,5 +1,6 @@
 import { numToSpace } from "../stringManipulation.js";
 import { getTimestamp } from "../stringManipulation.js";
+import Sprite from "./Sprite.js";
 
 /**
  *
@@ -32,4 +33,8 @@ import { getTimestamp } from "../stringManipulation.js";
         spacer + "[][][][][][][][][][][]" ;
 }
 
-export default printMarioCoinBox;
+export default class MarioCoinBox extends Sprite {
+     constructor() {
+         super(printMarioCoinBox());
+     }
+}

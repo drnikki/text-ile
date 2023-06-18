@@ -5,8 +5,9 @@
 //create randomized horizontal line
 
 import {numToSpace, numToChar, randomSpacer} from "../stringManipulation.js";
+import Sprite from "./Sprite.js";
 
-export default function printInkBlot(){
+function printInkBlot(){
     let blotHeight = Math.random() * 6 + 5;
 
     var wholeBlot = '';
@@ -29,4 +30,8 @@ export default function printInkBlot(){
     return wholeBlot
 }
 
-       
+export default class Inkblot extends Sprite {
+    constructor() {
+        super(printInkBlot());
+    }
+}

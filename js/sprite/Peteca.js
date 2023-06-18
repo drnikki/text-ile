@@ -27,5 +27,6 @@ const printPeteca = () => (
 export default class Peteca extends Sprite {
     constructor() {
         super(printPeteca());
+        this.setAlign("random");
     }
 }

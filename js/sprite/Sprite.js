@@ -32,7 +32,7 @@ export default class Sprite {
 
     /**
      * finds the width of the sprite
-     * @returns {number[]} [width, startIndex]
+     * @returns {{width: number, start: number, end: number}}
      */
     #findWidth(){
         const [start, end] = this.spriteRows.reduce(([start, end], currString, i) => {
@@ -50,7 +50,7 @@ export default class Sprite {
             ]},
             [Sprite.receiptWidth, 0] // initial start and end
         )
-        return [end - start, start, end];
+        return {width: end - start, start, end};
     }
 
 
@@ -179,16 +179,19 @@ export default class Sprite {
 
     /**
      * set sprite alignment
-     * @param alignTo "left", "center", or "right
+     * @param alignTo "random", "left", "center", or "right
      * @returns {Sprite} this sprite, so we can chain commands
      */
     setAlign(alignTo) {
         this.constrictWidth(0, Sprite.receiptWidth); // make sure sprite is at most as wide as the receipt
-        const [spriteWidth, start, end] = this.#findWidth(); // find width and position of sprite
+        const {width: spriteWidth, start, end} = this.#findWidth(); // find width and position of sprite
         const sprite = this.slicedSprite(start, end); // trimmed sprite
         // figure out where we need to start
         let newStart;
         switch (alignTo) {
+            case "random":
+                newStart = Math.floor(Math.random() * (Sprite.receiptWidth - spriteWidth));
+                break;
             case "left":
                 newStart = 0;
                 break;

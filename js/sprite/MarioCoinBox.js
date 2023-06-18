@@ -1,4 +1,3 @@
-import { numToSpace } from "../stringManipulation.js";
 import { getTimestamp } from "../stringManipulation.js";
 import Sprite from "./Sprite.js";
 
@@ -6,35 +5,21 @@ import Sprite from "./Sprite.js";
  *
  * @returns prints the mario coin box - it is 22 chars wide.
  */
- const printMarioCoinBox = (align = "random") => {
-    let spacer = "";
-    // this feels very 2004.
-    switch (align) {
-        case "random":
-            spacer = numToSpace(Math.floor(Math.random() * (15)));
-            break;
-        case "left":
-            spacer = numToSpace(0);
-            break;
-        case "right":
-            spacer = numToSpace(17);
-            break;
-        case "center":
-            spacer = numToSpace(9);
-            break;
-    }
+ const printMarioCoinBox = () => {
 
-    return spacer + "[][][][][][][][][][][]" + "<br/>" + spacer + "[]------------------[]" + "<br/>" + 
-        spacer + "[]-----????????-----[]" + "<br/>" + spacer + "[]--?????????????---[]" + "<br/>" + 
-        spacer + "[]--???-------???---[]" + "<br/>" + spacer + "[]---???-----???----[]" + "<br/>" + 
-        spacer + "[]---------???------[]" + "<br/>" + spacer + "[]--------???-------[]" + "<br/>" + 
-        spacer + "[]--------???-------[]" + "<br/>" + spacer + "[]------------------[]" + "<br/>" + 
-        spacer + "[]--------??--------[]" + "<br/>" + spacer + "[]---" + getTimestamp() + "--[]" + "<br/>" + 
-        spacer + "[][][][][][][][][][][]" ;
+
+    return "[][][][][][][][][][][]" + "<br/>" + "[]------------------[]" + "<br/>" + 
+        "[]-----????????-----[]" + "<br/>" + "[]--?????????????---[]" + "<br/>" + 
+        "[]--???-------???---[]" + "<br/>" + "[]---???-----???----[]" + "<br/>" + 
+        "[]---------???------[]" + "<br/>" + "[]--------???-------[]" + "<br/>" + 
+        "[]--------???-------[]" + "<br/>" + "[]------------------[]" + "<br/>" + 
+        "[]--------??--------[]" + "<br/>" + "[]---" + getTimestamp() + "--[]" + "<br/>" + 
+        "[][][][][][][][][][][]" ;
 }
 
 export default class MarioCoinBox extends Sprite {
      constructor() {
          super(printMarioCoinBox());
+         this.setAlign("random");
      }
 }

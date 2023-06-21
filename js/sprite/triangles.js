@@ -4,7 +4,7 @@ import Sprite from "./Sprite.js";
 /**
  * print triangle 1
  */
-export const printTriangle1 = () => {
+const printTriangle1 = () => {
     return (
         printTriangleTop()
         + numToSpace( 2) + '0-;::.:..:-0' + '<br/>'
@@ -19,7 +19,7 @@ export const printTriangle1 = () => {
 /**
  * print triangle 2
  */
-export const printTriangle2 = () => {
+const printTriangle2 = () => {
     return (
         printTriangleTop()
         + numToSpace( 3) + '0-::.:..-0' + '<br/>'

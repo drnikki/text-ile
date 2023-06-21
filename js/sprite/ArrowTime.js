@@ -35,7 +35,7 @@ function printArrowTime() {
 }
 
 export default class ArrowTime extends Sprite {
-    constructor(pointRight) {
-        super(printArrowTime(pointRight));
+    constructor() {
+        super(printArrowTime());
     }
 }

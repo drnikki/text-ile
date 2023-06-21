@@ -1,6 +1,6 @@
 import Sprite from "./Sprite.js";
 
-export function printPanda() {
+function printPanda() {
     return (
         "<br/>" +
         "&nbsp;&nbsp;&nbsp;&nbsp;:=*####*=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.=*##*+-<br/>" +

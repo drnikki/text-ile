@@ -1,6 +1,6 @@
 import Sprite from "../Sprite.js";
 
-export const printHerringBone = (rows=9) => {
+const printHerringBone = (rows=9) => {
     const columns = 40;
     const pattern = '}}}--';
     let ret = '';

@@ -12,7 +12,7 @@ function chandelierCluster(chandelierGrid, x, y, arrowPiece) {
     return chandelierGrid
 }
 
-export function printChandelierA() {
+function printChandelierA() {
     const m = 40
     const n = 17
     let chandelierGrid = Array.from(Array(n), _ => Array(m).fill('&nbsp;'));
@@ -103,7 +103,7 @@ export function printChandelierA() {
     return arrText;
 }
 
-export function printChandelierB() {
+function printChandelierB() {
     const m = 40;
     const n = 17;
     let chandelierGrid = Array.from(Array(n), _ => Array(m).fill('&nbsp;'));
@@ -166,7 +166,7 @@ export function printChandelierB() {
     return arrText;
 }
 
-export function printChandeliersAB () {
+function printChandeliersAB () {
     return printChandelierA() + printChandelierB();
 }
 

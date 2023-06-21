@@ -1,6 +1,6 @@
 import Sprite from "../Sprite.js";
 
-export const printDotPattern = (rowCount = 9) => {
+const printDotPattern = (rowCount = 9) => {
     let pattern = '';
     let columns = 40;
     let printChar = '';

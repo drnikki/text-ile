@@ -3,7 +3,7 @@ import Sprite from "../Sprite.js";
 /**
  * print the basketweave
  */
-export const printBasketWeave = (rows=10) => {
+const printBasketWeave = (rows=10) => {
     const columns = 40;
     const pattern = '--|';
     let ret = '';

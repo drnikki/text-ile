@@ -3,7 +3,7 @@ import Sprite from "../Sprite.js";
 /**
  * print diamond
  */
-export const printDiamond = (rows=10) => {
+const printDiamond = (rows=10) => {
     const columns = 40;
     let pattern = "//\\\\"
     let ret = '';

@@ -1,7 +1,7 @@
 import {getTimestamp, numToSpace} from "../../stringManipulation.js";
 import Sprite from "../Sprite.js";
 
-export function printTimestampWaves() {
+function printTimestampWaves() {
     let receiptTimestampWaves = "";
     receiptTimestampWaves += getTimestamp() + numToSpace(14)+ getTimestamp() + `<br/>`;
     receiptTimestampWaves += numToSpace(2) + getTimestamp() + numToSpace(10)+ getTimestamp() + numToSpace(2) + `<br/>`;

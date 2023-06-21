@@ -116,6 +116,7 @@ export default class Sprite {
                 .replaceAll(";psbn&", "&nbsp;"); // spaces fixed
             return padding + reverseTimestamps(flippedRow); // reverseTimestamps is only useful for our specific project
         });
+        this.setMarginFill(this.#marginFill.right, this.#marginFill.left); // flip margins
         return this; // so we can chain commands
     }
 

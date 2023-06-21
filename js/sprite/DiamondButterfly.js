@@ -8,7 +8,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export function printDiamondButterfly() {
+function printDiamondButterfly() {
     const edgeLength = getRandomInt(2, 5)
     const fillerChars = [["*", "*"], ["{", "}"], ["(", ")"]]
     const fillerChar = fillerChars[Math.floor(Math.random()*fillerChars.length)];

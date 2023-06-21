@@ -2,7 +2,7 @@ import { numToSpace } from "../stringManipulation.js";
 import Sprite from "./Sprite.js";
 
 
-export function printChevronToQBox(state) {
+function printChevronToQBox(state) {
     //state 1 = left, up; state 2 = left, down; state 3 = right up; state 4 = right, down;
     switch (state) {
         case 1: // left, up

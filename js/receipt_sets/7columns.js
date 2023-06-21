@@ -1,13 +1,13 @@
 import {browserToPrinter} from "../receipt.js";
-import printTwinkleBanner from "../sprite/banner.js";
-import printStarburst from "../sprite/starburst.js";
-import {printChandelierA, printChandelierB} from "../sprite/chandelier.js";
-import printClouds from "../sprite/clouds.js";
-import printMarioCoinBox from "../sprite/coinBox.js";
+import printTwinkleBanner from "../sprite/TwinkleBanner.js";
+import printStarburst from "../sprite/Starburst.js";
+import {printChandelierA, printChandelierB} from "../sprite/Chandeliers.js";
+import printClouds from "../sprite/Cloud.js";
+import printMarioCoinBox from "../sprite/MarioCoinBox.js";
 import {printTriangle1, printTriangle2} from "../sprite/triangles.js";
-import printBug from "../sprite/bug.js";
-import printRope from "../sprite/rope.js";
-import { printDiamondButterfly } from "../sprite/diamondButterfly.js";
+import printBug from "../sprite/Bug.js";
+import printRope from "../sprite/Rope.js";
+import { printDiamondButterfly } from "../sprite/DiamondButterfly.js";
 import {getTimestamp, generateHash} from "../stringManipulation.js";
 
 

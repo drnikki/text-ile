@@ -1,18 +1,18 @@
 import {printTriangle1, printTriangle2} from "../sprite/triangles.js";
-import printBug from "../sprite/bug.js";
-import {printBasketWeave, printDiamond, printDotPattern, printHerringBone, printSeedStitch} from "../sprite/pattern.js";
-import printClouds from "../sprite/clouds.js";
-import {printChandelierA, printChandelierB} from "../sprite/chandelier.js";
-import printTwinkleBanner from "../sprite/banner.js";
-import printStarburst from "../sprite/starburst.js";
-import printRope from "../sprite/rope.js";
-import printMarioCoinBox from "../sprite/coinBox.js";
+import printBug from "../sprite/Bug.js";
+import {printBasketWeave, printDiamond, printDotPattern, printHerringBone, printSeedStitch} from "../sprite/pattern/patterns.js";
+import printClouds from "../sprite/Cloud.js";
+import {printChandelierA, printChandelierB} from "../sprite/Chandeliers.js";
+import printTwinkleBanner from "../sprite/TwinkleBanner.js";
+import printStarburst from "../sprite/Starburst.js";
+import printRope from "../sprite/Rope.js";
+import printMarioCoinBox from "../sprite/MarioCoinBox.js";
 import {browserToPrinter} from "../receipt.js";
-import { printDiamondButterfly } from "../sprite/diamondButterfly.js";
-import printChevron from "../sprite/chevron.js";
-import printBird from "../sprite/bird.js";
-import printPeteca from "../sprite/peteca.js";
-import { printPanda } from "../sprite/panda.js";
+import { printDiamondButterfly } from "../sprite/DiamondButterfly.js";
+import printChevron from "../sprite/Chevron.js";
+import printBird from "../sprite/Bird.js";
+import printPeteca from "../sprite/Peteca.js";
+import { printPanda } from "../sprite/Panda.js";
 
 /**
  * generate 1 or more receipts that each have all the sprites on them

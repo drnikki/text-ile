@@ -1,11 +1,11 @@
 import {browserToPrinter} from "../receipt.js";
 import {getTimestamp, generateHash, numToSpace, numToChar, reverseString} from "../stringManipulation.js";
-import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch} from "../sprite/pattern.js";
-import printMarioCoinBox from "../sprite/coinBox.js";
-import printStarburst from "../sprite/starburst.js";
-import printClouds from "../sprite/clouds.js";
-import printTwinkleBanner from "../sprite/banner.js";
-import printInkBlot from "../sprite/inkblot.js";
+import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch} from "../sprite/pattern/patterns.js";
+import printMarioCoinBox from "../sprite/MarioCoinBox.js";
+import printStarburst from "../sprite/Starburst.js";
+import printClouds from "../sprite/Cloud.js";
+import printTwinkleBanner from "../sprite/TwinkleBanner.js";
+import printInkBlot from "../sprite/Inkblot.js";
 
 
 /**

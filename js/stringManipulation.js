@@ -64,14 +64,37 @@ export const addBlocks = (block1, block2) => {
 
 /**
  * This function returns a random timestamp between now (aka before the HASTAC conference) and the rough date of its founding: 2003.
+ * surrounded by `\xa6` so that the timestamp can easily be located in a string.
  */
 export function getTimestamp() {
     const hastacFounding = new Date("January 1, 2003"); // keeping this human readable in case it needs to change.
     const end = Date.now(); // this one too.
 
     // note that we don't need to getTime() from end because it's above.  
-    return new Date(hastacFounding.getTime() + Math.random() * (end - hastacFounding.getTime())).getTime();
-  }
+    return "\xa6" + (new Date(hastacFounding.getTime() + Math.random() * (end - hastacFounding.getTime())).getTime()) + "\xa6";
+}
+
+/**
+ * reverses all the timestamps in a string; useful after horizontally flipping a sprite
+ */
+export const reverseTimestamps = str => (
+    str.split("\xa6").map((piece, i) =>
+        i % 2 === 1 && isNumeric(piece)? reverseString(piece) : piece
+    ).join("\xa6")
+)
+
+export const removeTimestampDelimiters = str => str.replaceAll("\xa6", "");
+
+
+/**
+ * https://stackoverflow.com/questions/175739/how-can-i-check-if-a-string-is-a-valid-number
+ * taken from here ^
+ */
+function isNumeric(str) {
+    if (typeof str != "string") return false // we only process strings!
+    return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+        !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+}
 
 /**
  * Generates a hash.

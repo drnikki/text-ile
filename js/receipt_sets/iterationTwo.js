@@ -1,20 +1,20 @@
 import {browserToPrinter} from "../receipt.js";
 import {getTimestamp, generateHash, numToSpace, numToChar, reverseString} from "../stringManipulation.js";
-import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch, printTimestampWaves, printTimeLines, printGradientFloor} from "../sprite/pattern.js";
-import printMarioCoinBox from "../sprite/coinBox.js";
-import printStarburst from "../sprite/starburst.js";
-import printClouds from "../sprite/clouds.js";
-import printTwinkleBanner from "../sprite/banner.js";
-import printInkBlot from "../sprite/inkblot.js";
-import {printChandelierA, printChandelierB} from "../sprite/chandelier.js";
+import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch, printTimestampWaves, printTimeLines, printGradientFloor} from "../sprite/pattern/patterns.js";
+import printMarioCoinBox from "../sprite/MarioCoinBox.js";
+import printStarburst from "../sprite/Starburst.js";
+import printClouds from "../sprite/Cloud.js";
+import printTwinkleBanner from "../sprite/TwinkleBanner.js";
+import printInkBlot from "../sprite/Inkblot.js";
+import {printChandelierA, printChandelierB} from "../sprite/Chandeliers.js";
 import {printTriangle1, printTriangle2} from "../sprite/triangles.js";
-import printBug from "../sprite/bug.js";
-import printRope from "../sprite/rope.js";
-import { printDiamondButterfly } from "../sprite/diamondButterfly.js";
-import printPeteca from "../sprite/peteca.js";
-import printBird from "../sprite/bird.js";
-import printChevron from "../sprite/chevron.js";
-import { printChevronToQBox } from "../sprite/chevrontoqbox.js";
+import printBug from "../sprite/Bug.js";
+import printRope from "../sprite/Rope.js";
+import { printDiamondButterfly } from "../sprite/DiamondButterfly.js";
+import printPeteca from "../sprite/Peteca.js";
+import printBird from "../sprite/Bird.js";
+import printChevron from "../sprite/Chevron.js";
+import { printChevronToQBox } from "../sprite/ChevronToQBox.js";
 
 
 

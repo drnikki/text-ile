@@ -1,4 +1,4 @@
-import {br, numToSpace} from "../stringManipulation.js";
+import {br, numToSpace, removeTimestampDelimiters, reverseTimestamps} from "../stringManipulation.js";
 
 /**
  * a class to standardize sprite creation and manipulation
@@ -55,18 +55,22 @@ export default class Sprite {
 
 
     toString() {
-        this.constrictWidth(0, Sprite.receiptWidth);
         let {left, right} = this.#marginFill;
         if (left === '&nbsp;') left = ' ';
-        const filledRows = this.spriteRows.map(row => {
-            // handle left side
+        if (right=== '&nbsp;') right = ' ';
+        const filledRows = this.spriteRows.map((row, i) => {
             row = row.replaceAll("&nbsp;", " ");
+            row = removeTimestampDelimiters(row); // only useful in our project
+            //don't do anything if we are an empty row at the end
+            if (row.trim() === "" && this.spriteRows.length - 1 === i) return "";
+            // handle left side
             let newRow = row.trimStart();
             newRow = left.repeat(row.length - newRow.length) + newRow;
             // handle right side
             newRow = newRow.trimEnd();
-            newRow += right.repeat(Sprite.receiptWidth - newRow.length);
-
+            newRow += right.repeat(Math.max(Sprite.receiptWidth - newRow.length, 0));
+            // ensure size
+            newRow = newRow.slice(0, Sprite.receiptWidth);
             return newRow.replaceAll(" ", "&nbsp;");
         });
         return filledRows.join("<br/>");
@@ -82,7 +86,7 @@ export default class Sprite {
             //find length, adjusted based on number of non-breaking spaces
             const spaceCount = (row.match(/&nbsp;/g) || []).length;
             const length = row.length - (5*spaceCount);
-            const padding = '&nbsp;'.repeat(Sprite.receiptWidth - length);
+            const padding = '&nbsp;'.repeat(Math.max(Sprite.receiptWidth - length, 0));
 
             const flippedRow = row
                 .split('').reverse()  // flipped row with spaces and brackets backwards
@@ -110,7 +114,7 @@ export default class Sprite {
                 }) // {Character[]}
                 .join('')
                 .replaceAll(";psbn&", "&nbsp;"); // spaces fixed
-            return padding + flippedRow;
+            return padding + reverseTimestamps(flippedRow); // reverseTimestamps is only useful for our specific project
         });
         return this; // so we can chain commands
     }
@@ -222,5 +226,12 @@ export default class Sprite {
                 .replaceAll(" ", "&nbsp;")
         );
         return this;
+    }
+
+    /**
+     * make a deep copy of this sprite (cast as a Sprite)
+     */
+    copy() {
+        return new Sprite(this.spriteRows).setMarginFill(this.#marginFill.left, this.#marginFill.right);
     }
 }

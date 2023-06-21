@@ -76,7 +76,7 @@ browserReceipts.push(receiptTimestampWaves);
 // 12 - lines to timestamp waves
 let receiptTimeToLine = "";
 for (let i =0; i<50; i++) {
-    receiptTimeToLine += new TimeLines();
+    receiptTimeToLine += new TimeLines().flipHorizontal();
 }
 browserReceipts.push(receiptTimeToLine);
 
@@ -92,11 +92,11 @@ let receiptCloudteca = "";
 for (let i=0; i<100; i++) {
     // this will print each combination in a pattern.
     receiptCloudteca += new Cloud('&nbsp;', 1, 10) + "<br /><br />";
-    receiptCloudteca += new Peteca().offsetBy(16 + Math.floor(Math.random() * 8));  // pateca on the right, between 16 and 24
+    receiptCloudteca += new Peteca().setAlign("left").offsetBy(16 + Math.floor(Math.random() * 8));  // pateca on the right, between 16 and 24
     receiptCloudteca += new GradientFloor() + "<br />";
 
     receiptCloudteca += new Cloud('&nbsp;', 11, 20) + "<br /><br />"; // clouds on the right
-    receiptCloudteca += new Peteca().offsetBy(1 + Math.floor(Math.random() * 11)) + "<br />";  // pateca on the left
+    receiptCloudteca += new Peteca().setAlign("left").offsetBy(1 + Math.floor(Math.random() * 11)) + "<br />";  // pateca on the left
     receiptCloudteca += new GradientFloor() + "<br />";
 }
 browserReceipts.push(receiptCloudteca);

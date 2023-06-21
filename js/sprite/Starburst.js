@@ -1,5 +1,5 @@
 import { getTimestamp, getRandomInt } from "../stringManipulation.js";
-
+import Sprite from "./Sprite.js";
 
 function printStarburst(width = 20, height = 20) {
     let availChars = "#*."

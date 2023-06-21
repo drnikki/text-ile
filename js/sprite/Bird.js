@@ -1,5 +1,5 @@
 import { getTimestamp } from "../stringManipulation.js";
-import Sprite from "./Sprite";
+import Sprite from "./Sprite.js";
 
 /**
  * bird sprite

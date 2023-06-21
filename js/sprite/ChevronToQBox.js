@@ -1,5 +1,5 @@
 import { numToSpace } from "../stringManipulation.js";
-import Sprite from "./Sprite";
+import Sprite from "./Sprite.js";
 
 
 export function printChevronToQBox(state) {

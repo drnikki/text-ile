@@ -3,6 +3,7 @@ import sevenColumns from "./receipt_sets/7columns.js"
 import iterationOne from "./receipt_sets/iterationOne.js";
 import iterationTwo from "./receipt_sets/iterationTwo.js";
 import iterationThree from "./receipt_sets/iterationThree.js";
+import {br} from "./stringManipulation.js";
 
 /**
  * The purpose of this file is to provide the function `getReceiptContent`. We first import
@@ -19,7 +20,7 @@ import iterationThree from "./receipt_sets/iterationThree.js";
  * @returns {string[]} printer-friendly data
  */
 export function browserToPrinter ( textContent ) {
-    const rows = textContent.split(/<\s*\/?\s*br\s*\/?\s*>/); // < (spaces) (possible /) (spaces) br (repeat as before) >
+    const rows = textContent.split(br); // < (spaces) (possible /) (spaces) br (repeat as before) >
     return rows.map(row => row.replaceAll('&nbsp;', ' ') + '\n');
 }
 

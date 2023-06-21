@@ -1,22 +1,18 @@
 import {browserToPrinter} from "../receipt.js";
-import {getTimestamp, generateHash, numToSpace, numToChar, reverseString, imposeBlocks} from "../stringManipulation.js";
-import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch, printTimestampWaves, printTimeLines, printGradientFloor} from "../sprite/pattern/patterns.js";
-import printMarioCoinBox from "../sprite/MarioCoinBox.js";
-import printStarburst from "../sprite/Starburst.js";
-import printClouds from "../sprite/Cloud.js";
-import printTwinkleBanner from "../sprite/TwinkleBanner.js";
-import printInkBlot from "../sprite/Inkblot.js";
-import {printChandelierA, printChandelierB} from "../sprite/Chandeliers.js";
-import {printTriangle1, printTriangle2} from "../sprite/triangles.js";
-import printBug from "../sprite/Bug.js";
-import printRope from "../sprite/Rope.js";
-import { printDiamondButterfly } from "../sprite/DiamondButterfly.js";
-import printPeteca from "../sprite/Peteca.js";
-import printBird from "../sprite/Bird.js";
-import printChevron from "../sprite/Chevron.js";
-import { printChevronToQBox } from "../sprite/ChevronToQBox.js";
-import printTimeBlocks from "../sprite/TimeBlocks.js";
-import printArrowTime from "../sprite/ArrowTime.js";
+import {imposeBlocks} from "../stringManipulation.js";
+import {Triangle1, Triangle2} from "../sprite/triangles.js";
+import DiamondButterfly from "../sprite/DiamondButterfly.js";
+import ChevronToQBox from "../sprite/ChevronToQBox.js";
+import Rope from "../sprite/Rope.js";
+import TimeBlocks from "../sprite/TimeBlocks.js";
+import ArrowTime from "../sprite/ArrowTime.js";
+import Cloud from "../sprite/Cloud.js";
+import Peteca from "../sprite/Peteca.js";
+import GradientFloor from "../sprite/pattern/GradientFloor.js";
+import Bird from "../sprite/Bird.js";
+import Bug from "../sprite/Bug.js";
+import Chevron from "../sprite/Chevron.js";
+import MarioCoinBox from "../sprite/MarioCoinBox.js";
 /**
  * Iteration Three! 
  */
@@ -65,7 +61,7 @@ const browserReceipts = [];
 
 // 1 - rope
 let receiptRope= '';
-for (let i=0; i<20; i++) receiptRope += printRope();
+for (let i=0; i<20; i++) receiptRope += new Rope();
 browserReceipts.push(receiptRope);
 
 
@@ -74,7 +70,7 @@ let timeBlocks = "";
 // the receipt is smol and weird!
 timeBlocks += "&nbsp;".repeat(39);
 for (let i=0; i<6; i++) {
-    timeBlocks += printTimeBlocks();
+    timeBlocks += new TimeBlocks();
 }
 browserReceipts.push(timeBlocks);
 
@@ -82,7 +78,7 @@ browserReceipts.push(timeBlocks);
 // 3 - timestamp overlap arrow
 let arrowTime = "";
 for (let i=0; i<100; i++) {
-    arrowTime += printArrowTime(false);
+    arrowTime += new ArrowTime().flipHorizontal();
 }
 browserReceipts.push(arrowTime);
 
@@ -93,7 +89,7 @@ let diamondsClouds = "";
 for (let i=0; i<100; i++) {
     
     for (let x=0; x<5; x++) {
-        diamondsClouds += printDiamondButterfly() + "<br/>".repeat(3);
+        diamondsClouds += new DiamondButterfly() + "<br/>".repeat(3);
     }
     diamondsClouds += "<br/><br/><br/>"; // spaaaace
 
@@ -107,9 +103,9 @@ for (let i=0; i<100; i++) {
        
     ];
 
-    let clouds = imposeBlocks("<br/>".repeat(cloudPositions[0]) + printClouds(), "<br/>".repeat(cloudPositions[1]) + printClouds());
-    clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[2]) + printClouds());
-    clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[3]) + printClouds()) + "<br/><br /><br />";
+    let clouds = imposeBlocks("<br/>".repeat(cloudPositions[0]) + new Cloud(), "<br/>".repeat(cloudPositions[1]) + new Cloud());
+    clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[2]) + new Cloud());
+    clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[3]) + new Cloud()) + "<br/><br /><br />";
 
     diamondsClouds += clouds;
 
@@ -121,13 +117,13 @@ browserReceipts.push(diamondsClouds);
 let receiptCloudteca = "";
 for (let i=0; i<100; i++) {
     // this will print each combination in a pattern.
-    receiptCloudteca += printClouds('&nbsp;', 1, 10) + "<br /><br />"; 
-    receiptCloudteca += printPeteca(16 + Math.floor(Math.random() * 8));  // pateca on the right, between 16 and 24
-    receiptCloudteca += printGradientFloor() + "<br />";  
+    receiptCloudteca += new Cloud('&nbsp;', 1, 10) + "<br /><br />";
+    receiptCloudteca += new Peteca().offsetBy(16 + Math.floor(Math.random() * 8));  // pateca on the right, between 16 and 24
+    receiptCloudteca += new GradientFloor() + "<br />";
 
-    receiptCloudteca += printClouds('&nbsp;', 11, 20) + "<br /><br />"; // clouds on the right
-    receiptCloudteca += printPeteca(1 + Math.floor(Math.random() * 11)) + "<br />";  // pateca on the left
-    receiptCloudteca += printGradientFloor() + "<br />";  
+    receiptCloudteca += new Cloud('&nbsp;', 11, 20) + "<br /><br />"; // clouds on the right
+    receiptCloudteca += new Peteca(1 + Math.floor(Math.random() * 11)) + "<br />";  // pateca on the left
+    receiptCloudteca += new GradientFloor() + "<br />";
 }
 browserReceipts.push(receiptCloudteca);
 
@@ -135,10 +131,10 @@ browserReceipts.push(receiptCloudteca);
 // 6 -  bird facing L / triangles / bugs
 let receiptBirdBugL = "";
 for (let i=0; i<100; i++) {
-    receiptBirdBugL += printBird(false) + "<br /><br /><br />"; 
-    receiptBirdBugL += printTriangle1() + "<br />"; // 
-    receiptBirdBugL += printBug() + "<br />"; // 
-    receiptBirdBugL += printTriangle2() + "<br />"; // 
+    receiptBirdBugL += new Bird() + "<br /><br /><br />";
+    receiptBirdBugL += new Triangle1() + "<br />"; //
+    receiptBirdBugL += new Bug() + "<br />"; //
+    receiptBirdBugL += new Triangle2() + "<br />"; //
 }
 browserReceipts.push(receiptBirdBugL);
 
@@ -146,10 +142,10 @@ browserReceipts.push(receiptBirdBugL);
 // 7 - chevron / coinbox align R
 let chevronCoin1 = "";
 for (let i=0; i<100; i++) {
-    chevronCoin1 += printChevronToQBox(3)
-    chevronCoin1 += printChevron(); 
-    chevronCoin1+=printChevronToQBox(4)
-    chevronCoin1 += printMarioCoinBox("right") + "<br />"; //  
+    chevronCoin1 += new ChevronToQBox(3)
+    chevronCoin1 += new Chevron();
+    chevronCoin1+= new ChevronToQBox(4)
+    chevronCoin1 += new MarioCoinBox().setAlign("right") + "<br />"; //
 }
 browserReceipts.push(chevronCoin1);
 
@@ -157,10 +153,10 @@ browserReceipts.push(chevronCoin1);
 // 8 - chevron / coinbox align L
 let chevronCoin2 = "";
 for (let i=0; i<100; i++) {
-    chevronCoin2 += printChevronToQBox(1);
-    chevronCoin2 += printChevron(); 
-    chevronCoin2 += printChevronToQBox(2);
-    chevronCoin2 += printMarioCoinBox("left") + "<br />"; //  
+    chevronCoin2 += new ChevronToQBox(1);
+    chevronCoin2 += new Chevron();
+    chevronCoin2 += new ChevronToQBox(2);
+    chevronCoin2 += new MarioCoinBox().setAlign("left") + "<br />"; //
 }
 browserReceipts.push(chevronCoin2);
 
@@ -168,10 +164,10 @@ browserReceipts.push(chevronCoin2);
 // 9 - bird facing R / triangles / bugs
 let receiptBirdBugR = "";
 for (let i=0; i<100; i++) {
-    receiptBirdBugR += printBird() + "<br /><br /><br />"; 
-    receiptBirdBugR += printTriangle1() + "<br />"; // 
-    receiptBirdBugR += printBug() + "<br />"; // 
-    receiptBirdBugR += printTriangle2() + "<br />"; // 
+    receiptBirdBugR += new Bird() + "<br /><br /><br />";
+    receiptBirdBugR += new Triangle1() + "<br />"; //
+    receiptBirdBugR += new Bug() + "<br />"; //
+    receiptBirdBugR += new Triangle2() + "<br />"; //
 }
 browserReceipts.push(receiptBirdBugR);
 
@@ -180,13 +176,13 @@ browserReceipts.push(receiptBirdBugR);
 receiptCloudteca = "";
 for (let i=0; i<100; i++) {
     // this will print each combination in a pattern.
-    receiptCloudteca += printClouds('&nbsp;', 1, 10) + "<br /><br />"; 
-    receiptCloudteca += printPeteca(16 + Math.floor(Math.random() * 8));  // pateca on the right, between 16 and 24
-    receiptCloudteca += printGradientFloor() + "<br />";  
+    receiptCloudteca += new Cloud('&nbsp;', 1, 10) + "<br /><br />";
+    receiptCloudteca += new Peteca().offsetBy(16 + Math.floor(Math.random() * 8));  // pateca on the right, between 16 and 24
+    receiptCloudteca += new GradientFloor() + "<br />";
 
-    receiptCloudteca += printClouds('&nbsp;', 11, 20) + "<br /><br />"; // clouds on the right
-    receiptCloudteca += printPeteca(1 + Math.floor(Math.random() * 11)) + "<br />";  // pateca on the left
-    receiptCloudteca += printGradientFloor() + "<br />";  
+    receiptCloudteca += new Cloud('&nbsp;', 11, 20) + "<br /><br />"; // clouds on the right
+    receiptCloudteca += new Peteca().offsetBy(1 + Math.floor(Math.random() * 11)) + "<br />";  // pateca on the left
+    receiptCloudteca += new GradientFloor() + "<br />";
 }
 browserReceipts.push(receiptCloudteca);
 
@@ -196,7 +192,7 @@ browserReceipts.push(receiptCloudteca);
 for (let i=0; i<100; i++) {
     
     for (let x=0; x<5; x++) {
-        diamondsClouds += printDiamondButterfly() + "<br/>".repeat(3);
+        diamondsClouds += new DiamondButterfly() + "<br/>".repeat(3);
     }
     diamondsClouds += "<br/><br/><br/>"; // spaaaace
 
@@ -212,9 +208,9 @@ for (let i=0; i<100; i++) {
     ];
 
 
-    let clouds = imposeBlocks("<br/>".repeat(cloudPositions[0]) + printClouds(), "<br/>".repeat(cloudPositions[1]) + printClouds());
-    clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[2]) + printClouds());
-    clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[3]) + printClouds()) + "<br/><br /><br />";
+    let clouds = imposeBlocks("<br/>".repeat(cloudPositions[0]) + new Cloud(), "<br/>".repeat(cloudPositions[1]) + new Cloud());
+    clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[2]) + new Cloud());
+    clouds = imposeBlocks(clouds, "<br/>".repeat(cloudPositions[3]) + new Cloud()) + "<br/><br /><br />";
 
 
     diamondsClouds += clouds;
@@ -229,7 +225,7 @@ browserReceipts.push(diamondsClouds);
 // 12 - timestamp overlap arrow
 arrowTime = "";
 for (let i=0; i<100; i++) {
-    arrowTime += printArrowTime();
+    arrowTime += new ArrowTime();
 }
 browserReceipts.push(arrowTime);
 
@@ -240,7 +236,7 @@ browserReceipts.push(arrowTime);
 // 13 - timestamp blocks
 timeBlocks = "";
 for (let i=0; i<6; i++) {
-    timeBlocks += printTimeBlocks(false);
+    timeBlocks += new TimeBlocks(false);
 }
 browserReceipts.push(timeBlocks);
 

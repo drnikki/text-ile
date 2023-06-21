@@ -1,11 +1,18 @@
 import {browserToPrinter} from "../receipt.js";
-import {getTimestamp, generateHash, numToSpace, numToChar, reverseString} from "../stringManipulation.js";
-import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch} from "../sprite/pattern/patterns.js";
-import printMarioCoinBox from "../sprite/MarioCoinBox.js";
-import printStarburst from "../sprite/Starburst.js";
-import printClouds from "../sprite/Cloud.js";
-import printTwinkleBanner from "../sprite/TwinkleBanner.js";
-import printInkBlot from "../sprite/Inkblot.js";
+import {
+    getTimestamp,
+    generateHash,
+    numToSpace,
+    numToChar,
+    removeTimestampDelimiters
+} from "../stringManipulation.js";
+
+import Inkblot from "../sprite/Inkblot.js";
+import Cloud from "../sprite/Cloud.js";
+import Starburst from "../sprite/Starburst.js";
+import TwinkleBanner from "../sprite/TwinkleBanner.js";
+import DiamondPattern from "../sprite/pattern/DiamondPattern.js";
+import BasketWeave from "../sprite/pattern/BasketWeave.js";
 
 
 /**
@@ -37,7 +44,7 @@ const browserReceipts = [];
 
 let receipt9 = "";
 for (let i =0; i<80; i++) {
-    receipt9 += printInkBlot() + `<br/>`;
+    receipt9 += new Inkblot() + `<br/>`;
 }
 browserReceipts.push(receipt9);
 
@@ -55,7 +62,7 @@ for (let i =0; i<400; i++) {
     receipt1 += getTimestamp() + numToSpace(14)+ getTimestamp() + `<br/>`;
 
 }
-browserReceipts.push(receipt1);
+browserReceipts.push(removeTimestampDelimiters(receipt1));
 
 // receipt 2 - LINES THEN timestamps 
 // DO NOT EDIT - duplicate and change.
@@ -70,13 +77,13 @@ for (let i =0; i<50; i++) {
     receipt2 +=  numToChar(25, "-") +   getTimestamp() + numToSpace(2) + `<br/>`;
     receipt2 += numToChar(27, "-") + getTimestamp()  +  `<br/>`;    
 }
-browserReceipts.push(receipt2);
+browserReceipts.push(removeTimestampDelimiters(receipt2));
 
 
 // receipt 3 - what does it look like when we put "data" alongside sprites?
 let receipt3 = "";
 for (let i=0; i<100; i++){
-receipt3 += (printClouds('-', 0, 10, 1)) + `<br/>`;
+receipt3 += (new Cloud('-', 0, 10, 1)) + `<br/>`;
 }
 browserReceipts.push(receipt3);
 
@@ -84,7 +91,7 @@ browserReceipts.push(receipt3);
 
 let receipt4 = "";
 receipt4 = numToSpace(40);
-for (let i=0; i<100; i++) receipt4 += (printClouds('&nbsp;', 1, 15)) + `<br/>`;
+for (let i=0; i<100; i++) receipt4 += (new Cloud('&nbsp;', 1, 15)) + `<br/>`;
 browserReceipts.push(receipt4)
 
 
@@ -98,14 +105,14 @@ browserReceipts.push(receipt4)
 let receipt7 = '';
 receipt7 = numToSpace(400);
 for (let i=0; i<5; i++) {
-    receipt7 += printStarburst() + '<br/>';
+    receipt7 += new Starburst() + '<br/>';
     }
 browserReceipts.push(receipt7);
 
 // receipt 8
 let receipt8 = "";
 for (let i =0; i<80; i++) {
-    receipt8 += printTwinkleBanner(true) + `<br/>`;
+    receipt8 += new TwinkleBanner() + `<br/>`;
 }
 browserReceipts.push(receipt8);
 
@@ -117,9 +124,9 @@ let receiptZ = "";
 for (let i =0; i<400; i++) {
     // LOLOL i know, it's just for testing!
     receiptZ+= generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>`;
-    receiptZ += printDiamond(2);
-    receiptZ += printBasketWeave(3);
-    receiptZ += printDiamond(2);
+    receiptZ += new DiamondPattern(2);
+    receiptZ += new BasketWeave(3);
+    receiptZ += new DiamondPattern(2);
 
 }
 browserReceipts.push(receiptZ);

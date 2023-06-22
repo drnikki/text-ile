@@ -2,7 +2,7 @@
 Text-ile is a repository for text-based pattern printing to be used in the 20th anniversary HASTAC scuplture.
 
 ## Running locally
-To work on the code locally, you can use any text editor you normally use to work with JavaScript (VSCode is what Nikki uses).  As we have been testing various libraries and modules, we've encoutered some CORS errors.  The fastest way around this is to view the project from a local server.
+To work on the code locally, you can use any text editor you normally use to work with JavaScript (VSCode is what Nikki uses).  As we have been testing various libraries and modules, we've encountered some CORS errors.  The fastest way around this is to view the project from a local server.
 
 In VSCode, you can install the "Live Server" extension.  Starting a live server will sidestep any CORS issues.
 
@@ -16,15 +16,10 @@ In VSCode, you can install the "Live Server" extension.  Starting a live server 
 6. Open a pull request, explain your changes, and assign the PR to Nikki
 
 
-## Choosing what to work on next
-In order to decide what to work on next, go in this order:
-1 - are there open pull requests that need review? Do those first
-2 - Look for things you can complete before the Friday checkin.  In other words, if it's already Wednesday, try to choose something smaller than if it's Saturday morning. :) 
-3 - unsure? just ask Nikki. 
-
 
 ## To Generate jsdocs
 From the projct root: 
+
 ```
 ./node_modules/.bin/jsdoc -c jsdoc.conf.json -R README.md -r . 
 ```

@@ -1,5 +1,5 @@
 import allSpritesReceipt from "./receipt_sets/allSpritesReceipt.js";
-import sevenColumns from "./receipt_sets/7columns.js"
+import sevenColumns from "./receipt_sets/7columns.js";
 import iterationOne from "./receipt_sets/iterationOne.js";
 import iterationTwo from "./receipt_sets/iterationTwo.js";
 import iterationThree from "./receipt_sets/iterationThree.js";
@@ -10,7 +10,6 @@ import iterationThree from "./receipt_sets/iterationThree.js";
  * The function takes a keyword as a parameter and uses `allTheReceipts` to return the correct receipt content.
  */
 
-
 /**
  * takes a string of browser-friendly receipt data and turns it into a printer-friendly array of receipt lines.
  * converts non-breaking spaces to regular spaces and break tags to \n. It also separates every line of textContent
@@ -18,11 +17,10 @@ import iterationThree from "./receipt_sets/iterationThree.js";
  * @param textContent browser-friendly data
  * @returns {string[]} printer-friendly data
  */
-export function browserToPrinter ( textContent ) {
-    const rows = textContent.split(/<\s*\/?\s*br\s*\/?\s*>/); // < (spaces) (possible /) (spaces) br (repeat as before) >
-    return rows.map(row => row.replaceAll('&nbsp;', ' ') + '\n');
+export function browserToPrinter(textContent) {
+  const rows = textContent.split(/<\s*\/?\s*br\s*\/?\s*>/); // < (spaces) (possible /) (spaces) br (repeat as before) >
+  return rows.map((row) => row.replaceAll("&nbsp;", " ") + "\n");
 }
-
 
 /**
  * object to hold all the different kinds of receipts. see ./README.md
@@ -30,28 +28,27 @@ export function browserToPrinter ( textContent ) {
  */
 const allTheReceipts = {};
 
-
 /**
  * Given a receipt set, make an object out of it and add it to allTheReceipts
  * @param receiptSet - the receipt set imported from a file in ./receipt_sets
  */
-const addReceipts = ([keyword, {browserReceipts, printerReceipts}]) => {
-    allTheReceipts[keyword] = {
-        browserReceipts,
-        printerReceipts,
-    };
+const addReceipts = ([keyword, { browserReceipts, printerReceipts }]) => {
+  allTheReceipts[keyword] = {
+    browserReceipts,
+    printerReceipts,
+  };
 };
 
 /**
  * a list of all the receipt sets imported from the /receipt_sets directory
  */
 const receiptSets = [
-    allSpritesReceipt,
-    sevenColumns,
-    iterationOne,
-    iterationTwo,
-    iterationThree,
-]
+  allSpritesReceipt,
+  sevenColumns,
+  iterationOne,
+  iterationTwo,
+  iterationThree,
+];
 
 // add each set of receipts to allTheReceipts.
 receiptSets.forEach(addReceipts);
@@ -59,8 +56,10 @@ receiptSets.forEach(addReceipts);
 /**
  * the function we export
  */
-const getReceiptContent = keyword =>
-    [allTheReceipts[keyword].browserReceipts, allTheReceipts[keyword].printerReceipts];
+const getReceiptContent = (keyword) => [
+  allTheReceipts[keyword].browserReceipts,
+  allTheReceipts[keyword].printerReceipts,
+];
 export default getReceiptContent;
 
 /**

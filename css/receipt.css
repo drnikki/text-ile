@@ -1,180 +1,177 @@
 #links {
-    padding: 15px;
-    color: #fff;
-    font-size: 13px;
-    font-family:Arial, Helvetica, sans-serif;
-    text-align: center;
+  padding: 15px;
+  color: #fff;
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
 }
 /** todo thelinks are ugly **/
 
 .active {
-	text-decoration: underline;
+  text-decoration: underline;
 }
 
-#receipts{
-	display: flex;
-	flex-flow: row nowrap;
-	justify-content: flex-start;
-	align-content: space-between;
-	align-items: flex-start;
-	overflow: scroll;
-	gap: 15pt;
+#receipts {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-content: space-between;
+  align-items: flex-start;
+  overflow: scroll;
+  gap: 15pt;
 }
 
-.receipt{
-	background: white;
-	width: 420px;
-	padding: 15px;
-	margin: 0 auto auto;
-	text-align: left;
-	font-family: 'Andalé Mono', monospace;
-	white-space: nowrap;
+.receipt {
+  background: white;
+  width: 420px;
+  padding: 15px;
+  margin: 0 auto auto;
+  text-align: left;
+  font-family: "Andalé Mono", monospace;
+  white-space: nowrap;
 }
 
 .receipt p.lorem {
-	padding-bottom: 15px;
-
+  padding-bottom: 15px;
 }
 
 #site-nav .nav-link {
-	color: white;
-	font-size: larger;
+  color: white;
+  font-size: larger;
 }
 #site-nav .nav-link:hover {
-	color: lightgrey;
+  color: lightgrey;
 }
 
-#configForm, #configForm table {
-    color: white;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
-body{
-    background: black;
-    padding: 20px;
-}
-
-.red {
-    color: red;
-    font-weight: bold;
-    
-}
-
-.black {
-    color: black;
-
-}
-
-td.item-list {
-	text-align: right;
-}
-
-
-/** balance sheet CSS **/
-.sr-only {
-	border: 0 !important;
-	clip: rect(1px, 1px, 1px, 1px) !important;
-	-webkit-clip-path: inset(50%) !important;
-	clip-path: inset(50%) !important;
-	height: 1px !important;
-	overflow: hidden !important;
-	margin: -1px !important;
-	padding: 0 !important;
-	position: absolute !important;
-	width: 1px !important;
-	white-space: nowrap !important;
-}
-
-html {
-	box-sizing: border-box;
+#configForm,
+#configForm table {
+  color: white;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 body {
-	font-family: sans-serif;
-	color: #0a0a23;
+  background: black;
+  padding: 20px;
+}
+
+.red {
+  color: red;
+  font-weight: bold;
+}
+
+.black {
+  color: black;
+}
+
+td.item-list {
+  text-align: right;
+}
+
+/** balance sheet CSS **/
+.sr-only {
+  border: 0 !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  -webkit-clip-path: inset(50%) !important;
+  clip-path: inset(50%) !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+  white-space: nowrap !important;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  color: #0a0a23;
 }
 
 h1 {
-	max-width: 37.25rem;
-	margin: 0 auto;
-	padding: 1.5rem 1.25rem 1.5rem;
+  max-width: 37.25rem;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 1.5rem;
 }
 
 h1 .flex {
-	display: flex;
-	flex-direction: column-reverse;
-	gap: 1rem;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 1rem;
 }
 
 h1 .flex span:first-of-type {
-	font-size: 0.7em;
+  font-size: 0.7em;
 }
 
 h1 .flex span:last-of-type {
-	font-size: 1.2em;
+  font-size: 1.2em;
 }
 
 section {
-	max-width: 40rem;
-	margin: 0 auto;
-	border: 2px solid #d0d0d5;
+  max-width: 40rem;
+  margin: 0 auto;
+  border: 2px solid #d0d0d5;
 }
 
 header {
-	margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 #years {
-	display: flex;
-	justify-content: flex-end;
-	position: sticky;
-	top: 0;
-	background: #0a0a23;
-	color: #fff;
-	z-index: 999;
-	padding: 0.5rem calc(1.25rem + 2px) 0.5rem 0;
-	margin: 0 -2px;
+  display: flex;
+  justify-content: flex-end;
+  position: sticky;
+  top: 0;
+  background: #0a0a23;
+  color: #fff;
+  z-index: 999;
+  padding: 0.5rem calc(1.25rem + 2px) 0.5rem 0;
+  margin: 0 -2px;
 }
 
 #years span {
-	font-weight: bold;
-	width: 4.5rem;
-	text-align: right;
+  font-weight: bold;
+  width: 4.5rem;
+  text-align: right;
 }
 
 .table-wrap {
-	padding: 0 0.75rem 1.5rem 0.75rem;
+  padding: 0 0.75rem 1.5rem 0.75rem;
 }
 
 table {
-	border-collapse: collapse;
-	border: 0;
-	width: 100%;
-	position: relative;
-	margin-top: 3rem;
+  border-collapse: collapse;
+  border: 0;
+  width: 100%;
+  position: relative;
+  margin-top: 3rem;
 }
 
 table caption {
-	color: #356eaf;
-	font-size: 1.3em;
-	font-weight: normal;
-	position: absolute;
-	top: -2.25rem;
-	left: 0.5rem;
+  color: #356eaf;
+  font-size: 1.3em;
+  font-weight: normal;
+  position: absolute;
+  top: -2.25rem;
+  left: 0.5rem;
 }
 
 tbody td {
-	width: 100vw;
-	min-width: 4rem;
-	max-width: 4rem;
+  width: 100vw;
+  min-width: 4rem;
+  max-width: 4rem;
 }
 
 tbody th {
-	width: cal(100% - 12rem);
+  width: cal(100% - 12rem);
 }
 
 tr.total {
-	border-bottom: 4px double #0a0a23;
-	font-weight: bold;
+  border-bottom: 4px double #0a0a23;
+  font-weight: bold;
 }
-

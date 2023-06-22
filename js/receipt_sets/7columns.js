@@ -1,20 +1,18 @@
-import {browserToPrinter} from "../receipt.js";
+import { browserToPrinter } from "../receipt.js";
 import printTwinkleBanner from "../sprite/banner.js";
 import printStarburst from "../sprite/starburst.js";
-import {printChandelierA, printChandelierB} from "../sprite/chandelier.js";
+import { printChandelierA, printChandelierB } from "../sprite/chandelier.js";
 import printClouds from "../sprite/clouds.js";
 import printMarioCoinBox from "../sprite/coinBox.js";
-import {printTriangle1, printTriangle2} from "../sprite/triangles.js";
+import { printTriangle1, printTriangle2 } from "../sprite/triangles.js";
 import printBug from "../sprite/bug.js";
 import printRope from "../sprite/rope.js";
 import { printDiamondButterfly } from "../sprite/diamondButterfly.js";
-import {getTimestamp, generateHash} from "../stringManipulation.js";
-
+import { getTimestamp, generateHash } from "../stringManipulation.js";
 
 /**
  * displays 7 unique columns
  */
-
 
 /**
  * associates this set of receipts with a key word
@@ -28,7 +26,6 @@ const keyword = "7_columns";
  */
 const browserReceipts = [];
 
-
 /**
  *  create each of the seven receipts
  */
@@ -36,23 +33,28 @@ const browserReceipts = [];
 // receipt 1
 let receipt1 = "";
 //for (let i =0; i<20; i++) receipt1 += (Math.random() < 0.5 ? printTwinkleBanner(true) : printStarburst()) + `<br/>`;
-for (let i =0; i<20; i++) receipt1 += (Math.random() < 0.5 ? getTimestamp() : generateHash()) + `<br/>`;
+for (let i = 0; i < 20; i++)
+  receipt1 += (Math.random() < 0.5 ? getTimestamp() : generateHash()) + `<br/>`;
 
 browserReceipts.push(receipt1);
 
 // receipt 2
 let receipt2 = "";
-for (let i=0; i<20; i++) receipt2 += printChandelierA() +  printChandelierB();
+for (let i = 0; i < 20; i++)
+  receipt2 += printChandelierA() + printChandelierB();
 browserReceipts.push(receipt2);
 
 // receipt 3
 let receipt3 = "";
-for (let i=0; i<20; i++) receipt3 += (Math.random() < 0.75 ? printClouds() : printMarioCoinBox()) + `<br/>`;
+for (let i = 0; i < 20; i++)
+  receipt3 +=
+    (Math.random() < 0.75 ? printClouds() : printMarioCoinBox()) + `<br/>`;
 browserReceipts.push(receipt3);
 
 // receipt 4
-let receipt4 = '';
-for (let i=0; i<7; i++) receipt4 += printTriangle1() + printTriangle2() + printBug() + `<br/>`;
+let receipt4 = "";
+for (let i = 0; i < 7; i++)
+  receipt4 += printTriangle1() + printTriangle2() + printBug() + `<br/>`;
 browserReceipts.push(receipt4);
 
 // receipt 5
@@ -62,13 +64,16 @@ browserReceipts.push(receipt3);
 browserReceipts.push(receipt2);
 
 // receipt 7
-let receipt7 = '';
-for (let i=0; i<20; i++) receipt7 += printRope() + '<br/>';
+let receipt7 = "";
+for (let i = 0; i < 20; i++) receipt7 += printRope() + "<br/>";
 browserReceipts.push(receipt7);
 
 // receipt 8
 let receipt8 = "";
-for (let i =0; i<20; i++) receipt8 += (Math.random() < 0 ? printTwinkleBanner(false) : printStarburst()) + `<br/>`;
+for (let i = 0; i < 20; i++)
+  receipt8 +=
+    (Math.random() < 0 ? printTwinkleBanner(false) : printStarburst()) +
+    `<br/>`;
 browserReceipts.push(receipt8);
 
 /**
@@ -82,10 +87,9 @@ const printerReceipts = browserReceipts.map(browserToPrinter);
  */
 
 export default [
-    keyword, {
-        browserReceipts,
-        printerReceipts,
-    }
+  keyword,
+  {
+    browserReceipts,
+    printerReceipts,
+  },
 ];
-
-

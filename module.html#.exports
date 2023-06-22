@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Branch</title>
+    <title>JSDoc: Class: exports</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Branch</h1>
+    <h1 class="page-title">Class: exports</h1>
 
     
 
@@ -28,9 +28,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Branch<span class="signature">()</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>exports<span class="signature">()</span><span class="type-signature"></span></h2>
         
-            <div class="class-description"><p>class used to generate a single branch for rope sprite</p></div>
+            <div class="class-description"><p>an interesting chevron pattern</p></div>
         
     
 </header>
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="Branch"><span class="type-signature"></span>new Branch<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".exports"><span class="type-signature"></span>new exports<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -83,6 +83,15 @@
     
 
     
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Sourjyamoy - sprite design</li>
+        
+            <li>Michael Crockett - code</li>
+        </ul>
+    </dd>
+    
 
     
 
@@ -93,7 +102,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sprite_Rope.js.html">sprite/Rope.js</a>, <a href="sprite_Rope.js.html#line7">line 7</a>
+        <a href="sprite_Chevron.js.html">sprite/Chevron.js</a>, <a href="sprite_Chevron.js.html#line10">line 10</a>
     </li></ul></dd>
     
 
@@ -139,152 +148,133 @@
     
 
     
-
-    
-        <h3 class="subsection-title">Methods</h3>
+        <h3 class="subsection-title">Members</h3>
 
         
             
+<h4 class="name" id="spriteRows"><span class="type-signature"></span>spriteRows<span class="type-signature"> :Array.&lt;String></span></h4>
 
-    
-
-    
-    <h4 class="name" id="addNodeToRow"><span class="type-signature"></span>addNodeToRow<span class="signature">(row, position, out, deadZone)</span><span class="type-signature"> &rarr; {boolean|Array}</span></h4>
-    
-
-    
 
 
 
 <div class="description">
-    <p>generate a new node at the row and position specified</p>
+    <p>The characters that make up the sprite.<br>
+Spaces should be non-breaking (represented by <code>&amp;nbsp;</code>) and lines are separate elements in the array.</p>
 </div>
 
 
 
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;String></span>
+
+
+        </li>
+    </ul>
 
 
 
 
 
+<dl class="details">
 
-    <h5>Parameters:</h5>
     
 
-<table class="params">
-    <thead>
-    <tr>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="sprite_Sprite.js.html">sprite/Sprite.js</a>, <a href="sprite_Sprite.js.html#line15">line 15</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
         
-        <th>Name</th>
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>exports<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description"><p>rope sprite</p></div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
         
 
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
+    
+    <h2>Constructor</h2>
     
 
-        <tr>
-            
-                <td class="name"><code>row</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the row we are building on, 0 is middle (root row);<br>
-odd rows are above 0, even rows below</p></td>
-        </tr>
+    
+    <h4 class="name" id=".exports"><span class="type-signature"></span>new exports<span class="signature">()</span><span class="type-signature"></span></h4>
+    
 
     
 
-        <tr>
-            
-                <td class="name"><code>position</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the point on the row that we are starting at</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>out</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>true if current branch is branching away from center</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>deadZone</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Map.&lt;Object></span>
 
 
-            
-            </td>
 
-            
 
-            
-
-            <td class="description last"><p>map of objects that explicitly specifies where a branch cannot grow</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -320,7 +310,7 @@ odd rows are above 0, even rows below</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sprite_Rope.js.html">sprite/Rope.js</a>, <a href="sprite_Rope.js.html#line90">line 90</a>
+        <a href="sprite_Rope.js.html">sprite/Rope.js</a>, <a href="sprite_Rope.js.html#line374">line 374</a>
     </li></ul></dd>
     
 
@@ -345,181 +335,191 @@ odd rows are above 0, even rows below</p></td>
 
 
 
-<h5>Returns:</h5>
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
 
         
-<div class="param-desc">
-    <p>if array - [endPosition, success]</p>
+            
+<h4 class="name" id="spriteRows"><span class="type-signature"></span>spriteRows<span class="type-signature"> :Array.&lt;String></span></h4>
+
+
+
+
+<div class="description">
+    <p>The characters that make up the sprite.<br>
+Spaces should be non-breaking (represented by <code>&amp;nbsp;</code>) and lines are separate elements in the array.</p>
 </div>
 
 
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;String></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="sprite_Sprite.js.html">sprite/Sprite.js</a>, <a href="sprite_Sprite.js.html#line15">line 15</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
         
-<span class="param-type">boolean</span>
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>exports<span class="signature">(spriteText)</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description"><p>a class to standardize sprite creation and manipulation</p></div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+    <h2>Constructor</h2>
+    
+
+    
+    <h4 class="name" id=".exports"><span class="type-signature"></span>new exports<span class="signature">(spriteText)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>spriteText</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
 |
 
-<span class="param-type">Array</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="newNode"><span class="type-signature"></span>newNode<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>generate a new node</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sprite_Rope.js.html">sprite/Rope.js</a>, <a href="sprite_Rope.js.html#line157">line 157</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="populateBranch"><span class="type-signature"></span>populateBranch<span class="signature">(row, position, out, deadZone)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>fill the branch recursively</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>row</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
+<span class="param-type">Array.&lt;String></span>
 
 
             
@@ -529,77 +529,9 @@ odd rows are above 0, even rows below</p></td>
 
             
 
-            <td class="description last"><p>the row we are building on, 0 is middle (root row);<br>
-odd rows are above 0, even rows below</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>position</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the point on the row that we are starting at</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>out</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>true if current branch is branching away from center</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>deadZone</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Map.&lt;Object></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>map of objects that explicitly specifies where a branch cannot grow</p></td>
+            <td class="description last"><p>The characters that make up the sprite.<br>
+Spaces should be non-breaking (represented by <code>&amp;nbsp;</code>)<br>
+and lines should be break tags <code>&lt;br/&gt;</code> or be separate elements in an array.</p></td>
         </tr>
 
     
@@ -630,6 +562,13 @@ odd rows are above 0, even rows below</p></td>
     
 
     
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Michael Crockett</li>
+        </ul>
+    </dd>
+    
 
     
 
@@ -640,7 +579,7 @@ odd rows are above 0, even rows below</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sprite_Rope.js.html">sprite/Rope.js</a>, <a href="sprite_Rope.js.html#line42">line 42</a>
+        <a href="sprite_Sprite.js.html">sprite/Sprite.js</a>, <a href="sprite_Sprite.js.html#line8">line 8</a>
     </li></ul></dd>
     
 
@@ -670,30 +609,47 @@ odd rows are above 0, even rows below</p></td>
 
 
 
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
         
             
+<h4 class="name" id="spriteRows"><span class="type-signature"></span>spriteRows<span class="type-signature"> :Array.&lt;String></span></h4>
 
-    
-
-    
-    <h4 class="name" id="rowExists"><span class="type-signature"></span>rowExists<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
 
 
 
 <div class="description">
-    <p>check if the row exists</p>
+    <p>The characters that make up the sprite.<br>
+Spaces should be non-breaking (represented by <code>&amp;nbsp;</code>) and lines are separate elements in the array.</p>
 </div>
 
 
 
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;String></span>
 
 
-
-
-
+        </li>
+    </ul>
 
 
 
@@ -728,7 +684,7 @@ odd rows are above 0, even rows below</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sprite_Rope.js.html">sprite/Rope.js</a>, <a href="sprite_Rope.js.html#line150">line 150</a>
+        <a href="sprite_Sprite.js.html">sprite/Sprite.js</a>, <a href="sprite_Sprite.js.html#line15">line 15</a>
     </li></ul></dd>
     
 
@@ -744,109 +700,9 @@ odd rows are above 0, even rows below</p></td>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         
-            
-
     
 
-    
-    <h4 class="name" id="rowOpen"><span class="type-signature"></span>rowOpen<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>check if there is open space here</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sprite_Rope.js.html">sprite/Rope.js</a>, <a href="sprite_Rope.js.html#line142">line 142</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
     
 
     

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Branch</title>
+    <title>JSDoc: Class: PrintHandler</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Branch</h1>
+    <h1 class="page-title">Class: PrintHandler</h1>
 
     
 
@@ -28,9 +28,12 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Branch<span class="signature">()</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>PrintHandler<span class="signature">()</span><span class="type-signature"></span></h2>
         
-            <div class="class-description"><p>class used to generate a single branch for rope sprite</p></div>
+            <div class="class-description"><p>a class to handle printing.<br>
+There are two options:<br>
+(1) if you are adding lines to be printed one-by-one, then you can instantiate a PrintHandler object and use the addLine and submitPrint methods.<br>
+(2) if you already have your lines that you want printed stored in an array, then you can simply use the static method PrintHandler.printLines, and it will handle all the printing for you</p></div>
         
     
 </header>
@@ -45,7 +48,7 @@
     
 
     
-    <h4 class="name" id="Branch"><span class="type-signature"></span>new Branch<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="PrintHandler"><span class="type-signature"></span>new PrintHandler<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -83,6 +86,13 @@
     
 
     
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Michael Crockett</li>
+        </ul>
+    </dd>
+    
 
     
 
@@ -93,7 +103,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sprite_Rope.js.html">sprite/Rope.js</a>, <a href="sprite_Rope.js.html#line7">line 7</a>
+        <a href="PrintHandler.js.html">PrintHandler.js</a>, <a href="PrintHandler.js.html#line22">line 22</a>
     </li></ul></dd>
     
 
@@ -149,7 +159,7 @@
     
 
     
-    <h4 class="name" id="addNodeToRow"><span class="type-signature"></span>addNodeToRow<span class="signature">(row, position, out, deadZone)</span><span class="type-signature"> &rarr; {boolean|Array}</span></h4>
+    <h4 class="name" id="addLine"><span class="type-signature"></span>addLine<span class="signature">(text)</span><span class="type-signature"></span></h4>
     
 
     
@@ -157,7 +167,7 @@
 
 
 <div class="description">
-    <p>generate a new node at the row and position specified</p>
+    <p>store a line to be submitted with submitPrint</p>
 </div>
 
 
@@ -193,13 +203,13 @@
 
         <tr>
             
-                <td class="name"><code>row</code></td>
+                <td class="name"><code>text</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">string</span>
 
 
             
@@ -209,77 +219,7 @@
 
             
 
-            <td class="description last"><p>the row we are building on, 0 is middle (root row);<br>
-odd rows are above 0, even rows below</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>position</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the point on the row that we are starting at</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>out</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>true if current branch is branching away from center</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>deadZone</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Map.&lt;Object></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>map of objects that explicitly specifies where a branch cannot grow</p></td>
+            <td class="description last"><p>line of text, which must end in &quot;\n&quot;</p></td>
         </tr>
 
     
@@ -320,7 +260,7 @@ odd rows are above 0, even rows below</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sprite_Rope.js.html">sprite/Rope.js</a>, <a href="sprite_Rope.js.html#line90">line 90</a>
+        <a href="PrintHandler.js.html">PrintHandler.js</a>, <a href="PrintHandler.js.html#line30">line 30</a>
     </li></ul></dd>
     
 
@@ -345,31 +285,6 @@ odd rows are above 0, even rows below</p></td>
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>if array - [endPosition, success]</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-|
-
-<span class="param-type">Array</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -381,7 +296,7 @@ odd rows are above 0, even rows below</p></td>
     
 
     
-    <h4 class="name" id="newNode"><span class="type-signature"></span>newNode<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="reset"><span class="type-signature"></span>reset<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -389,7 +304,7 @@ odd rows are above 0, even rows below</p></td>
 
 
 <div class="description">
-    <p>generate a new node</p>
+    <p>clear out any stored lines in this print handler</p>
 </div>
 
 
@@ -433,7 +348,7 @@ odd rows are above 0, even rows below</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sprite_Rope.js.html">sprite/Rope.js</a>, <a href="sprite_Rope.js.html#line157">line 157</a>
+        <a href="PrintHandler.js.html">PrintHandler.js</a>, <a href="PrintHandler.js.html#line45">line 45</a>
     </li></ul></dd>
     
 
@@ -469,7 +384,7 @@ odd rows are above 0, even rows below</p></td>
     
 
     
-    <h4 class="name" id="populateBranch"><span class="type-signature"></span>populateBranch<span class="signature">(row, position, out, deadZone)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="setLines"><span class="type-signature"></span>setLines<span class="signature">(lines)</span><span class="type-signature"></span></h4>
     
 
     
@@ -477,7 +392,7 @@ odd rows are above 0, even rows below</p></td>
 
 
 <div class="description">
-    <p>fill the branch recursively</p>
+    <p>override currently stored lines</p>
 </div>
 
 
@@ -513,13 +428,13 @@ odd rows are above 0, even rows below</p></td>
 
         <tr>
             
-                <td class="name"><code>row</code></td>
+                <td class="name"><code>lines</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">Array.&lt;String></span>
 
 
             
@@ -529,77 +444,7 @@ odd rows are above 0, even rows below</p></td>
 
             
 
-            <td class="description last"><p>the row we are building on, 0 is middle (root row);<br>
-odd rows are above 0, even rows below</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>position</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the point on the row that we are starting at</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>out</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>true if current branch is branching away from center</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>deadZone</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Map.&lt;Object></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>map of objects that explicitly specifies where a branch cannot grow</p></td>
+            <td class="description last"><p>an array of lines to be printed, each ending with &quot;\n&quot;</p></td>
         </tr>
 
     
@@ -640,7 +485,7 @@ odd rows are above 0, even rows below</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sprite_Rope.js.html">sprite/Rope.js</a>, <a href="sprite_Rope.js.html#line42">line 42</a>
+        <a href="PrintHandler.js.html">PrintHandler.js</a>, <a href="PrintHandler.js.html#line38">line 38</a>
     </li></ul></dd>
     
 
@@ -676,7 +521,7 @@ odd rows are above 0, even rows below</p></td>
     
 
     
-    <h4 class="name" id="rowExists"><span class="type-signature"></span>rowExists<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="submitPrint"><span class="type-signature"></span>submitPrint<span class="signature">(log)</span><span class="type-signature"></span></h4>
     
 
     
@@ -684,7 +529,7 @@ odd rows are above 0, even rows below</p></td>
 
 
 <div class="description">
-    <p>check if the row exists</p>
+    <p>submit all stored lines to the receipt printer</p>
 </div>
 
 
@@ -693,6 +538,58 @@ odd rows are above 0, even rows below</p></td>
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>log</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>if true, log each printed line to the js console</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -728,7 +625,7 @@ odd rows are above 0, even rows below</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sprite_Rope.js.html">sprite/Rope.js</a>, <a href="sprite_Rope.js.html#line150">line 150</a>
+        <a href="PrintHandler.js.html">PrintHandler.js</a>, <a href="PrintHandler.js.html#line53">line 53</a>
     </li></ul></dd>
     
 
@@ -764,7 +661,7 @@ odd rows are above 0, even rows below</p></td>
     
 
     
-    <h4 class="name" id="rowOpen"><span class="type-signature"></span>rowOpen<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".printLines"><span class="type-signature">(static) </span>printLines<span class="signature">(lines, log)</span><span class="type-signature"></span></h4>
     
 
     
@@ -772,7 +669,7 @@ odd rows are above 0, even rows below</p></td>
 
 
 <div class="description">
-    <p>check if there is open space here</p>
+    <p>static method to print a given set of lines without instantiating a PrintHandler object.</p>
 </div>
 
 
@@ -781,6 +678,90 @@ odd rows are above 0, even rows below</p></td>
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>lines</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>each line to print must end in &quot;\n&quot;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>log</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>if true, log each printed line to the js console</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -816,7 +797,7 @@ odd rows are above 0, even rows below</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="sprite_Rope.js.html">sprite/Rope.js</a>, <a href="sprite_Rope.js.html#line142">line 142</a>
+        <a href="PrintHandler.js.html">PrintHandler.js</a>, <a href="PrintHandler.js.html#line64">line 64</a>
     </li></ul></dd>
     
 

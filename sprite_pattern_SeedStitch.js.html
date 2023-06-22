@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: sprite/Chevron.js</title>
+    <title>JSDoc: Source: sprite/pattern/SeedStitch.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: sprite/Chevron.js</h1>
+    <h1 class="page-title">Source: sprite/pattern/SeedStitch.js</h1>
 
     
 
@@ -26,19 +26,35 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import Sprite from "./Sprite.js";
-
+            <pre class="prettyprint source linenums"><code>import Sprite from "../Sprite.js";
 /**
- * an interesting chevron pattern
- * @author Sourjyamoy - sprite design
- * @author Michael Crockett - code
+ * print seed stitch pattern
  */
+function printSeedStitch(rowCount = 10) {
+    let line = '';
+    let columns = 40;
+    let pattern = '';
+    let printChar = '';
+    for (let x = 0; x &lt; rowCount; x++) {
+        printChar = "[-]";
+        if (x % 2 === 1) { // first row
+            printChar = "-I-"
+        }
+        while (line.length &lt; columns -1) {
+            line += printChar;
+        }
 
+        // when we're here, it's the end of the row
+        pattern += line + "&lt;/br>";
+        line = '';
+    }
 
-export default class Chevron extends Sprite {
-    constructor() {
-        const chevron = "3100061115000111300011110002111000430001&lt;br/>0000511100001112000111100011110000110000&lt;br/>0000111500011120001111000211100000000000&lt;br/>0004115000111200011110002111000400000040&lt;br/>1000300001113000111100021110004115000113&lt;br/>1100000011120001111000111100000111501110&lt;br/>1110000111300011110002111000000011111150&lt;br/>1111000412000111100021110006100001111500&lt;br/>3111100050001111000111100051110000110000&lt;br/>0011110000011110002111000003111000000001&lt;br/>0002111000611100021110006000311100000011&lt;br/>1000111100041000211100041100031110000111&lt;br/>1100011110000002111000011110003111001113&lt;br/>1110002111000021110000001111000311111130&lt;br/>1111000111100061100062000111100031111300&lt;br/>0111100011110004000411100011110003113000&lt;br/>0011110002111000000011110001111000330001&lt;br/>0001111000211100000001112000111100000011&lt;br/>3000111100011110000000111100011110000111&lt;br/>1300011110001113000400011110001111001111&lt;br/>1130001111000230001130001112000111111110&lt;br/>1113000111100000011120000111100011111100&lt;br/>0111300011110000111100000011110001111000&lt;br/>0011130001130001111000140001111000110002&lt;br/>0001113000400011120002113000111200000021&lt;br/>0000111300000111100011110000011110000211&lt;br/>1000011100001111000111100060001111001111&lt;br/>1100001300011120002111000313000111121110&lt;br/>1110000000111100021110003111000011111100&lt;br/>5111000001111000111100031110000001111000&lt;br/>0011400011110001111000311100004000110004&lt;br/>";
-        super(chevron);
+    return pattern;
+}
+
+export default class SeedStitch extends Sprite {
+    constructor(rows = 10) {
+        super(printSeedStitch(rows));
     }
 }</code></pre>
         </article>

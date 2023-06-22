@@ -84,7 +84,8 @@ class Branch {
      * @param {number} position the point on the row that we are starting at
      * @param {boolean} out true if current branch is branching away from center
      * @param {Map<Object>} deadZone map of objects that explicitly specifies where a branch cannot grow
-     * @returns {boolean[]|(number|boolean)[]} [endPosition, success]
+     *
+     * @return {(boolean|Array)} if array - [endPosition, success]
      */
     addNodeToRow(row, position, out, deadZone) { // position starts counting at 1
         if (row >= this.rows.length) throw new Error(`row ${row} does not exist`);

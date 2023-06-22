@@ -45,7 +45,6 @@ const addReceipts = ([keyword, {browserReceipts, printerReceipts}]) => {
 
 /**
  * a list of all the receipt sets imported from the /receipt_sets directory
- * @type {*[]}
  */
 const receiptSets = [
     allSpritesReceipt,

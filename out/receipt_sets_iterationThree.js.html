@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: receipt_sets/iterationThree.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: receipt_sets/iterationThree.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {browserToPrinter} from "../receipt.js";
+import {getTimestamp, generateHash, numToSpace, numToChar, reverseString} from "../stringManipulation.js";
+import {printBasketWeave, printDiamond, printHerringBone, printSeedStitch, printTimestampWaves, printTimeLines, printGradientFloor} from "../sprite/pattern.js";
+import printMarioCoinBox from "../sprite/coinBox.js";
+import printStarburst from "../sprite/starburst.js";
+import printClouds from "../sprite/clouds.js";
+import printTwinkleBanner from "../sprite/banner.js";
+import printInkBlot from "../sprite/inkblot.js";
+import {printChandelierA, printChandelierB} from "../sprite/chandelier.js";
+import {printTriangle1, printTriangle2} from "../sprite/triangles.js";
+import printBug from "../sprite/bug.js";
+import printRope from "../sprite/rope.js";
+import { printDiamondButterfly } from "../sprite/diamondButterfly.js";
+import printPeteca from "../sprite/peteca.js";
+import printBird from "../sprite/bird.js";
+import printChevron from "../sprite/chevron.js";
+import { printChevronToQBox } from "../sprite/chevrontoqbox.js";
+import printTimeBlocks from "../sprite/timeBlocks.js";
+import printArrowTime from "../sprite/arrowTime.js";
+/**
+ * Iteration Three! 
+ */
+
+/*
+ *
+ * associates this set of receipts with a key word
+ * @type {string}
+ */
+const keyword = "iterationThree";
+
+/**
+ * receipt data in browser-friendly form. an array of strings using &amp;nbsp;'s and &lt;br/>'s
+ * @type {String[]}
+ */
+const browserReceipts = [];
+
+
+/**
+ *  TODO 3/4: Generate receipts here and push each receipt to browserReceipts.
+ *      (This is where most of your code goes)
+ */
+
+/**
+ * This set is for the second set of banners.
+ * They are
+ * 1 rope
+ * 2 timestamp blocks
+ * 3 timestamp overlap arrow
+ * 4 leo's diamonds + clouds
+ * 5 cloud w/ pateca
+ * 6 bird facing R / triangles / bugs
+ * 7 chevron / coinbox align R
+ * -- then --
+ * 8 chevron / coinbox align L
+ * 9 bird facing L / triangles / bugs
+ * 10 cloud w/ pateca
+ * 11 leo's diamons + clouds
+ * 12 timestamp overlap arrow
+ * 13 timestamp blocks
+ * 14 rope
+ */
+
+
+
+
+// 1 - rope
+let receiptRope= '';
+for (let i=0; i&lt;20; i++) receiptRope += printRope();
+browserReceipts.push(receiptRope);
+
+
+// 2 - timestamp blocks
+let timeBlocks = "";
+// the receipt is smol and weird!
+timeBlocks += "&amp;nbsp;".repeat(39);
+for (let i=0; i&lt;6; i++) {
+    timeBlocks += printTimeBlocks();
+}
+browserReceipts.push(timeBlocks);
+
+
+// 3 - timestamp overlap arrow
+let arrowTimeL = "";
+for (let i=0; i&lt;100; i++) {
+    arrowTimeL += printArrowTime(true);
+}
+browserReceipts.push(arrowTimeL);
+
+// 3 - timestamp overlap arrow
+let arrowTimeR2 = "";
+for (let i=0; i&lt;100; i++) {
+    arrowTimeR2 += printArrowTime(false);
+}
+browserReceipts.push(arrowTimeR2);
+
+
+
+// 4 - Leo's diamonds and clouds
+let diamondsClouds = "";
+for (let i=0; i&lt;100; i++) {
+    
+    for (let x=0; x&lt;5; x++) {
+        diamondsClouds += printDiamondButterfly();
+    }
+    diamondsClouds += "&lt;br/>&lt;br/>&lt;br/>"; // spaaaace 
+    diamondsClouds += printClouds();
+    diamondsClouds += printClouds();
+    diamondsClouds += printClouds() + "&lt;br/>&lt;br/>&lt;br/>";
+}
+browserReceipts.push(diamondsClouds);
+
+
+// 5 - cloud with pateca  and pattern
+let receiptCloudteca = "";
+for (let i=0; i&lt;100; i++) {
+    // this will print each combination in a pattern.
+    receiptCloudteca += printClouds('&amp;nbsp;', 1, 10) + "&lt;br />&lt;br />"; 
+    receiptCloudteca += printPeteca(16 + Math.floor(Math.random() * 8));  // pateca on the right, between 16 and 24
+    receiptCloudteca += printGradientFloor() + "&lt;br />";  
+
+    receiptCloudteca += printClouds('&amp;nbsp;', 11, 20) + "&lt;br />&lt;br />"; // clouds on the right
+    receiptCloudteca += printPeteca(1 + Math.floor(Math.random() * 11)) + "&lt;br />";  // pateca on the left
+    receiptCloudteca += printGradientFloor() + "&lt;br />";  
+}
+browserReceipts.push(receiptCloudteca);
+
+// 6 -  bird facing L / triangles / bugs
+let receiptBirdBugL = "";
+for (let i=0; i&lt;100; i++) {
+    receiptBirdBugL += printBird(false) + "&lt;br />&lt;br />&lt;br />"; 
+    receiptBirdBugL += printTriangle1() + "&lt;br />"; // 
+    receiptBirdBugL += printBug() + "&lt;br />"; // 
+    receiptBirdBugL += printTriangle2() + "&lt;br />"; // 
+}
+browserReceipts.push(receiptBirdBugL);
+
+
+// 7 - chevron / coinbox align R
+let chevronCoin1 = "";
+for (let i=0; i&lt;100; i++) {
+    chevronCoin1 += printChevronToQBox(3)
+    chevronCoin1 += printChevron(); 
+    chevronCoin1+=printChevronToQBox(4)
+    chevronCoin1 += printMarioCoinBox("right") + "&lt;br />"; //  
+}
+browserReceipts.push(chevronCoin1);
+
+
+// 8 - chevron / coinbox align L
+let chevronCoin2 = "";
+for (let i=0; i&lt;100; i++) {
+    chevronCoin2 += printChevronToQBox(1);
+    chevronCoin2 += printChevron(); 
+    chevronCoin2 += printChevronToQBox(2);
+    chevronCoin2 += printMarioCoinBox("left") + "&lt;br />"; //  
+}
+browserReceipts.push(chevronCoin2);
+
+
+
+// 9 - bird facing R / triangles / bugs
+let receiptBirdBugR = "";
+for (let i=0; i&lt;100; i++) {
+    receiptBirdBugR += printBird() + "&lt;br />&lt;br />&lt;br />"; 
+    receiptBirdBugR += printTriangle1() + "&lt;br />"; // 
+    receiptBirdBugR += printBug() + "&lt;br />"; // 
+    receiptBirdBugR += printTriangle2() + "&lt;br />"; // 
+}
+browserReceipts.push(receiptBirdBugR);
+
+// 10 - cloud w/ pateca (same as before)
+browserReceipts.push(receiptCloudteca);
+
+// 11 - diamonds and clouds
+// TODO will need to be regenerated when fixed
+browserReceipts.push(diamondsClouds);
+
+// 12 - timestamp overlap arrow
+let arrowTimeR = "";
+for (let i=0; i&lt;100; i++) {
+    arrowTimeR += printArrowTime(false);
+}
+browserReceipts.push(arrowTimeR);
+
+// 13 - final timestamp blocks
+browserReceipts.push(timeBlocks);
+
+// 14 - final receipt rope.
+browserReceipts.push(receiptRope);
+
+
+
+/**
+ * receipt data in printer-friendly form. a 2d array of strings using regular spaces and \n
+ * @type {String[][]}
+ */
+const printerReceipts = browserReceipts.map(browserToPrinter);
+
+/**
+ * export for use in receipt.js
+ */
+
+export default [
+    keyword, {
+        browserReceipts,
+        printerReceipts,
+    }
+];
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Branch.html">Branch</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBlocks">addBlocks</a></li><li><a href="global.html#addReceipts">addReceipts</a></li><li><a href="global.html#allTheReceipts">allTheReceipts</a></li><li><a href="global.html#browserReceipts">browserReceipts</a></li><li><a href="global.html#browserToPrinter">browserToPrinter</a></li><li><a href="global.html#centerPiece">centerPiece</a></li><li><a href="global.html#config">config</a></li><li><a href="global.html#generateHash">generateHash</a></li><li><a href="global.html#getReceiptContent">getReceiptContent</a></li><li><a href="global.html#getTimestamp">getTimestamp</a></li><li><a href="global.html#keyword">keyword</a></li><li><a href="global.html#keywords">keywords</a></li><li><a href="global.html#msToTime">msToTime</a></li><li><a href="global.html#numToSpace">numToSpace</a></li><li><a href="global.html#oneCloudFlipped">oneCloudFlipped</a></li><li><a href="global.html#printBasketWeave">printBasketWeave</a></li><li><a href="global.html#printBug">printBug</a></li><li><a href="global.html#printChevron">printChevron</a></li><li><a href="global.html#printDiamond">printDiamond</a></li><li><a href="global.html#printHandler">printHandler</a></li><li><a href="global.html#printHerringBone">printHerringBone</a></li><li><a href="global.html#printLoop">printLoop</a></li><li><a href="global.html#printMarioCoinBox">printMarioCoinBox</a></li><li><a href="global.html#printPeteca">printPeteca</a></li><li><a href="global.html#printRibbonRow">printRibbonRow</a></li><li><a href="global.html#printRope">printRope</a></li><li><a href="global.html#printSeedStitch">printSeedStitch</a></li><li><a href="global.html#printTimeLines">printTimeLines</a></li><li><a href="global.html#printTriangle1">printTriangle1</a></li><li><a href="global.html#printTriangle2">printTriangle2</a></li><li><a href="global.html#printTriangleTop">printTriangleTop</a></li><li><a href="global.html#printTwinkleBanner">printTwinkleBanner</a></li><li><a href="global.html#printerReceipts">printerReceipts</a></li><li><a href="global.html#receipt1">receipt1</a></li><li><a href="global.html#receipt9">receipt9</a></li><li><a href="global.html#receiptRope">receiptRope</a></li><li><a href="global.html#receiptSets">receiptSets</a></li><li><a href="global.html#reverseBanner">reverseBanner</a></li><li><a href="global.html#spriteHolder">spriteHolder</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Jun 22 2023 11:42:37 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

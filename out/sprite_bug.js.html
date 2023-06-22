@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: sprite/bug.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: sprite/bug.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {numToSpace} from "../stringManipulation.js";
+
+/**
+ * prints the bug
+ */
+const printBug = () => (
+    // every line of code is a line of the bug
+    numToSpace(9) + '*' + numToSpace(9) + '/\\' + numToSpace(9) + '*' + '&lt;br/>'
+    + numToSpace(8) + '*{}' + numToSpace(6) + '/\\##/\\' + numToSpace(6) + '{}*' + '&lt;br/>'
+    + numToSpace(7) + '*{{}}' + numToSpace(4) + '\\######/' + numToSpace(4) + '{{}}*' + '&lt;br/>'
+    + numToSpace(6) + '*{{{{}}}' + numToSpace(1) + '\\########/' + numToSpace(1) + '{{{}}}}*' + '&lt;br/>'
+    + numToSpace(8) + '*{{{}}' + '\\\\########//' + '{{}}}*' + '&lt;br/>'
+    + '_' + numToSpace(9) + '*{{{}}' + '\\######/' + '{{}}}*' + '&lt;br/>'
+    + numToSpace(1) + '-__--\\' + numToSpace(5) + '*{{{}}' + '*/\\*' + '{{}}}*' + '&lt;br/>'
+    + numToSpace(2) + '*-' + '&amp;'.repeat(3) + '\\----\\' + numToSpace(1) + '***' + numToSpace(6)
+        + '***' + numToSpace(1) + '/----/' + '&amp;'.repeat(3) + '-*' + '&lt;br/>'
+    + numToSpace(4) + '*-' + '&amp;'.repeat(7) + '\\----\\' + numToSpace(2) + '/----/' + '&amp;'.repeat(7) + '-*' + '&lt;br/>'
+    + numToSpace(7) + '*-' + '&amp;'.repeat(10) + '\\/' + '&amp;'.repeat(10) + '-*' + '&lt;br/>'
+    + numToSpace(10) + '*-' + '&amp;'.repeat(7) + numToSpace(2) + '&amp;'.repeat(7) + '-*' + '&lt;br/>'
+    + numToSpace(12) + '*-' + '&amp;'.repeat(2) + numToSpace(8) + '&amp;'.repeat(2) + '-*' + '&lt;br/>'
+    + numToSpace(5) + '(' + '0'.repeat(5) + numToSpace(3) + '*' + numToSpace(4) + '@@'
+        + numToSpace(4) + '*' + numToSpace(3) + '0'.repeat(5) + ')' + '&lt;br/>'
+    + numToSpace(4) + '(00+~0000)' + numToSpace(4) + '@' + numToSpace(2)
+        + '@' + numToSpace(4) + '(0000~+00)' + '&lt;br/>'
+    + numToSpace(3) + '((0+~~~000)' + numToSpace(3) + '@' + numToSpace(1) + '%%'
+        + numToSpace(1) + '@' + numToSpace(3) + '(000~~~+0)' + '&lt;br/>'
+    + numToSpace(3) + '((00+~~000)' + numToSpace(1) + '@@' + numToSpace(1) + '%%%%'
+        + numToSpace(1) + '@@' + numToSpace(1) + '(000~~+00)' + '&lt;br/>'
+    + numToSpace(5) + '(00000@@@@' + numToSpace(2) + '%%%%%%' + numToSpace(2) + '@@@@@0000)' + '&lt;br/>'
+    + numToSpace(8) + '@@@@' + numToSpace(6) + '%%%%' + numToSpace(7) + '@@@@' + '&lt;br/>'
+    + numToSpace(19) + '%%' + '&lt;br/>'
+);
+
+export default printBug;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Branch.html">Branch</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBlocks">addBlocks</a></li><li><a href="global.html#addReceipts">addReceipts</a></li><li><a href="global.html#allTheReceipts">allTheReceipts</a></li><li><a href="global.html#browserReceipts">browserReceipts</a></li><li><a href="global.html#browserToPrinter">browserToPrinter</a></li><li><a href="global.html#centerPiece">centerPiece</a></li><li><a href="global.html#config">config</a></li><li><a href="global.html#generateHash">generateHash</a></li><li><a href="global.html#getReceiptContent">getReceiptContent</a></li><li><a href="global.html#getTimestamp">getTimestamp</a></li><li><a href="global.html#keyword">keyword</a></li><li><a href="global.html#keywords">keywords</a></li><li><a href="global.html#msToTime">msToTime</a></li><li><a href="global.html#numToSpace">numToSpace</a></li><li><a href="global.html#oneCloudFlipped">oneCloudFlipped</a></li><li><a href="global.html#printBasketWeave">printBasketWeave</a></li><li><a href="global.html#printBug">printBug</a></li><li><a href="global.html#printChevron">printChevron</a></li><li><a href="global.html#printDiamond">printDiamond</a></li><li><a href="global.html#printHandler">printHandler</a></li><li><a href="global.html#printHerringBone">printHerringBone</a></li><li><a href="global.html#printLoop">printLoop</a></li><li><a href="global.html#printMarioCoinBox">printMarioCoinBox</a></li><li><a href="global.html#printPeteca">printPeteca</a></li><li><a href="global.html#printRibbonRow">printRibbonRow</a></li><li><a href="global.html#printRope">printRope</a></li><li><a href="global.html#printSeedStitch">printSeedStitch</a></li><li><a href="global.html#printTimeLines">printTimeLines</a></li><li><a href="global.html#printTriangle1">printTriangle1</a></li><li><a href="global.html#printTriangle2">printTriangle2</a></li><li><a href="global.html#printTriangleTop">printTriangleTop</a></li><li><a href="global.html#printTwinkleBanner">printTwinkleBanner</a></li><li><a href="global.html#printerReceipts">printerReceipts</a></li><li><a href="global.html#receipt1">receipt1</a></li><li><a href="global.html#receipt9">receipt9</a></li><li><a href="global.html#receiptRope">receiptRope</a></li><li><a href="global.html#receiptSets">receiptSets</a></li><li><a href="global.html#reverseBanner">reverseBanner</a></li><li><a href="global.html#spriteHolder">spriteHolder</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Jun 22 2023 11:42:37 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

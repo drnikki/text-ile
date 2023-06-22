@@ -7,7 +7,6 @@ import {numToSpace, numToChar, randomSpacer, reverseString} from "../stringManip
  * @param {*} minLeft 
  * @param {*} maxLeft 
  * @param {*} flipped - do we reverse to "flip" or no
- * @returns 
  */
 export default function printClouds(spaceChar = "&nbsp;", minLeft = 0, maxLeft = 21, flipped = 0) {
 
@@ -67,7 +66,6 @@ function oneCloud(prefix, spaceChar) {
  * 
  * @param {*} startPosition - the numeric start pos
  * @param {*} spaceChar 
- * @returns 
  */
 function oneCloudFlipped(startPosition, spaceChar) {
     // we have to fill it with spaces because the lines are on the right.

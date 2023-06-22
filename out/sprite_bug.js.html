@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: sprite/bug.js</title>
+    <title>JSDoc: Source: sprite/Bug.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: sprite/bug.js</h1>
+    <h1 class="page-title">Source: sprite/Bug.js</h1>
 
     
 
@@ -27,6 +27,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import {numToSpace} from "../stringManipulation.js";
+import Sprite from "./Sprite.js";
 
 /**
  * prints the bug
@@ -59,7 +60,11 @@ const printBug = () => (
     + numToSpace(19) + '%%' + '&lt;br/>'
 );
 
-export default printBug;</code></pre>
+export default class Bug extends Sprite{
+    constructor() {
+        super(printBug());
+    }
+}</code></pre>
         </article>
     </section>
 
@@ -69,13 +74,13 @@ export default printBug;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Branch.html">Branch</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBlocks">addBlocks</a></li><li><a href="global.html#addReceipts">addReceipts</a></li><li><a href="global.html#allTheReceipts">allTheReceipts</a></li><li><a href="global.html#browserReceipts">browserReceipts</a></li><li><a href="global.html#browserToPrinter">browserToPrinter</a></li><li><a href="global.html#centerPiece">centerPiece</a></li><li><a href="global.html#config">config</a></li><li><a href="global.html#generateHash">generateHash</a></li><li><a href="global.html#getReceiptContent">getReceiptContent</a></li><li><a href="global.html#getTimestamp">getTimestamp</a></li><li><a href="global.html#keyword">keyword</a></li><li><a href="global.html#keywords">keywords</a></li><li><a href="global.html#msToTime">msToTime</a></li><li><a href="global.html#numToSpace">numToSpace</a></li><li><a href="global.html#oneCloudFlipped">oneCloudFlipped</a></li><li><a href="global.html#printBasketWeave">printBasketWeave</a></li><li><a href="global.html#printBug">printBug</a></li><li><a href="global.html#printChevron">printChevron</a></li><li><a href="global.html#printDiamond">printDiamond</a></li><li><a href="global.html#printHandler">printHandler</a></li><li><a href="global.html#printHerringBone">printHerringBone</a></li><li><a href="global.html#printLoop">printLoop</a></li><li><a href="global.html#printMarioCoinBox">printMarioCoinBox</a></li><li><a href="global.html#printPeteca">printPeteca</a></li><li><a href="global.html#printRibbonRow">printRibbonRow</a></li><li><a href="global.html#printRope">printRope</a></li><li><a href="global.html#printSeedStitch">printSeedStitch</a></li><li><a href="global.html#printTimeLines">printTimeLines</a></li><li><a href="global.html#printTriangle1">printTriangle1</a></li><li><a href="global.html#printTriangle2">printTriangle2</a></li><li><a href="global.html#printTriangleTop">printTriangleTop</a></li><li><a href="global.html#printTwinkleBanner">printTwinkleBanner</a></li><li><a href="global.html#printerReceipts">printerReceipts</a></li><li><a href="global.html#receipt1">receipt1</a></li><li><a href="global.html#receipt9">receipt9</a></li><li><a href="global.html#receiptRope">receiptRope</a></li><li><a href="global.html#receiptSets">receiptSets</a></li><li><a href="global.html#reverseBanner">reverseBanner</a></li><li><a href="global.html#spriteHolder">spriteHolder</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Branch.html">Branch</a></li><li><a href="PrintHandler.html">PrintHandler</a></li><li><a href="module.html#.exports">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBlocks">addBlocks</a></li><li><a href="global.html#addHorizontalSpaceToRows">addHorizontalSpaceToRows</a></li><li><a href="global.html#addReceipts">addReceipts</a></li><li><a href="global.html#allTheReceipts">allTheReceipts</a></li><li><a href="global.html#br">br</a></li><li><a href="global.html#browserReceipts">browserReceipts</a></li><li><a href="global.html#browserToPrinter">browserToPrinter</a></li><li><a href="global.html#centerPiece">centerPiece</a></li><li><a href="global.html#config">config</a></li><li><a href="global.html#constrictWidth">constrictWidth</a></li><li><a href="global.html#copy">copy</a></li><li><a href="global.html#countCharacters">countCharacters</a></li><li><a href="global.html#flipHorizontal">flipHorizontal</a></li><li><a href="global.html#flipVertical">flipVertical</a></li><li><a href="global.html#generateHash">generateHash</a></li><li><a href="global.html#getReceiptContent">getReceiptContent</a></li><li><a href="global.html#getTimestamp">getTimestamp</a></li><li><a href="global.html#imposeBlocks">imposeBlocks</a></li><li><a href="global.html#imposeStrings">imposeStrings</a></li><li><a href="global.html#isNumeric">isNumeric</a></li><li><a href="global.html#keyword">keyword</a></li><li><a href="global.html#keywords">keywords</a></li><li><a href="global.html#msToTime">msToTime</a></li><li><a href="global.html#numToSpace">numToSpace</a></li><li><a href="global.html#offsetBy">offsetBy</a></li><li><a href="global.html#oneCloudFlipped">oneCloudFlipped</a></li><li><a href="global.html#printBasketWeave">printBasketWeave</a></li><li><a href="global.html#printBug">printBug</a></li><li><a href="global.html#printClouds">printClouds</a></li><li><a href="global.html#printDiamond">printDiamond</a></li><li><a href="global.html#printLines">printLines</a></li><li><a href="global.html#printLoop">printLoop</a></li><li><a href="global.html#printMarioCoinBox">printMarioCoinBox</a></li><li><a href="global.html#printPeteca">printPeteca</a></li><li><a href="global.html#printRibbonRow">printRibbonRow</a></li><li><a href="global.html#printRope">printRope</a></li><li><a href="global.html#printSeedStitch">printSeedStitch</a></li><li><a href="global.html#printTimeLines">printTimeLines</a></li><li><a href="global.html#printTriangle1">printTriangle1</a></li><li><a href="global.html#printTriangle2">printTriangle2</a></li><li><a href="global.html#printTriangleTop">printTriangleTop</a></li><li><a href="global.html#printTwinkleBanner">printTwinkleBanner</a></li><li><a href="global.html#printerReceipts">printerReceipts</a></li><li><a href="global.html#receipt1">receipt1</a></li><li><a href="global.html#receipt9">receipt9</a></li><li><a href="global.html#receiptRope">receiptRope</a></li><li><a href="global.html#receiptSets">receiptSets</a></li><li><a href="global.html#reverseTimestamps">reverseTimestamps</a></li><li><a href="global.html#setAlign">setAlign</a></li><li><a href="global.html#setMarginFill">setMarginFill</a></li><li><a href="global.html#slicedSprite">slicedSprite</a></li><li><a href="global.html#spriteHolder">spriteHolder</a></li><li><a href="global.html#sprites">sprites</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Jun 22 2023 11:42:37 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Jun 22 2023 12:56:20 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

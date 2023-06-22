@@ -26,8 +26,31 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import spriteFunctions from "./sprite/listOfSprites.js"
-import {browserToPrinter} from "./receipt.js";
+            <pre class="prettyprint source linenums"><code>import {browserToPrinter} from "./receipt.js";
+import PrintHandler from "./PrintHandler.js";
+import BasketWeave from "./sprite/pattern/BasketWeave.js";
+import DiamondPattern from "./sprite/pattern/DiamondPattern.js";
+import DotPattern from "./sprite/pattern/DotPattern.js";
+import GradientFloor from "./sprite/pattern/GradientFloor.js";
+import HerringBone from "./sprite/pattern/HerringBone.js";
+import SeedStitch from "./sprite/pattern/SeedStitch.js";
+import TimeLines from "./sprite/pattern/TimeLines.js";
+import TimestampWaves from "./sprite/pattern/TimestampWaves.js";
+import ArrowTime from "./sprite/ArrowTime.js";
+import Bird from "./sprite/Bird.js";
+import Bug from "./sprite/Bug.js";
+import Chandeliers from "./sprite/Chandeliers.js";
+import Chevron from "./sprite/Chevron.js";
+import Cloud from "./sprite/Cloud.js";
+import DiamondButterfly from "./sprite/DiamondButterfly.js";
+import Inkblot from "./sprite/Inkblot.js";
+import MarioCoinBox from "./sprite/MarioCoinBox.js";
+import Panda from "./sprite/Panda.js";
+import Peteca from "./sprite/Peteca.js";
+import Rope from "./sprite/Rope.js";
+import Starburst from "./sprite/Starburst.js";
+import {Triangle1, Triangle2} from "./sprite/triangles.js";
+import TwinkleBanner from "./sprite/TwinkleBanner.js";
 
 /**
  * used to continuously print random sprites
@@ -46,46 +69,40 @@ const config = {
 }
 
 /**
- *  redefined receipt print function
+ * list of sprites to choose from
  */
-const printHandler = {
-    lines: [],
-    issueID: 1,
-    // store a line to be submitted with submitPrint
-    println (text) {
-        printHandler.lines.push(text);
-    },
-    reset() {
-        printHandler.lines = [];
-    },
-    // submit lines to the printer
-    submitPrint () {
-        setPosId(printHandler.issueID);
-        checkPrinterStatus();
-        printHandler.lines.forEach((line => {
-            console.log(line);
-            printText(line,  0, 0, false, false, false, 1, 0)
-        }));
-        const strSubmit = getPosData();
-        printHandler.issueID++;
-        requestPrint("Printer1", strSubmit, console.log);
 
-        // reset
-        printHandler.reset();
-    },
-};
-
-// // old attempt at printing TODO: see if this can be removed
-// const print = text => {
-//     console.log(text);
-//     printText(text,  0, 0, false, false, false, 1, 0);
-// }
-
+const sprites = [
+    BasketWeave,
+    DiamondPattern,
+    DotPattern,
+    GradientFloor,
+    HerringBone,
+    SeedStitch,
+    TimeLines,
+    TimestampWaves,
+    ArrowTime,
+    Bird,
+    Bug,
+    Chandeliers,
+    Chevron,
+    Cloud,
+    DiamondButterfly,
+    Inkblot,
+    MarioCoinBox,
+    Panda,
+    Peteca,
+    Rope,
+    Starburst,
+    Triangle1,
+    Triangle2,
+    TwinkleBanner,
+];
 
 /**
  * used to store information about incomplete sprites.
- * each sprite function maps to an object that holds key information.
- * @type {Map&lt;function, object>}
+ * each sprite class maps to an object that holds key information.
+ * @type {Map&lt;Sprite, object>}
  */
 const spriteHolder = new Map();
 
@@ -98,7 +115,7 @@ const resetSprite = sprite => spriteHolder.set(sprite, {
 });
 
 // add each sprite function to spriteHolder with clean slate
-spriteFunctions.forEach(resetSprite);
+sprites.forEach(resetSprite);
 
 const setReceiptInBrowser = (printNum, {startFrom, browserSprite}) => {
     $('#receipt-content').html(browserSprite);
@@ -119,6 +136,23 @@ const msToTime = ms => {
     return hours + ":" + minutes + ":" + seconds;
 }
 
+// object to handle connecting to printer and printing
+const printHandler = new PrintHandler();
+
+const getNewSprite = type => {
+    const sprite = new type();
+    //chance to flip
+    if (Math.random() &lt; 0.5) sprite.flipHorizontal();
+    // chance to change margin
+    const marginChoices = ["-", "_", ".", "\xa0"];
+    const left = marginChoices[Math.floor(Math.random()*marginChoices.length)];
+    const right = marginChoices[Math.floor(Math.random()*marginChoices.length)];
+    if (Math.random() &lt; 0.25) sprite.setMarginFill(left, right);
+    // chance to change alignment
+    if (Math.random() &lt; 0.2) sprite.setAlign("random");
+    return sprite.toString();
+}
+
 /**
  *  an object to handle the loop.
  *  I know this is a weird way to do this, but i'm just exploring and learning right now
@@ -134,21 +168,21 @@ const printLoop = {
     // the actual thing we're repeating
     action() {
         // pick random sprite
-        const sprite = spriteFunctions[Math.floor(Math.random()*spriteFunctions.length)];
-        const spriteInfo = spriteHolder.get(sprite);
+        const spriteType = sprites[Math.floor(Math.random()*sprites.length)];
+        const spriteInfo = spriteHolder.get(spriteType);
 
         // are we printing whole sprites at a time?
         if (printLoop.wholeSprites) {
-            const browserSprite = sprite();
+            const browserSprite = getNewSprite(spriteType);
             setReceiptInBrowser(-1, {browserSprite});
-            printHandler.lines = browserToPrinter(browserSprite);
+            printHandler.setLines(browserToPrinter(browserSprite));
 
         } else { // partial sprites
             // check to see if we had a leftover
             if (!spriteInfo.inProgress) {
                 spriteInfo.inProgress = true;
                 spriteInfo.browserSprite = "";
-                for (let i = 0; i &lt; config.numSprites; i++) spriteInfo.browserSprite += sprite(); // add sprites
+                for (let i = 0; i &lt; config.numSprites; i++) spriteInfo.browserSprite += getNewSprite(spriteType); // add sprites
                 spriteInfo.printerSprite = browserToPrinter(spriteInfo.browserSprite);
                 spriteInfo.startFrom = 0;
             }
@@ -159,23 +193,22 @@ const printLoop = {
 
             // display what we are printing
             setReceiptInBrowser(printNum, spriteInfo);
-            // print what we are printing.
-            // print text function defined in ./bxl/bxlpos.js, which should be included as its own &lt;script> tag
+            // prepare to print what we are printing.
             for (let i = spriteInfo.startFrom; i &lt; spriteInfo.startFrom + printNum; i++) {
                 if (i >= spriteInfo.printerSprite.length) {
                     // we're out of bounds
-                    if (config.fillEmptySpace) printHandler.println('\n'); // print blank line
+                    if (config.fillEmptySpace) printHandler.addLine('\n'); // print blank line
                     else break;
-                } else printHandler.println(spriteInfo.printerSprite[i]); // print row
+                } else printHandler.addLine(spriteInfo.printerSprite[i]); // print row
             }
 
             // we are no longer in progress
-            if (spriteInfo.startFrom + printNum >= spriteInfo.printerSprite.length) resetSprite(sprite);
+            if (spriteInfo.startFrom + printNum >= spriteInfo.printerSprite.length) resetSprite(spriteType);
             // we are still in progress
             else spriteInfo.startFrom += printNum;
         }
         //submit print
-        printHandler.submitPrint();
+        printHandler.submitPrint(true);
 
         // repeat action if looping
         if (printLoop.looping) {
@@ -234,13 +267,13 @@ $(`#toggleFullSprite`).on('change', printLoop.changePrintMode);
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Branch.html">Branch</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBlocks">addBlocks</a></li><li><a href="global.html#addReceipts">addReceipts</a></li><li><a href="global.html#allTheReceipts">allTheReceipts</a></li><li><a href="global.html#browserReceipts">browserReceipts</a></li><li><a href="global.html#browserToPrinter">browserToPrinter</a></li><li><a href="global.html#centerPiece">centerPiece</a></li><li><a href="global.html#config">config</a></li><li><a href="global.html#generateHash">generateHash</a></li><li><a href="global.html#getReceiptContent">getReceiptContent</a></li><li><a href="global.html#getTimestamp">getTimestamp</a></li><li><a href="global.html#keyword">keyword</a></li><li><a href="global.html#keywords">keywords</a></li><li><a href="global.html#msToTime">msToTime</a></li><li><a href="global.html#numToSpace">numToSpace</a></li><li><a href="global.html#oneCloudFlipped">oneCloudFlipped</a></li><li><a href="global.html#printBasketWeave">printBasketWeave</a></li><li><a href="global.html#printBug">printBug</a></li><li><a href="global.html#printChevron">printChevron</a></li><li><a href="global.html#printDiamond">printDiamond</a></li><li><a href="global.html#printHandler">printHandler</a></li><li><a href="global.html#printHerringBone">printHerringBone</a></li><li><a href="global.html#printLoop">printLoop</a></li><li><a href="global.html#printMarioCoinBox">printMarioCoinBox</a></li><li><a href="global.html#printPeteca">printPeteca</a></li><li><a href="global.html#printRibbonRow">printRibbonRow</a></li><li><a href="global.html#printRope">printRope</a></li><li><a href="global.html#printSeedStitch">printSeedStitch</a></li><li><a href="global.html#printTimeLines">printTimeLines</a></li><li><a href="global.html#printTriangle1">printTriangle1</a></li><li><a href="global.html#printTriangle2">printTriangle2</a></li><li><a href="global.html#printTriangleTop">printTriangleTop</a></li><li><a href="global.html#printTwinkleBanner">printTwinkleBanner</a></li><li><a href="global.html#printerReceipts">printerReceipts</a></li><li><a href="global.html#receipt1">receipt1</a></li><li><a href="global.html#receipt9">receipt9</a></li><li><a href="global.html#receiptRope">receiptRope</a></li><li><a href="global.html#receiptSets">receiptSets</a></li><li><a href="global.html#reverseBanner">reverseBanner</a></li><li><a href="global.html#spriteHolder">spriteHolder</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Branch.html">Branch</a></li><li><a href="PrintHandler.html">PrintHandler</a></li><li><a href="module.html#.exports">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBlocks">addBlocks</a></li><li><a href="global.html#addHorizontalSpaceToRows">addHorizontalSpaceToRows</a></li><li><a href="global.html#addReceipts">addReceipts</a></li><li><a href="global.html#allTheReceipts">allTheReceipts</a></li><li><a href="global.html#br">br</a></li><li><a href="global.html#browserReceipts">browserReceipts</a></li><li><a href="global.html#browserToPrinter">browserToPrinter</a></li><li><a href="global.html#centerPiece">centerPiece</a></li><li><a href="global.html#config">config</a></li><li><a href="global.html#constrictWidth">constrictWidth</a></li><li><a href="global.html#copy">copy</a></li><li><a href="global.html#countCharacters">countCharacters</a></li><li><a href="global.html#flipHorizontal">flipHorizontal</a></li><li><a href="global.html#flipVertical">flipVertical</a></li><li><a href="global.html#generateHash">generateHash</a></li><li><a href="global.html#getReceiptContent">getReceiptContent</a></li><li><a href="global.html#getTimestamp">getTimestamp</a></li><li><a href="global.html#imposeBlocks">imposeBlocks</a></li><li><a href="global.html#imposeStrings">imposeStrings</a></li><li><a href="global.html#isNumeric">isNumeric</a></li><li><a href="global.html#keyword">keyword</a></li><li><a href="global.html#keywords">keywords</a></li><li><a href="global.html#msToTime">msToTime</a></li><li><a href="global.html#numToSpace">numToSpace</a></li><li><a href="global.html#offsetBy">offsetBy</a></li><li><a href="global.html#oneCloudFlipped">oneCloudFlipped</a></li><li><a href="global.html#printBasketWeave">printBasketWeave</a></li><li><a href="global.html#printBug">printBug</a></li><li><a href="global.html#printClouds">printClouds</a></li><li><a href="global.html#printDiamond">printDiamond</a></li><li><a href="global.html#printLines">printLines</a></li><li><a href="global.html#printLoop">printLoop</a></li><li><a href="global.html#printMarioCoinBox">printMarioCoinBox</a></li><li><a href="global.html#printPeteca">printPeteca</a></li><li><a href="global.html#printRibbonRow">printRibbonRow</a></li><li><a href="global.html#printRope">printRope</a></li><li><a href="global.html#printSeedStitch">printSeedStitch</a></li><li><a href="global.html#printTimeLines">printTimeLines</a></li><li><a href="global.html#printTriangle1">printTriangle1</a></li><li><a href="global.html#printTriangle2">printTriangle2</a></li><li><a href="global.html#printTriangleTop">printTriangleTop</a></li><li><a href="global.html#printTwinkleBanner">printTwinkleBanner</a></li><li><a href="global.html#printerReceipts">printerReceipts</a></li><li><a href="global.html#receipt1">receipt1</a></li><li><a href="global.html#receipt9">receipt9</a></li><li><a href="global.html#receiptRope">receiptRope</a></li><li><a href="global.html#receiptSets">receiptSets</a></li><li><a href="global.html#reverseTimestamps">reverseTimestamps</a></li><li><a href="global.html#setAlign">setAlign</a></li><li><a href="global.html#setMarginFill">setMarginFill</a></li><li><a href="global.html#slicedSprite">slicedSprite</a></li><li><a href="global.html#spriteHolder">spriteHolder</a></li><li><a href="global.html#sprites">sprites</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Jun 22 2023 11:42:37 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Jun 22 2023 12:56:19 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

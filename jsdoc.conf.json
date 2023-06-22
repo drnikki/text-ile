@@ -1,9 +1,9 @@
 {
   "source": {
-  //  "include": [ /* array of paths to files to generate documentation for */ ],
+    //  "include": [ /* array of paths to files to generate documentation for */ ],
     "exclude": ["node_modules", "archive-doc", "bixolon_demo_files"]
-  //  "includePattern": ".+\\.js(doc|x)?$",
-  //  "excludePattern": "(^|\\/|\\\\)_"
+    //  "includePattern": ".+\\.js(doc|x)?$",
+    //  "excludePattern": "(^|\\/|\\\\)_"
   },
   "tags": {
     "allowUnknownTags": true

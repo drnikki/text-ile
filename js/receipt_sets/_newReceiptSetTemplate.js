@@ -1,15 +1,13 @@
-import {browserToPrinter} from "../receipt.js";
+import { browserToPrinter } from "../receipt.js";
 
 /**
  * Use this template to create a file for a new receipt set.
  * Follow the directions in the 4 comments marked TODO.
  */
 
-
 /**
  * TODO 1/4: Describe your set of receipts
  */
-
 
 /**
  * TODO 2/4:
@@ -27,14 +25,10 @@ const keyword = "";
  */
 const browserReceipts = [];
 
-
 /**
  *  TODO 3/4: Generate receipts here and push each receipt to browserReceipts.
  *      (This is where most of your code goes)
  */
-
-
-
 
 /**
  * receipt data in printer-friendly form. a 2d array of strings using regular spaces and \n
@@ -47,10 +41,11 @@ const printerReceipts = browserReceipts.map(browserToPrinter);
  */
 
 export default [
-    keyword, {
-        browserReceipts,
-        printerReceipts,
-    }
+  keyword,
+  {
+    browserReceipts,
+    printerReceipts,
+  },
 ];
 
 /**
@@ -58,4 +53,3 @@ export default [
  *  1. Import your set of receipts in ../receipt.js
  *  2. Add your set to the receiptSets list in ../receipt.js
  */
-

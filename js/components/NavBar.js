@@ -4,10 +4,9 @@
  * - assumes that html file is in the outermost directory
  */
 
-$('#site-nav')
-    .addClass("navbar navbar-expand-lg")
-    .attr("aria-label", "site-wide-navigation")
-    .html(`
+$("#site-nav")
+  .addClass("navbar navbar-expand-lg")
+  .attr("aria-label", "site-wide-navigation").html(`
             <div class="navbar-brand">
                 <h1 class="logo">
                     <img src="images/bxl_logo.png" alt="bixolon logo" class="img-responsive">

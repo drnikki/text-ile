@@ -21,3 +21,10 @@ In order to decide what to work on next, go in this order:
 1 - are there open pull requests that need review? Do those first
 2 - Look for things you can complete before the Friday checkin.  In other words, if it's already Wednesday, try to choose something smaller than if it's Saturday morning. :) 
 3 - unsure? just ask Nikki. 
+
+
+## To Generate jsdocs
+From the projct root: 
+```
+./node_modules/.bin/jsdoc -c jsdoc.conf.json -R README.md -r . 
+```

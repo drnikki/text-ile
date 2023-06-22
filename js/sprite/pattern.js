@@ -162,7 +162,7 @@ export function printTimestampWaves() {
  * 
  * @param {*} rowCount 
  * @param {*} linesFirst bool for whether lines come first.
- * @returns 
+
  */
 export function printTimeLines(linesFirst = 1, rowCount = 10) {
     let receipt = '';

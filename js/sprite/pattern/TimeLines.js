@@ -5,7 +5,8 @@ import Sprite from "../Sprite.js";
  * Print the timestamp + lines wavy pattern
  *
  * @param {number} rowCount
- * @returns
+ *
+ * @return {string} a string for printing.
  */
 function printTimeLines(rowCount = 10) {
     let receipt = '';

@@ -54,6 +54,11 @@ export default class Sprite {
     }
 
 
+    /**
+     * returns a string representation of the sprite.
+     * this method will be called implicitly when javascript needs a primitive representation of this object.
+     * @returns {string}
+     */
     toString() {
         let {left, right} = this.#marginFill;
         if (left === '&nbsp;') left = ' ';
@@ -231,6 +236,7 @@ export default class Sprite {
 
     /**
      * make a deep copy of this sprite (cast as a Sprite)
+     * @return {Sprite} copy
      */
     copy() {
         return new Sprite(this.spriteRows).setMarginFill(this.#marginFill.left, this.#marginFill.right);

@@ -83,6 +83,9 @@ export const reverseTimestamps = str => (
     ).join("\xa6")
 )
 
+/**
+ * removes every instance of `\xa6` (a.k.a. "`¦`") in a string
+ */
 export const removeTimestampDelimiters = str => str.replaceAll("\xa6", "");
 
 

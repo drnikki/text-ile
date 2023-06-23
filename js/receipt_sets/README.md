@@ -1,5 +1,5 @@
-## receipt interface:
 
+## receipt interface:
 ```
 allTheReceipts = {
     keyword {string} : {
@@ -13,21 +13,17 @@ allTheReceipts = {
     ...
 }
 ```
-
 ## Defining a new Receipt Set (aka a new Receipt Page)
-
 1. create a new file in `/receipt_sets` directory
 2. copy and paste the contents of `/receipt_sets/_newReceiptSetTemplate.js`
 3. complete the 4 tasks marked `TODO:` in the template code
 
 ### current keywords
-
 - allSprites
-- 7_columns **_(current default)_**
+- 7_columns  ***(current default)***
 - iterationOne
 - iterationTwo
 - iterationThree
 
 ## visualize and print
-
-Each receipt set can be visualized and printed from `shapes-beta.html?receiptSet=KEYWORD`.
+Each receipt set can be visualized and printed from `index.html?receiptSet=KEYWORD`.

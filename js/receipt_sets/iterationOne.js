@@ -1,27 +1,25 @@
-import { browserToPrinter } from "../receipt.js";
+import {browserToPrinter} from "../receipt.js";
 import {
-  getTimestamp,
-  generateHash,
-  numToSpace,
-  numToChar,
-  reverseString,
+    getTimestamp,
+    generateHash,
+    numToSpace,
+    numToChar,
+    removeTimestampDelimiters
 } from "../stringManipulation.js";
-import {
-  printBasketWeave,
-  printDiamond,
-  printHerringBone,
-  printSeedStitch,
-} from "../sprite/pattern.js";
-import printMarioCoinBox from "../sprite/coinBox.js";
-import printStarburst from "../sprite/starburst.js";
-import printClouds from "../sprite/clouds.js";
-import printTwinkleBanner from "../sprite/banner.js";
-import printInkBlot from "../sprite/inkblot.js";
+
+import Inkblot from "../sprite/Inkblot.js";
+import Cloud from "../sprite/Cloud.js";
+import Starburst from "../sprite/Starburst.js";
+import TwinkleBanner from "../sprite/TwinkleBanner.js";
+import DiamondPattern from "../sprite/pattern/DiamondPattern.js";
+import BasketWeave from "../sprite/pattern/BasketWeave.js";
+
 
 /**
  * This set of receipts is an experimental set to visualize some new
  * data-rich layouts
  */
+
 
 /**
  * TODO 2/4:
@@ -39,79 +37,53 @@ const keyword = "iterationOne";
  */
 const browserReceipts = [];
 
+
 /**
  *  create each of the seven receipts
  */
 
 let receipt9 = "";
-for (let i = 0; i < 80; i++) {
-  receipt9 += printInkBlot() + `<br/>`;
+for (let i =0; i<80; i++) {
+    receipt9 += new Inkblot() + `<br/>`;
 }
 browserReceipts.push(receipt9);
 
 // receipt 1 - TIMESTAMPS
 let receipt1 = "";
 //for (let i =0; i<20; i++) receipt1 += (Math.random() < 0.5 ? printTwinkleBanner(true) : printStarburst()) + `<br/>`;
-for (let i = 0; i < 400; i++) {
-  receipt1 += getTimestamp() + numToSpace(14) + getTimestamp() + `<br/>`;
-  receipt1 +=
-    numToSpace(2) +
-    getTimestamp() +
-    numToSpace(10) +
-    getTimestamp() +
-    numToSpace(2) +
-    `<br/>`;
-  receipt1 +=
-    numToSpace(4) +
-    getTimestamp() +
-    numToSpace(6) +
-    getTimestamp() +
-    numToSpace(4) +
-    `<br/>`;
-  receipt1 +=
-    numToSpace(6) +
-    getTimestamp() +
-    numToSpace(2) +
-    getTimestamp() +
-    numToSpace(6) +
-    `<br/>`;
-  receipt1 +=
-    numToSpace(4) +
-    getTimestamp() +
-    numToSpace(6) +
-    getTimestamp() +
-    numToSpace(4) +
-    `<br/>`;
-  receipt1 +=
-    numToSpace(2) +
-    getTimestamp() +
-    numToSpace(10) +
-    getTimestamp() +
-    numToSpace(2) +
-    `<br/>`;
-  receipt1 += getTimestamp() + numToSpace(14) + getTimestamp() + `<br/>`;
-}
-browserReceipts.push(receipt1);
+for (let i =0; i<400; i++) {
 
-// receipt 2 - LINES THEN timestamps
+    receipt1 += getTimestamp() + numToSpace(14)+ getTimestamp() + `<br/>`;
+    receipt1 += numToSpace(2) + getTimestamp() + numToSpace(10)+ getTimestamp() + numToSpace(2) + `<br/>`;
+    receipt1 += numToSpace(4)+ getTimestamp() + numToSpace(6)+ getTimestamp() + numToSpace(4) + `<br/>`;
+    receipt1 += numToSpace(6)+ getTimestamp() + numToSpace(2)+ getTimestamp() + numToSpace(6) + `<br/>`;
+    receipt1 += numToSpace(4)+ getTimestamp() + numToSpace(6)+ getTimestamp() + numToSpace(4) + `<br/>`;
+    receipt1 += numToSpace(2)+ getTimestamp() + numToSpace(10)+ getTimestamp() + numToSpace(2) + `<br/>`;
+    receipt1 += getTimestamp() + numToSpace(14)+ getTimestamp() + `<br/>`;
+
+}
+browserReceipts.push(removeTimestampDelimiters(receipt1));
+
+// receipt 2 - LINES THEN timestamps 
 // DO NOT EDIT - duplicate and change.
 let receipt2 = "";
 //for (let i =0; i<20; i++) receipt1 += (Math.random() < 0.5 ? printTwinkleBanner(true) : printStarburst()) + `<br/>`;
-for (let i = 0; i < 50; i++) {
-  receipt2 += numToChar(27, "-") + getTimestamp() + `<br/>`;
-  receipt2 += numToChar(25, "-") + getTimestamp() + numToSpace(2) + `<br/>`;
-  receipt2 += numToChar(23, "-") + getTimestamp() + numToSpace(4) + `<br/>`;
-  receipt2 += numToChar(21, "-") + getTimestamp() + numToSpace(6) + `<br/>`;
-  receipt2 += numToChar(23, "-") + getTimestamp() + numToSpace(4) + `<br/>`;
-  receipt2 += numToChar(25, "-") + getTimestamp() + numToSpace(2) + `<br/>`;
-  receipt2 += numToChar(27, "-") + getTimestamp() + `<br/>`;
+for (let i =0; i<50; i++) {
+    receipt2 += numToChar(27, "-") + getTimestamp() +   `<br/>`;
+    receipt2 +=  numToChar(25, "-") +   getTimestamp() + numToSpace(2) + `<br/>`;
+    receipt2 +=  numToChar(23, "-") +   getTimestamp() + numToSpace(4) +`<br/>`;
+    receipt2 +=  numToChar(21, "-") +   getTimestamp() + numToSpace(6) + `<br/>`;
+    receipt2 +=  numToChar(23, "-") +   getTimestamp() + numToSpace(4) + `<br/>`;
+    receipt2 +=  numToChar(25, "-") +   getTimestamp() + numToSpace(2) + `<br/>`;
+    receipt2 += numToChar(27, "-") + getTimestamp()  +  `<br/>`;    
 }
-browserReceipts.push(receipt2);
+browserReceipts.push(removeTimestampDelimiters(receipt2));
+
 
 // receipt 3 - what does it look like when we put "data" alongside sprites?
 let receipt3 = "";
-for (let i = 0; i < 100; i++) {
-  receipt3 += printClouds("-", 0, 10, 1) + `<br/>`;
+for (let i=0; i<100; i++){
+receipt3 += (new Cloud('-', 0, 10, 1)) + `<br/>`;
 }
 browserReceipts.push(receipt3);
 
@@ -119,9 +91,9 @@ browserReceipts.push(receipt3);
 
 let receipt4 = "";
 receipt4 = numToSpace(40);
-for (let i = 0; i < 100; i++)
-  receipt4 += printClouds("&nbsp;", 1, 15) + `<br/>`;
-browserReceipts.push(receipt4);
+for (let i=0; i<100; i++) receipt4 += (new Cloud('&nbsp;', 1, 15)) + `<br/>`;
+browserReceipts.push(receipt4)
+
 
 // // receipt 5
 // browserReceipts.push(receipt3);
@@ -130,41 +102,32 @@ browserReceipts.push(receipt4);
 // browserReceipts.push(receipt2);
 
 // // receipt 7
-let receipt7 = "";
+let receipt7 = '';
 receipt7 = numToSpace(400);
-for (let i = 0; i < 5; i++) {
-  receipt7 += printStarburst() + "<br/>";
-}
+for (let i=0; i<5; i++) {
+    receipt7 += new Starburst() + '<br/>';
+    }
 browserReceipts.push(receipt7);
 
 // receipt 8
 let receipt8 = "";
-for (let i = 0; i < 80; i++) {
-  receipt8 += printTwinkleBanner(true) + `<br/>`;
+for (let i =0; i<80; i++) {
+    receipt8 += new TwinkleBanner() + `<br/>`;
 }
 browserReceipts.push(receipt8);
+
+
 
 // receipt 3 - this is a demo of all of the patterns and how they can take
 // args for # of lines.
 let receiptZ = "";
-for (let i = 0; i < 400; i++) {
-  // LOLOL i know, it's just for testing!
-  receiptZ +=
-    generateHash() +
-    `<br/>` +
-    generateHash() +
-    `<br/>` +
-    generateHash() +
-    `<br/>` +
-    generateHash() +
-    `<br/>` +
-    generateHash() +
-    `<br/>` +
-    generateHash() +
-    `<br/>`;
-  receiptZ += printDiamond(2);
-  receiptZ += printBasketWeave(3);
-  receiptZ += printDiamond(2);
+for (let i =0; i<400; i++) {
+    // LOLOL i know, it's just for testing!
+    receiptZ+= generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>` + generateHash() + `<br/>`;
+    receiptZ += new DiamondPattern(2);
+    receiptZ += new BasketWeave(3);
+    receiptZ += new DiamondPattern(2);
+
 }
 browserReceipts.push(receiptZ);
 
@@ -179,11 +142,10 @@ const printerReceipts = browserReceipts.map(browserToPrinter);
  */
 
 export default [
-  keyword,
-  {
-    browserReceipts,
-    printerReceipts,
-  },
+    keyword, {
+        browserReceipts,
+        printerReceipts,
+    }
 ];
 
 /**
@@ -191,3 +153,4 @@ export default [
  *  1. Import your set of receipts in ../receipt.js
  *  2. Add your set to the receiptSets list in ../receipt.js
  */
+

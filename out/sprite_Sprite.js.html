@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: sprite/Sprite.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: sprite/Sprite.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {br, numToSpace, removeTimestampDelimiters, reverseTimestamps} from "../stringManipulation.js";
+
+/**
+ * a class to standardize sprite creation and manipulation
+ * @author Michael Crockett
+ */
+
+export default class Sprite {
+    static receiptWidth = 40;
+    /**
+     * The characters that make up the sprite.
+     * Spaces should be non-breaking (represented by `&amp;nbsp;`) and lines are separate elements in the array.
+     * @type {String[]}
+     */
+    spriteRows;
+
+    /**
+     * `#marginFill` tracks how we will fill in the blank margins on either side of the sprite.
+     * This change is not made to the stored sprite because it can interfere with some methods.
+     * @type {{left: string, right: string}}
+     */
+    #marginFill = {left: '&amp;nbsp;', right: '&amp;nbsp;'};
+
+    /**
+     *  @param spriteText {String|String[]} The characters that make up the sprite.
+     *  Spaces should be non-breaking (represented by `&amp;nbsp;`)
+     *  and lines should be break tags `&lt;br/>` or be separate elements in an array.
+     */
+    constructor(spriteText) {
+        this.spriteRows = typeof spriteText === 'string' ? spriteText.split(br) : spriteText;
+    }
+
+    /**
+     * finds the width of the sprite
+     * @returns {{width: number, start: number, end: number}}
+     */
+    #findWidth(){
+        const [start, end] = this.spriteRows.reduce(([start, end], currString, i) => {
+            currString = currString.replaceAll("&amp;nbsp;", " ")
+            const trimmedString = currString.trim();
+            const noText = trimmedString[0] === undefined; // check if row has no text
+            const currStart = noText ? start : currString.indexOf(trimmedString[0]);
+            const currEnd = noText ? end : currStart + trimmedString.length;
+            // return the smallest start and largest end so far
+            return [
+                // find smallest starting index
+                Math.min(start, currStart),
+                // find the largest ending index
+                Math.max(end, currEnd),
+            ]},
+            [Sprite.receiptWidth, 0] // initial start and end
+        )
+        return {width: end - start, start, end};
+    }
+
+
+    toString() {
+        let {left, right} = this.#marginFill;
+        if (left === '&amp;nbsp;') left = ' ';
+        if (right=== '&amp;nbsp;') right = ' ';
+        const filledRows = this.spriteRows.map((row, i) => {
+            row = row.replaceAll("&amp;nbsp;", " ");
+            row = removeTimestampDelimiters(row); // only useful in our project
+            //don't do anything if we are an empty row at the end
+            if (row.trim() === "" &amp;&amp; this.spriteRows.length - 1 === i) return "";
+            // handle left side
+            let newRow = row.trimStart();
+            newRow = left.repeat(row.length - newRow.length) + newRow;
+            // handle right side
+            newRow = newRow.trimEnd();
+            newRow += right.repeat(Math.max(Sprite.receiptWidth - newRow.length, 0));
+            // ensure size
+            newRow = newRow.slice(0, Sprite.receiptWidth);
+            return newRow.replaceAll(" ", "&amp;nbsp;");
+        });
+        return filledRows.join("&lt;br/>");
+    }
+
+    /**
+     * flips this sprite horizontally, replacing all directed characters with their counterparts.
+     * For example, '(' is replaced with ')' .
+     * @returns {Sprite} this sprite, so we can chain commands
+     */
+    flipHorizontal() {
+        this.spriteRows = this.spriteRows.map(row => {
+            //find length, adjusted based on number of non-breaking spaces
+            const spaceCount = (row.match(/&amp;nbsp;/g) || []).length;
+            const length = row.length - (5*spaceCount);
+            const padding = '&amp;nbsp;'.repeat(Math.max(Sprite.receiptWidth - length, 0));
+
+            const flippedRow = row
+                .split('').reverse()  // flipped row with spaces and brackets backwards
+                .map(char => {  // flip the directed characters
+                    switch (char){
+                        case '(':
+                            return ')';
+                        case ')':
+                            return '(';
+                        case '[':
+                            return ']';
+                        case ']':
+                            return '[';
+                        case '{':
+                            return '}';
+                        case '}':
+                            return '{';
+                        case '\\':
+                            return '/';
+                        case '/':
+                            return '\\';
+                        default:
+                            return char;
+                    }
+                }) // {Character[]}
+                .join('')
+                .replaceAll(";psbn&amp;", "&amp;nbsp;"); // spaces fixed
+            return padding + reverseTimestamps(flippedRow); // reverseTimestamps is only useful for our specific project
+        });
+        this.setMarginFill(this.#marginFill.right, this.#marginFill.left); // flip margins
+        return this; // so we can chain commands
+    }
+
+    /**
+     * flip this sprite vertically.
+     * This method does not turn individual characters (besides slashes) upside down; it only rearranges their positions.
+     * @returns {Sprite} this sprite, so we can chain commands
+     */
+    flipVertical() {
+        this.spriteRows = this.spriteRows.reverse() // vertical flip
+            .map(row => row.split("").map(char => {  // for each row, flip all slashes
+                    switch (char){
+                        case '\\':
+                            return '/';
+                        case '/':
+                            return '\\';
+                        default:
+                            return char;
+                    }
+                }).join("")
+            );
+        return this; // so we can chain commands
+    }
+
+    /**
+     * This method calls `slice` on each row, does not update current sprite
+     * Useful if the sprite you are using is too large for your receipt.
+     * @param startIndex 0th based index at which to begin, inclusive
+     * @param endIndex 0th based index *before* which to end, not inclusive.
+     * @return {string[]} sliced sprite rows
+     * @see String.slice
+     */
+    slicedSprite(startIndex, endIndex) {
+        if (startIndex &lt; 0 || endIndex &lt; 0) throw new RangeError("Negative Index");
+        if (endIndex &lt; startIndex) throw new RangeError("endIndex comes before startIndex");
+        return this.spriteRows.map(row => row
+            .replaceAll("&amp;nbsp;", " ")
+            .slice(startIndex, endIndex)
+            .replaceAll(" ", "&amp;nbsp;")
+        );
+    }
+
+    /**
+     * calls sliceSprite and updates current sprite
+     * @param startIndex
+     * @param endIndex
+     * @returns {Sprite} this sprite, so we can chain commands
+     * @see Sprite.sliceSprite
+     */
+    constrictWidth(startIndex, endIndex) {
+        this.spriteRows = this.slicedSprite(startIndex, endIndex);
+        return this;
+    }
+
+    /**
+     * set's the characters that will fill in the blank margins on either side of the sprite.
+     * @param left
+     * @param right
+     * @returns {Sprite}
+     */
+    setMarginFill(left, right) {
+        this.#marginFill = {left, right};
+        return this;
+    }
+
+    /**
+     * set sprite alignment
+     * @param alignTo "random", "left", "center", or "right
+     * @returns {Sprite} this sprite, so we can chain commands
+     */
+    setAlign(alignTo) {
+        this.constrictWidth(0, Sprite.receiptWidth); // make sure sprite is at most as wide as the receipt
+        const {width: spriteWidth, start, end} = this.#findWidth(); // find width and position of sprite
+        const sprite = this.slicedSprite(start, end); // trimmed sprite
+        // figure out where we need to start
+        let newStart;
+        switch (alignTo) {
+            case "random":
+                newStart = Math.floor(Math.random() * (Sprite.receiptWidth - spriteWidth));
+                break;
+            case "left":
+                newStart = 0;
+                break;
+            case "center":
+                newStart = Math.floor((Sprite.receiptWidth - spriteWidth)/2);
+                break;
+            case "right":
+                newStart = Sprite.receiptWidth - spriteWidth;
+                break;
+            default:
+                throw new Error("alignTo must be 'left', 'center', or 'right'")
+        }
+        this.spriteRows = sprite.map(row => numToSpace(newStart) + row);
+        return this;
+    }
+
+    /**
+     * offset the sprite to the left or right. Positive number moves right, negative number moves left.
+     * Moving can be destructive to the sprite if it moves past the start or end.
+     * @param amount amount to offset by
+     * @returns {Sprite} this sprite, so we can chain commands
+     */
+    offsetBy(amount) {
+        if (amount >= 0) this.spriteRows = this.spriteRows.map(row => numToSpace(amount) + row);
+        else this.spriteRows = this.spriteRows.map(row =>
+            row.replaceAll("&amp;nbsp;", " ")
+                .slice(-amount)
+                .replaceAll(" ", "&amp;nbsp;")
+        );
+        return this;
+    }
+
+    /**
+     * make a deep copy of this sprite (cast as a Sprite)
+     */
+    copy() {
+        return new Sprite(this.spriteRows).setMarginFill(this.#marginFill.left, this.#marginFill.right);
+    }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Branch.html">Branch</a></li><li><a href="PrintHandler.html">PrintHandler</a></li><li><a href="module.html#.exports">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBlocks">addBlocks</a></li><li><a href="global.html#addHorizontalSpaceToRows">addHorizontalSpaceToRows</a></li><li><a href="global.html#addReceipts">addReceipts</a></li><li><a href="global.html#allTheReceipts">allTheReceipts</a></li><li><a href="global.html#br">br</a></li><li><a href="global.html#browserReceipts">browserReceipts</a></li><li><a href="global.html#browserToPrinter">browserToPrinter</a></li><li><a href="global.html#centerPiece">centerPiece</a></li><li><a href="global.html#config">config</a></li><li><a href="global.html#constrictWidth">constrictWidth</a></li><li><a href="global.html#copy">copy</a></li><li><a href="global.html#countCharacters">countCharacters</a></li><li><a href="global.html#flipHorizontal">flipHorizontal</a></li><li><a href="global.html#flipVertical">flipVertical</a></li><li><a href="global.html#generateHash">generateHash</a></li><li><a href="global.html#getReceiptContent">getReceiptContent</a></li><li><a href="global.html#getTimestamp">getTimestamp</a></li><li><a href="global.html#imposeBlocks">imposeBlocks</a></li><li><a href="global.html#imposeStrings">imposeStrings</a></li><li><a href="global.html#isNumeric">isNumeric</a></li><li><a href="global.html#keyword">keyword</a></li><li><a href="global.html#keywords">keywords</a></li><li><a href="global.html#msToTime">msToTime</a></li><li><a href="global.html#numToSpace">numToSpace</a></li><li><a href="global.html#offsetBy">offsetBy</a></li><li><a href="global.html#oneCloudFlipped">oneCloudFlipped</a></li><li><a href="global.html#printBasketWeave">printBasketWeave</a></li><li><a href="global.html#printBug">printBug</a></li><li><a href="global.html#printClouds">printClouds</a></li><li><a href="global.html#printDiamond">printDiamond</a></li><li><a href="global.html#printLines">printLines</a></li><li><a href="global.html#printLoop">printLoop</a></li><li><a href="global.html#printMarioCoinBox">printMarioCoinBox</a></li><li><a href="global.html#printPeteca">printPeteca</a></li><li><a href="global.html#printRibbonRow">printRibbonRow</a></li><li><a href="global.html#printRope">printRope</a></li><li><a href="global.html#printSeedStitch">printSeedStitch</a></li><li><a href="global.html#printTimeLines">printTimeLines</a></li><li><a href="global.html#printTriangle1">printTriangle1</a></li><li><a href="global.html#printTriangle2">printTriangle2</a></li><li><a href="global.html#printTriangleTop">printTriangleTop</a></li><li><a href="global.html#printTwinkleBanner">printTwinkleBanner</a></li><li><a href="global.html#printerReceipts">printerReceipts</a></li><li><a href="global.html#receipt1">receipt1</a></li><li><a href="global.html#receipt9">receipt9</a></li><li><a href="global.html#receiptRope">receiptRope</a></li><li><a href="global.html#receiptSets">receiptSets</a></li><li><a href="global.html#reverseTimestamps">reverseTimestamps</a></li><li><a href="global.html#setAlign">setAlign</a></li><li><a href="global.html#setMarginFill">setMarginFill</a></li><li><a href="global.html#slicedSprite">slicedSprite</a></li><li><a href="global.html#spriteHolder">spriteHolder</a></li><li><a href="global.html#sprites">sprites</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Jun 22 2023 12:56:19 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

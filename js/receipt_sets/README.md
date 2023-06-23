@@ -26,4 +26,4 @@ allTheReceipts = {
 - iterationThree
 
 ## visualize and print
-Each receipt set can be visualized and printed from `shapes-beta.html?receiptSet=KEYWORD`.
+Each receipt set can be visualized and printed from `index.html?receiptSet=KEYWORD`.

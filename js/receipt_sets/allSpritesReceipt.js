@@ -1,18 +1,23 @@
-import {printTriangle1, printTriangle2} from "../sprite/triangles.js";
-import printBug from "../sprite/bug.js";
-import {printBasketWeave, printDiamond, printDotPattern, printHerringBone, printSeedStitch} from "../sprite/pattern.js";
-import printClouds from "../sprite/clouds.js";
-import {printChandelierA, printChandelierB} from "../sprite/chandelier.js";
-import printTwinkleBanner from "../sprite/banner.js";
-import printStarburst from "../sprite/starburst.js";
-import printRope from "../sprite/rope.js";
-import printMarioCoinBox from "../sprite/coinBox.js";
 import {browserToPrinter} from "../receipt.js";
-import { printDiamondButterfly } from "../sprite/diamondButterfly.js";
-import printChevron from "../sprite/chevron.js";
-import printBird from "../sprite/bird.js";
-import printPeteca from "../sprite/peteca.js";
-import { printPanda } from "../sprite/panda.js";
+import Panda from "../sprite/Panda.js";
+import {Triangle1, Triangle2} from "../sprite/triangles.js";
+import Bug from "../sprite/Bug.js";
+import SeedStitch from "../sprite/pattern/SeedStitch.js";
+import Cloud from "../sprite/Cloud.js";
+import Chandeliers from "../sprite/Chandeliers.js";
+import TwinkleBanner from "../sprite/TwinkleBanner.js";
+import Starburst from "../sprite/Starburst.js";
+import Rope from "../sprite/Rope.js";
+import BasketWeave from "../sprite/pattern/BasketWeave.js";
+import HerringBone from "../sprite/pattern/HerringBone.js";
+import DiamondPattern from "../sprite/pattern/DiamondPattern.js";
+import DotPattern from "../sprite/pattern/DotPattern.js";
+import MarioCoinBox from "../sprite/MarioCoinBox.js";
+import DiamondButterfly from "../sprite/DiamondButterfly.js";
+import Chevron from "../sprite/Chevron.js";
+import Bird from "../sprite/Bird.js";
+import Peteca from "../sprite/Peteca.js";
+
 
 /**
  * generate 1 or more receipts that each have all the sprites on them
@@ -37,27 +42,26 @@ const numOfReceipts = 6;
 for (let i = 0; i < numOfReceipts; i++) {
     let textContent = ''; // this is what prints on the receipt.
     for (let y = 0; y < 5; y++) {
-        textContent += printPanda() + '<br/>';
-        textContent += printTriangle1() + '<br/>';
-        textContent += printTriangle2() + '<br/>';
-        textContent += printBug() + "<br/>";
-        textContent += printSeedStitch(3);
-        textContent += printClouds("&nbsp;", 1, 10);
+        textContent += new Panda() + '<br/>';
+        textContent += new Triangle1() + '<br/>';
+        textContent += new Triangle2() + '<br/>';
+        textContent += new Bug() + "<br/>";
+        textContent += new SeedStitch(3);
+        textContent += new Cloud("&nbsp;", 1, 10);
         textContent += "<br/><br/>";
-        textContent += printChandelierA();
-        textContent += printChandelierB() + "<br/>";
-        textContent += printTwinkleBanner() + "<br/>";
-        textContent += printStarburst() + "<br/>";
-        textContent += printRope() + "<br/>";
-        textContent += printBasketWeave() + "<br/>";
-        textContent += printHerringBone() + "<br/>";
-        textContent += printDiamond() + "<br/>";
-        textContent += printDotPattern() + "<br/>";
-        textContent += printMarioCoinBox() + "<br/>";
-        textContent += printDiamondButterfly() + "<br/>";
-        textContent += printChevron() + "<br/>";
-        textContent += printBird() + "<br/>";
-        textContent += printPeteca() + "<br/>";
+        textContent += new Chandeliers() + "<br/>";
+        textContent += new TwinkleBanner() + "<br/>";
+        textContent += new Starburst() + "<br/>";
+        textContent += new Rope() + "<br/>";
+        textContent += new BasketWeave() + "<br/>";
+        textContent += new HerringBone() + "<br/>";
+        textContent += new DiamondPattern() + "<br/>";
+        textContent += new DotPattern() + "<br/>";
+        textContent += new MarioCoinBox() + "<br/>";
+        textContent += new DiamondButterfly() + "<br/>";
+        textContent += new Chevron() + "<br/>";
+        textContent += new Bird() + "<br/>";
+        textContent += new Peteca() + "<br/>";
     }
     browserReceipts.push(textContent);
 }

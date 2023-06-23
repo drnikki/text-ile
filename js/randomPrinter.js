@@ -1,5 +1,28 @@
-import spriteFunctions from "./sprite/listOfSprites.js"
 import {browserToPrinter} from "./receipt.js";
+import PrintHandler from "./PrintHandler.js";
+import BasketWeave from "./sprite/pattern/BasketWeave.js";
+import DiamondPattern from "./sprite/pattern/DiamondPattern.js";
+import DotPattern from "./sprite/pattern/DotPattern.js";
+import GradientFloor from "./sprite/pattern/GradientFloor.js";
+import HerringBone from "./sprite/pattern/HerringBone.js";
+import SeedStitch from "./sprite/pattern/SeedStitch.js";
+import TimeLines from "./sprite/pattern/TimeLines.js";
+import TimestampWaves from "./sprite/pattern/TimestampWaves.js";
+import ArrowTime from "./sprite/ArrowTime.js";
+import Bird from "./sprite/Bird.js";
+import Bug from "./sprite/Bug.js";
+import Chandeliers from "./sprite/Chandeliers.js";
+import Chevron from "./sprite/Chevron.js";
+import Cloud from "./sprite/Cloud.js";
+import DiamondButterfly from "./sprite/DiamondButterfly.js";
+import Inkblot from "./sprite/Inkblot.js";
+import MarioCoinBox from "./sprite/MarioCoinBox.js";
+import Panda from "./sprite/Panda.js";
+import Peteca from "./sprite/Peteca.js";
+import Rope from "./sprite/Rope.js";
+import Starburst from "./sprite/Starburst.js";
+import {Triangle1, Triangle2} from "./sprite/triangles.js";
+import TwinkleBanner from "./sprite/TwinkleBanner.js";
 
 /**
  * used to continuously print random sprites
@@ -18,46 +41,40 @@ const config = {
 }
 
 /**
- *  redefined receipt print function
+ * list of sprites to choose from
  */
-const printHandler = {
-    lines: [],
-    issueID: 1,
-    // store a line to be submitted with submitPrint
-    println (text) {
-        printHandler.lines.push(text);
-    },
-    reset() {
-        printHandler.lines = [];
-    },
-    // submit lines to the printer
-    submitPrint () {
-        setPosId(printHandler.issueID);
-        checkPrinterStatus();
-        printHandler.lines.forEach((line => {
-            console.log(line);
-            printText(line,  0, 0, false, false, false, 1, 0)
-        }));
-        const strSubmit = getPosData();
-        printHandler.issueID++;
-        requestPrint("Printer1", strSubmit, console.log);
 
-        // reset
-        printHandler.reset();
-    },
-};
-
-// // old attempt at printing TODO: see if this can be removed
-// const print = text => {
-//     console.log(text);
-//     printText(text,  0, 0, false, false, false, 1, 0);
-// }
-
+const sprites = [
+    BasketWeave,
+    DiamondPattern,
+    DotPattern,
+    GradientFloor,
+    HerringBone,
+    SeedStitch,
+    TimeLines,
+    TimestampWaves,
+    ArrowTime,
+    Bird,
+    Bug,
+    Chandeliers,
+    Chevron,
+    Cloud,
+    DiamondButterfly,
+    Inkblot,
+    MarioCoinBox,
+    Panda,
+    Peteca,
+    Rope,
+    Starburst,
+    Triangle1,
+    Triangle2,
+    TwinkleBanner,
+];
 
 /**
  * used to store information about incomplete sprites.
- * each sprite function maps to an object that holds key information.
- * @type {Map<function, object>}
+ * each sprite class maps to an object that holds key information.
+ * @type {Map<Sprite, object>}
  */
 const spriteHolder = new Map();
 
@@ -70,7 +87,7 @@ const resetSprite = sprite => spriteHolder.set(sprite, {
 });
 
 // add each sprite function to spriteHolder with clean slate
-spriteFunctions.forEach(resetSprite);
+sprites.forEach(resetSprite);
 
 const setReceiptInBrowser = (printNum, {startFrom, browserSprite}) => {
     $('#receipt-content').html(browserSprite);
@@ -91,6 +108,23 @@ const msToTime = ms => {
     return hours + ":" + minutes + ":" + seconds;
 }
 
+// object to handle connecting to printer and printing
+const printHandler = new PrintHandler();
+
+const getNewSprite = type => {
+    const sprite = new type();
+    //chance to flip
+    if (Math.random() < 0.5) sprite.flipHorizontal();
+    // chance to change margin
+    const marginChoices = ["-", "_", ".", "\xa0"];
+    const left = marginChoices[Math.floor(Math.random()*marginChoices.length)];
+    const right = marginChoices[Math.floor(Math.random()*marginChoices.length)];
+    if (Math.random() < 0.25) sprite.setMarginFill(left, right);
+    // chance to change alignment
+    if (Math.random() < 0.2) sprite.setAlign("random");
+    return sprite.toString();
+}
+
 /**
  *  an object to handle the loop.
  *  I know this is a weird way to do this, but i'm just exploring and learning right now
@@ -106,21 +140,21 @@ const printLoop = {
     // the actual thing we're repeating
     action() {
         // pick random sprite
-        const sprite = spriteFunctions[Math.floor(Math.random()*spriteFunctions.length)];
-        const spriteInfo = spriteHolder.get(sprite);
+        const spriteType = sprites[Math.floor(Math.random()*sprites.length)];
+        const spriteInfo = spriteHolder.get(spriteType);
 
         // are we printing whole sprites at a time?
         if (printLoop.wholeSprites) {
-            const browserSprite = sprite();
+            const browserSprite = getNewSprite(spriteType);
             setReceiptInBrowser(-1, {browserSprite});
-            printHandler.lines = browserToPrinter(browserSprite);
+            printHandler.setLines(browserToPrinter(browserSprite));
 
         } else { // partial sprites
             // check to see if we had a leftover
             if (!spriteInfo.inProgress) {
                 spriteInfo.inProgress = true;
                 spriteInfo.browserSprite = "";
-                for (let i = 0; i < config.numSprites; i++) spriteInfo.browserSprite += sprite(); // add sprites
+                for (let i = 0; i < config.numSprites; i++) spriteInfo.browserSprite += getNewSprite(spriteType); // add sprites
                 spriteInfo.printerSprite = browserToPrinter(spriteInfo.browserSprite);
                 spriteInfo.startFrom = 0;
             }
@@ -131,23 +165,22 @@ const printLoop = {
 
             // display what we are printing
             setReceiptInBrowser(printNum, spriteInfo);
-            // print what we are printing.
-            // print text function defined in ./bxl/bxlpos.js, which should be included as its own <script> tag
+            // prepare to print what we are printing.
             for (let i = spriteInfo.startFrom; i < spriteInfo.startFrom + printNum; i++) {
                 if (i >= spriteInfo.printerSprite.length) {
                     // we're out of bounds
-                    if (config.fillEmptySpace) printHandler.println('\n'); // print blank line
+                    if (config.fillEmptySpace) printHandler.addLine('\n'); // print blank line
                     else break;
-                } else printHandler.println(spriteInfo.printerSprite[i]); // print row
+                } else printHandler.addLine(spriteInfo.printerSprite[i]); // print row
             }
 
             // we are no longer in progress
-            if (spriteInfo.startFrom + printNum >= spriteInfo.printerSprite.length) resetSprite(sprite);
+            if (spriteInfo.startFrom + printNum >= spriteInfo.printerSprite.length) resetSprite(spriteType);
             // we are still in progress
             else spriteInfo.startFrom += printNum;
         }
         //submit print
-        printHandler.submitPrint();
+        printHandler.submitPrint(true);
 
         // repeat action if looping
         if (printLoop.looping) {

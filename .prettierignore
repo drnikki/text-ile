@@ -1,0 +1,8 @@
+*.html
+node_modules/*
+.github
+archive-doc/*
+bixolon_demo_files/*
+out/*
+.vscode
+css/bxl_css/*

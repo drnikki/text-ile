@@ -17,6 +17,17 @@
         "doc",
         "infra"
       ]
+    },
+    {
+      "login": "mollyinkilos",
+      "name": "mollyinkilos",
+      "avatar_url": "https://avatars.githubusercontent.com/u/51466500?v=4",
+      "profile": "https://github.com/mollyinkilos",
+      "contributions": [
+        "code",
+        "design",
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,

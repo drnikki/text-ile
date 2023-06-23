@@ -19,6 +19,7 @@
       ]
     },
     {
+
       "login": "LeoBueno15",
       "name": "LeoBueno15",
       "avatar_url": "https://avatars.githubusercontent.com/u/81589600?v=4",
@@ -26,6 +27,17 @@
       "contributions": [
         "code",
         "design"
+      ]
+    },
+    {
+      "login": "mollyinkilos",
+      "name": "mollyinkilos",
+      "avatar_url": "https://avatars.githubusercontent.com/u/51466500?v=4",
+      "profile": "https://github.com/mollyinkilos",
+      "contributions": [
+        "code",
+        "design",
+        "ideas"
       ]
     }
   ],

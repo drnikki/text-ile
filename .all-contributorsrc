@@ -1,0 +1,28 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "michaeljscrockett",
+      "name": "Michael Crockett",
+      "avatar_url": "https://avatars.githubusercontent.com/u/77591445?v=4",
+      "profile": "https://github.com/michaeljscrockett",
+      "contributions": [
+        "code",
+        "doc",
+        "infra"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "text-ile",
+  "projectOwner": "drnikki"
+}

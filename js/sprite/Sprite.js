@@ -36,7 +36,7 @@ export default class Sprite {
      */
     #findWidth(){
         const [start, end] = this.spriteRows.reduce(([start, end], currString, i) => {
-            currString = currString.replaceAll("&nbsp;", " ")
+            currString = removeTimestampDelimiters(currString.replaceAll("&nbsp;", " "));
             const trimmedString = currString.trim();
             const noText = trimmedString[0] === undefined; // check if row has no text
             const currStart = noText ? start : currString.indexOf(trimmedString[0]);
@@ -193,9 +193,8 @@ export default class Sprite {
      * @returns {Sprite} this sprite, so we can chain commands
      */
     setAlign(alignTo) {
-        this.constrictWidth(0, Sprite.receiptWidth); // make sure sprite is at most as wide as the receipt
         const {width: spriteWidth, start, end} = this.#findWidth(); // find width and position of sprite
-        const sprite = this.slicedSprite(start, end); // trimmed sprite
+        const sprite = this.slicedSprite(start, end+2); // trimmed sprite (add 2 because in our specific project, we may have to compensate for possibly removed timestamp delimiters)
         // figure out where we need to start
         let newStart;
         switch (alignTo) {
@@ -212,7 +211,7 @@ export default class Sprite {
                 newStart = Sprite.receiptWidth - spriteWidth;
                 break;
             default:
-                throw new Error("alignTo must be 'left', 'center', or 'right'")
+                throw new Error("alignTo must be 'random', 'left', 'center', or 'right'");
         }
         this.spriteRows = sprite.map(row => numToSpace(newStart) + row);
         return this;
